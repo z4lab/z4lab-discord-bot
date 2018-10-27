@@ -80,11 +80,11 @@ bot.on('message', message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0].toLowerCase();
     let args = messageArray.slice(1);
-    
+
     if (!message.content.startsWith(prefix)) return;
-    
+
     let commandFile = bot.commands.get(cmd.slice(prefix.length));
-    
+
     if (commandFile) commandFile.run(bot, message, args, prefix, db, clientsteam);
 
 });
@@ -100,8 +100,7 @@ function dbErrorHandler() {
         if (err) {
             console.log('[DB] error when connecting:', err);
             setTimeout(dbErrorHandler, 2000);
-        }
-        else {
+        } else {
             console.log(colors.green('[DB] Connected!'));
         }
     });
