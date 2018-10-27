@@ -8,8 +8,6 @@ const steamapi = new SteamAPI(config.steam["api-key"]);
 
 module.exports.run = async (bot, message, args, prefix) => {
 
-    message.delete();
-
     let embed = new Discord.RichEmbed()
         .setTitle('Surftimer-Bot Commands :')
         .setThumbnail(bot.user.avatarURL)

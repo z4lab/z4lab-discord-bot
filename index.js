@@ -71,6 +71,12 @@ bot.on('message', message => {
     if (message.channel.type === "dm") return message.channel.send("I don't anwser in this chat!");
     if (!message.channel.name.includes('bot')) return;
 
+    try {
+        message.delete();
+    } catch (e){
+        console.log(colors.yellow('[Warning] Can\'t delete message : '+e));
+    }
+
     let prefix = config.prefix;
 
     let botid = bot.user.id;

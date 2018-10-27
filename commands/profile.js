@@ -9,8 +9,6 @@ const steamapi = new SteamAPI('688114CD714F714C3F0588B0E5BAF82A');
 
 module.exports.run = async (bot, message, args, prefix, db) => {
 
-    message.delete();
-
     if (!args[0]) return message.channel.send('```md\n[Error] No SteamID entered! ]:\n\n[Usage] : ' + prefix + 'profile [steam64ID] ]:```');
     if (args[0].length != 17) return message.channel.send('```md\n[Error] The entered ID is not valid! ]:```');
     var id = String(args[0]);
