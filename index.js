@@ -108,7 +108,7 @@ function dbErrorHandler() {
 
     db.on('error', function (err) {
         console.log('[DB] db error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
             dbErrorHandler();
         } else {
             throw err;
