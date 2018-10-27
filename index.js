@@ -85,7 +85,7 @@ bot.on('message', message => {
 
     let commandFile = bot.commands.get(cmd.slice(prefix.length));
 
-    if (commandFile) commandFile.run(bot, message, args, prefix, db, clientsteam);
+    if (commandFile) commandFile.run(bot, message, args, prefix, db);
 
 });
 
