@@ -7,19 +7,15 @@ const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const steamapi = new SteamAPI('688114CD714F714C3F0588B0E5BAF82A');
 
-module.exports.run = async (bot, message, args, prefix, db, clientsteam) => {
+module.exports.run = async (bot, message, args, prefix, db) => {
 
     message.delete();
-    //return;
-    //!profile 76561198235937094
 
     if (!args[0]) return message.channel.send('```md\n[Error] No SteamID entered! ]:\n\n[Usage] : ' + prefix + 'profile [steam64ID] ]:```');
     if (args[0].length != 17) return message.channel.send('```md\n[Error] The entered ID is not valid! ]:```');
     var id = String(args[0]);
     if (id.isValid) return message.channel.send('```md\n[Error] The entered ID is not valid! ]:```');
     db.query(`SELECT * FROM ck_playerrank WHERE steamid64 = ${id} AND style = 0`, function (err, get) {
-        //console.log(get);
-        //console.log(lastseen);
         let country = get[0].country;
         let points = get[0].points;
         let connections = get[0].connections;
@@ -34,8 +30,8 @@ module.exports.run = async (bot, message, args, prefix, db, clientsteam) => {
         let wrcps = get[0].wrcps;
         let sid = get[0].steamid;
         db.query(`SELECT * FROM ck_playerrank WHERE style = 0 ORDER BY points DESC`, function (err, get) {
-            for (var i = 0; i < get.length; i++){
-                if (get[i].steamid == sid) var rank = i+1;
+            for (var i = 0; i < get.length; i++) {
+                if (get[i].steamid == sid) var rank = i + 1;
             }
             steamapi.getUserSummary(id).then(summary => {
                 let embed = new Discord.RichEmbed()

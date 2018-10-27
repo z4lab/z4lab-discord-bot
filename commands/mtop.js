@@ -14,19 +14,19 @@ function checkTime(i) {
     return i;
 }
 
-module.exports.run = function (bot, message, args, prefix, db, clientsteam) {
+module.exports.run = function (bot, message, args, prefix, db) {
 
     if (!args[0]) return message.channel.send('```md\n[Error] No map entered! ]:\n\n[Usage] : ' + prefix + 'mtop [map] ]:```');
     if (!args[0].toLowerCase().startsWith('surf_') || args[0].length < 6) return message.channel.send('```md\n[Error] Invalid map entered! ]:```');
     let map = args[0];
-    
+
     db.query(`SELECT * FROM ck_playertimes WHERE mapname = '${map}' AND style = 0 ORDER BY runtimepro ASC`, function (err, get) {
         if (err) console.log(err);
         if (String(get) == []) {
             db.query(`SELECT * FROM ck_maptier WHERE mapname = '${map}'`, function (err, get) {
                 if (err) console.log(err);
-                if (String(get) == []) return message.channel.send('```md\n[Error] Map <'+map+'> isn\'t on the server or wasn\'t added yet! ]:```');  
-                return message.channel.send('```md\n[Error] <'+map+'> wasn\'t finished yet! ]:```');  
+                if (String(get) == []) return message.channel.send('```md\n[Error] Map <' + map + '> isn\'t on the server or wasn\'t added yet! ]:```');
+                return message.channel.send('```md\n[Error] <' + map + '> wasn\'t finished yet! ]:```');
             });
             return;
         }
@@ -48,7 +48,7 @@ module.exports.run = function (bot, message, args, prefix, db, clientsteam) {
         });
     });
 
-    
+
 };
 
 module.exports.help = {

@@ -8,15 +8,19 @@ function checkTime(i) {
     return i;
 }
 
-module.exports.run = async (bot, message, args, prefix, db, clientsteam) => {
+module.exports.run = async (bot, message, args, prefix, db) => {
     var map = [];
     var msg = "";
     var number = "";
     if (!args[0]) {
         number = '5';
     } else {
-        if (Number(args[0]) < 1) {return message.channel.send('```md\n[Error] Invalid map amount! ]:\n\n[Usage] : ' + prefix + 'nm [mapcount {1-10}] ]:```');}
-        if (Number(args[0]) > 10) {return message.channel.send('```md\n[Error] Invalid map amount! ]:\n\n[Usage] : ' + prefix + 'nm [mapcount {1-10}] ]:```');}
+        if (Number(args[0]) < 1) {
+            return message.channel.send('```md\n[Error] Invalid map amount! ]:\n\n[Usage] : ' + prefix + 'nm [mapcount {1-10}] ]:```');
+        }
+        if (Number(args[0]) > 10) {
+            return message.channel.send('```md\n[Error] Invalid map amount! ]:\n\n[Usage] : ' + prefix + 'nm [mapcount {1-10}] ]:```');
+        }
         number = args[0];
         if (String(Number(args[0])) === 'NaN') {
             number = '5';
@@ -24,19 +28,19 @@ module.exports.run = async (bot, message, args, prefix, db, clientsteam) => {
     }
     db.query(`SELECT * FROM ck_newmaps ORDER BY date DESC`, function (err, get) {
         if (Number(get.length) < number) {
-            message.channel.send('```md\n[Error] Not enough maps in the database! Showing '+get.length+' maps.]:```');
+            message.channel.send('```md\n[Error] Not enough maps in the database! Showing ' + get.length + ' maps.]:```');
             number = get.length;
         }
         for (var i = 0; i < number; i++) {
             get[i].date = new Date(get[i].date)
             map.push({
-                name: get[i].mapname,
-                tier: get[i].tier,
-                staged: get[i].staged,
+                name: get [i].mapname,
+                tier: get [i].tier,
+                staged: get [i].staged,
                 date: {
                     day: checkTime(get[i].date.getDate()),
                     month: checkTime(get[i].date.getMonth()),
-                    year: get[i].date.getFullYear(),
+                    year: get [i].date.getFullYear(),
                     hours: checkTime(get[i].date.getHours()),
                     minutes: checkTime(get[i].date.getMinutes()),
                     seconds: checkTime(get[i].date.getSeconds())

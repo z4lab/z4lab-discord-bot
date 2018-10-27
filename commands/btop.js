@@ -15,8 +15,8 @@ function checkTime(i) {
 }
 
 
-module.exports.run = async (bot, message, args, prefix, db, clientsteam) => {
-    
+module.exports.run = async (bot, message, args, prefix, db) => {
+
     message.delete();
 
     if (!args[0]) return message.channel.send('```md\n[Error] No bonus number entered! ]:\n\n[Usage] : ' + prefix + 'btop [bonus] [map] ]:```');
@@ -34,8 +34,8 @@ module.exports.run = async (bot, message, args, prefix, db, clientsteam) => {
         if (String(get) == []) {
             db.query(`SELECT * FROM ck_maptier WHERE mapname = '${map}'`, function (err, get) {
                 if (err) console.log(err);
-                if (String(get) == []) return message.channel.send('```md\n[Error] Map <'+map+'> isn\'t on the server or wasn\'t added yet! ]:```');  
-                return message.channel.send('```md\n[Error] The bonus < '+bonus+' > on <'+map+'> is none existent or wasn\'t finished yet! ]:```');  
+                if (String(get) == []) return message.channel.send('```md\n[Error] Map <' + map + '> isn\'t on the server or wasn\'t added yet! ]:```');
+                return message.channel.send('```md\n[Error] The bonus < ' + bonus + ' > on <' + map + '> is none existent or wasn\'t finished yet! ]:```');
             });
             return;
         }
