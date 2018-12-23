@@ -5,6 +5,7 @@ const colors = require('colors/safe');
 const SteamID = require('steamid');
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
+const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 
 module.exports.run = async (bot, message, args, prefix, db) => {
