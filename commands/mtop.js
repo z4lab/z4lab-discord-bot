@@ -20,7 +20,7 @@ module.exports.run = function (bot, message, args, prefix, db) {
     if (!args[0].toLowerCase().startsWith('surf_') || args[0].length < 6) return message.channel.send('```md\n[Error] Invalid map entered! ]:```');
     let map = args[0];
 
-    db.query(`SELECT * FROM ck_playertimes WHERE mapname = '${map}' AND style = 0 ORDER BY runtimepro ASC`, function (err, get) {
+    db.query(`SELECT * FROM ck_playertimes WHERE mapname = '${map}' ORDER BY runtimepro ASC`, function (err, get) {
         if (err) console.log(err);
         if (String(get) == []) {
             db.query(`SELECT * FROM ck_maptier WHERE mapname = '${map}'`, function (err, get) {
