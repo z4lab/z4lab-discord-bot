@@ -56,6 +56,8 @@ fs.readdir("./commands/", (err, file) => { // gets content of /commands folder
 bot.on('ready', () => {
     console.log(colors.green('[Discord] Connected!'));
     console.log(colors.grey(`[Discord] ${bot.user.tag} started!`));
+    config.presence.game.name += ` ${config.prefix}help`; 
+    bot.user.setPresence(config.presence);
 });
 
 

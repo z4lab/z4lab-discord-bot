@@ -16,5 +16,11 @@
         "type": "id/name",
         "name": "",
         "id": ""
+    },
+    "presence" : {
+        "game": {
+            "name" : "z4lab.com |"
+        },
+        "status" : "online"
     }
 }
