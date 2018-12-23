@@ -124,4 +124,18 @@ function dbErrorHandler() {
 dbErrorHandler();
 
 
+
+//Listener if new user joins the guild
+
+bot.on('guildMemberAdd', member => {
+
+    let role = member.guild.find('name', 'Member'); //looks for the Member role
+
+    member.addRole(role); //add the Member role to the user
+
+});
+
+
+
+
 bot.login(config.token);
