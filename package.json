@@ -1,7 +1,7 @@
 {
-  "name": "discordjs-surftimer",
+  "name": "z4lab-discord-bot",
   "version": "1.3.0",
-  "description": "Surftimer Bot for Discord",
+  "description": "z4lab Bot for Discord",
   "main": "index.js",
   "dependencies": {
     "colors": "^1.3.2",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/13ace37/discordjs-surftimer.git"
+    "url": "git+https://github.com/totles/z4lab-discord-bot"
   },
   "keywords": [
     "discordjs",
@@ -34,9 +34,9 @@
     "discord"
   ],
   "author": "Ace",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/13ace37/discordjs-surftimer/issues"
+    "url": "https://github.com/13ace37/discordjs-surftimer"
   },
   "homepage": "https://github.com/13ace37/discordjs-surftimer#readme"
 }

@@ -9,7 +9,7 @@ const steamapi = new SteamAPI(config.steam["api-key"]);
 module.exports.run = async (bot, message, args, prefix) => {
 
     let embed = new Discord.RichEmbed()
-        .setTitle('Surftimer-Bot Commands :')
+        .setTitle('z4lab-Bot Commands :')
         .setThumbnail(bot.user.avatarURL)
         .addField(`${prefix}mtop [map]`, '└ Shows current map record', false)
         .addField(`${prefix}btop [bonusnumber] [map]`, '└ Shows current bonus record', false)
