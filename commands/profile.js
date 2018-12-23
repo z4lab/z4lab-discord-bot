@@ -5,15 +5,15 @@ const colors = require('colors/safe');
 const SteamID = require('steamid');
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
-const steamapi = new SteamAPI('688114CD714F714C3F0588B0E5BAF82A');
+const steamapi = new SteamAPI(config.steam["api-key"]);
 
 module.exports.run = async (bot, message, args, prefix, db) => {
 
-    if (!args[0]) return message.channel.send('```md\n[Error] No SteamID entered! ]:\n\n[Usage] : ' + prefix + 'profile [steam64ID] ]:```');
-    if (args[0].length != 17) return message.channel.send('```md\n[Error] The entered ID is not valid! ]:```');
-    var id = String(args[0]);
-    if (id.isValid) return message.channel.send('```md\n[Error] The entered ID is not valid! ]:```');
-    db.query(`SELECT * FROM ck_playerrank WHERE steamid64 = ${id} AND style = 0`, function (err, get) {
+    if (!args[0]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + prefix + 'profile [Name] ]:```');
+    var name = String(args.join(" "));
+    db.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' AND style = '0' ORDER BY name DESC`, function (err, get) {
+        if (err) return console.log(String(err));
+        if (!get[0]) return message.channel.send('```md\n[Error] The user wasn\'t found in the database! ]:```');
         let country = get[0].country;
         let points = get[0].points;
         let connections = get[0].connections;
@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args, prefix, db) => {
             for (var i = 0; i < get.length; i++) {
                 if (get[i].steamid == sid) var rank = i + 1;
             }
-            steamapi.getUserSummary(id).then(summary => {
+            steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
                 let embed = new Discord.RichEmbed()
                     .setAuthor(summary.nickname, '', summary.url)
                     .setThumbnail(summary.avatar.large)
