@@ -34,7 +34,7 @@
     "discord"
   ],
   "author": "Ace",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/13ace37/discordjs-surftimer/issues"
   },
