@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args, prefix, db) => {
 
     let bonus = args[0];
     let map = args[1];
-    db.query(`SELECT * FROM ck_bonus WHERE mapname = '${map}' AND style = 0 AND zonegroup = '${bonus}' ORDER BY runtime ASC`, function (err, get) {
+    db.query(`SELECT * FROM ck_bonus WHERE mapname = '${map}' AND zonegroup = '${bonus}' ORDER BY runtime ASC`, function (err, get) {
         if (err) console.log(err);
         if (String(get) == []) {
             db.query(`SELECT * FROM ck_maptier WHERE mapname = '${map}'`, function (err, get) {

@@ -79,12 +79,6 @@ bot.on('message', message => {
     if (config.channel.type == 'id' && message.channel.id != config.channel.id) return;
     if (config.channel.type == 'name' && config.channel.id && config.channel.name && message.channel.id != config.channel.id) return;
 
-    try {
-        message.delete();
-    } catch (e){
-        console.log(colors.yellow('[Warning] Can\'t delete message : '+e));
-    }
-
     let prefix = config.prefix;
 
     let botid = bot.user.id;
