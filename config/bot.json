@@ -10,5 +10,6 @@
     "steam":
     {
         "api-key":"STEAM-API-KEY"
-    }
+    },
+    "timer":"ck/surftimer"
 }

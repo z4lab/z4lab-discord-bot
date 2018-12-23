@@ -31,7 +31,8 @@ if (!config.database.host) throw new Error('Please set a database host in the co
 if (!config.database.user) throw new Error('Please set a database user in the config file!');
 if (!config.database.password) throw new Error('Please set a database password in the config file!');
 if (!config.database.database) throw new Error('Please set a database in the config file!');
-if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');
+if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');.
+if (!config.timer || config.tmer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
 
 
 var db_config = config.database;
@@ -91,7 +92,7 @@ bot.on('message', message => {
 
     let commandFile = bot.commands.get(cmd.slice(prefix.length));
 
-    if (commandFile) commandFile.run(bot, message, args, prefix, db);
+    if (commandFile) commandFile.run(bot, message, args, prefix, db, config);
 
 });
 
