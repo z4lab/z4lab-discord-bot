@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args, prefix, db) => {
         let wrbs = get[0].wrbs;
         let wrcps = get[0].wrcps;
         let sid = get[0].steamid;
-        db.query(`SELECT * FROM ck_playerrank WHERE ORDER BY points DESC`, function (err, get) {
+        db.query(`SELECT * FROM ck_playerrank ORDER BY points DESC`, function (err, get) {
             for (var i = 0; i < get.length; i++) {
                 if (get[i].steamid == sid) var rank = i + 1;
             }
