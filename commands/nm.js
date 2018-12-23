@@ -9,7 +9,7 @@ function checkTime(i) {
 }
 
 module.exports.run = async (bot, message, args, prefix, db, config) => {
-    if (config.timer != 'ck') return message.channel.send('```md\n[Error] Command not supported with ckSurf! ]:```');
+    if (config.timer == 'ck') return message.channel.send('```md\n[Error] Command not supported with ckSurf! ]:```');
     var map = [];
     var msg = "";
     var number = "";
