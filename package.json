@@ -1,43 +1,43 @@
 {
-  "name": "z4lab-discord-bot",
-  "version": "1.3.0",
-  "description": "z4lab Bot for Discord",
-  "main": "index.js",
-  "dependencies": {
-    "colors": "^1.3.2",
-    "discord.js": "^11.4.2",
-    "humanize-duration": "^3.16.0",
-    "moment": "^2.22.2",
-    "moment-duration-format": "^2.2.2",
-    "mysql": "^2.16.0",
-    "node-gyp": "^3.8.0",
-    "nodemon": "^1.18.4",
-    "os": "^0.1.1",
-    "random-hex-color": "^1.0.1",
-    "rebuild": "^0.1.2",
-    "steam-user": "^3.28.2",
-    "steamapi": "^2.0.3",
-    "steamid": "^1.1.0",
-    "steamidconvert": "^0.2.4",
-    "superagent": "^4.0.0-beta.5"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/totles/z4lab-discord-bot"
-  },
-  "keywords": [
-    "discordjs",
-    "surftimer",
-    "discord"
-  ],
-  "author": "Ace",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/13ace37/discordjs-surftimer"
-  },
-  "homepage": "https://github.com/13ace37/discordjs-surftimer#readme"
-}
+    "name": "z4lab-discord-bot",
+    "version": "1.3.0",
+    "description": "z4lab Bot for Discord",
+    "main": "index.js",
+    "dependencies": {
+      "colors": "^1.3.2",
+      "discord.js": "^11.4.2",
+      "humanize-duration": "^3.16.0",
+      "moment": "^2.22.2",
+      "moment-duration-format": "^2.2.2",
+      "mysql": "^2.16.0",
+      "node-gyp": "^3.8.0",
+      "nodemon": "^1.18.4",
+      "os": "^0.1.1",
+      "random-hex-color": "^1.0.1",
+      "rebuild": "^0.1.2",
+      "steam-user": "^3.28.2",
+      "steamapi": "^2.0.3",
+      "steamid": "^1.1.0",
+      "steamidconvert": "^0.2.4",
+      "superagent": "^4.0.0-beta.5"
+    },
+    "devDependencies": {},
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/totles/z4lab-discord-bot"
+    },
+    "keywords": [
+      "discordjs",
+      "surftimer",
+      "discord"
+    ],
+    "author": "Ace",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/13ace37/discordjs-surftimer"
+    },
+    "homepage": "https://github.com/13ace37/discordjs-surftimer#readme"
+  }
