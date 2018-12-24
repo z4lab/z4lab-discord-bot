@@ -7,20 +7,23 @@
         "password": "",
         "database": ""
     },
-    "steam":
-    {
-        "api-key":"STEAM-API-KEY"
+    "steam": {
+        "api-key": "STEAM-API-KEY"
     },
-    "timer":"ck/surftimer",
-    "channel":{
+    "timer": "ck/surftimer",
+    "channel": {
         "type": "id/name",
         "name": "",
         "id": ""
     },
-    "presence" : {
+    "presence": {
         "game": {
-            "name" : "z4lab.com |"
+            "name": "z4lab.com |"
         },
-        "status" : "online"
+        "status": "online"
+    },
+    "version": {
+        "inName": true,
+        "version": "1.2.3"
     }
 }

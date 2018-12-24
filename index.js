@@ -56,6 +56,17 @@ fs.readdir("./commands/", (err, file) => { // gets content of /commands folder
 bot.on('ready', () => {
     console.log(colors.green('[Discord] Connected!'));
     console.log(colors.grey(`[Discord] ${bot.user.tag} started!`));
+    console.log();
+    let botUser = bot.guilds.first().members.get(bot.user.id);
+    if (config.version.inName) botUser.edit({
+        nick: bot.user.username + ` [${config.version.version}]`
+    });
+    if (!config.version.isName) botUser.edit({
+        nick: bot.user.username
+    });
+    //if (config.version.inName) bot.guilds.first().members(bot.user.id).edit({
+    //    nick: bot.user.username + ` [${config.version.version}]`
+    //});
     config.presence.game.name += ` ${config.prefix}help`; 
     bot.user.setPresence(config.presence);
 });
