@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args, prefix) => {
         .addField(`Main Script`, `<@235809101051985920>`, true)
         .addField(`additionally Stuff/Ideas`, `<@521468077817200643>`, true)
         .addField(`Github Repository`, `https://github.com/totles/z4lab-discord-bot`, true);
-    
+
     return message.channel.send(embed);
 
 };
