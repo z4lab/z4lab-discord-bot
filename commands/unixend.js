@@ -9,8 +9,6 @@ module.exports.run = async (bot, message, args, prefix) => {
     
     duration = toDuration(time);
 
-    console.log(time);
-
     let embed = new Discord.RichEmbed()
         .setTitle('Time until unixend :')
         .setThumbnail(bot.user.avatarURL)
