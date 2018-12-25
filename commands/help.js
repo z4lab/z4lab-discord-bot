@@ -11,10 +11,10 @@ module.exports.run = async (bot, message, args, prefix) => {
     let embed = new Discord.RichEmbed()
         .setTitle('z4lab-Bot Commands :')
         .setThumbnail(bot.user.avatarURL)
-        .addField(`${prefix}mtop [map]`, '└ Shows current map record', false)
+        .addField(`${prefix}mtop [map] [username]`, '└ Shows current map/player record', false)
         .addField(`${prefix}btop [bonusnumber] [map]`, '└ Shows current bonus record', false)
-        .addField(`${prefix}profile [steamid64]`, '└ Shows user stats', false)
-        .addField(`${prefix}nm [mapcount {1-10}]`, '└ Shows latest added maps', false);
+        .addField(`${prefix}profile [username]`, '└ Shows user stats', false)
+        .addField(`${prefix}unixend`, '└ Shows how much time until the world goes down', false);
 
     return message.channel.send(embed);
 
