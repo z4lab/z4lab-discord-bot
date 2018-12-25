@@ -66,9 +66,6 @@ bot.on('ready', () => {
             nick: bot.user.username
         });
     }
-    //if (config.version.inName) bot.guilds.first().members(bot.user.id).edit({
-    //    nick: bot.user.username + ` [${config.version.version}]`
-    //});
     config.presence.game.name += ` ${config.prefix}help`;
     bot.user.setPresence(config.presence);
 });
