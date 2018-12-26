@@ -30,8 +30,8 @@ module.exports.run = function (bot, message, args, prefix, db) {
             db.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (err, get) {
                 if (err) console.log(err);
                 if (String(get) == []) return message.channel.send('```md\n[Error] Map <' + map + '> isn\'t on the server or wasn\'t added yet! ]:```');
-                if (name != 'AND 1=1') return message.channel.send('```md\n[Error] The player hasn\'t finished <' + map + '> yet! ]:```');
-                return message.channel.send('```md\n[Error] <' + map + '> wasn\'t finished yet! ]:```');
+                if (name != 'AND 1=1') return message.channel.send('```md\n[Error] The player hasn\'t finished <' + get[0].mapname + '> yet! ]:```');
+                return message.channel.send('```md\n[Error] <' + get[0].mapname + '> wasn\'t finished yet! ]:```');
             });
             return;
         }
