@@ -59,7 +59,7 @@ module.exports.run = function (bot, message, args, prefix, db) {
                 record2 = 'his personal';
             }
             steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
-                return message.channel.send('```md\n# ' + record + ' Record: Normal #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + ":" + milli + ' > ! Rank ['+rank+'/'+get.length+'] ]:```');
+                return message.channel.send('```md\n# ' + record + ' Record: Normal #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + ":" + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
             });
         });
     });

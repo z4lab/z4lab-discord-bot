@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const colors = require('colors/safe');
-const { version } = require("discord.js");
+const {
+    version
+} = require("discord.js");
 const config = require("../config/bot.json");
 
 
@@ -13,7 +15,7 @@ module.exports.run = async (bot, message, args, prefix) => {
         .addField(`Client Build`, config.version.build, true)
         .addField(`DiscordJS Version`, `v${version}`, true)
         .addField(`NodeJS Version`, `${process.version}`, true);
-    
+
     return message.channel.send(embed);
 
 };
