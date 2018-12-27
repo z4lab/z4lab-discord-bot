@@ -39,7 +39,7 @@ module.exports.run = function (bot, message, args, prefix, db){
                     .addField('Country: ', country, true)
                     .addField('Rank: ', `${rank}/${i}`, true)
                     .addField('Points: ', points, true)
-                    .addField('Finished Maps: ', `${finishedmaps}`, true)
+                    .addField('Finished Maps: ', `${finishedmaps}`, true);
 
                 return message.channel.send(embed);
             });
