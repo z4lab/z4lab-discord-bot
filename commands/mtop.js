@@ -13,8 +13,7 @@ function checkTime(i) {
     }
     return i;
 }
-
-module.exports.run = function (bot, message, args, prefix, db) {
+module.exports.run = function (bot, message, args, prefix, db){
 
     if (!args[0]) return message.channel.send('```md\n[Error] No map entered! ]:\n\n[Usage] : ' + prefix + 'mtop [map] ]:```');
     if (!args[0].toLowerCase().startsWith('surf_') || args[0].length < 6) return message.channel.send('```md\n[Error] Invalid map entered! ]:```');

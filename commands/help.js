@@ -6,7 +6,7 @@ const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 
-module.exports.run = async (bot, message, args, prefix) => {
+module.exports.run = function (bot, message, args, prefix){
 
     let embed = new Discord.RichEmbed()
         .setTitle('z4lab-Bot Commands :')

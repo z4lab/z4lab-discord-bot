@@ -8,7 +8,7 @@ const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 
-module.exports.run = async (bot, message, args, prefix, db) => {
+module.exports.run = function (bot, message, args, prefix, db){
 
     if (!args[0]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + prefix + 'profile [Name] ]:```');
     var name = String(args.join(" "));

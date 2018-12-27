@@ -15,7 +15,7 @@ function checkTime(i) {
 }
 
 
-module.exports.run = async (bot, message, args, prefix, db) => {
+module.exports.run = function (bot, message, args, prefix, db){
 
     if (!args[0]) return message.channel.send('```md\n[Error] No bonus number entered! ]:\n\n[Usage] : ' + prefix + 'btop [bonus] [map] ]:```');
     if (String(Number(args[0])) === 'NaN') return message.channel.send('```md\n[Error] Enter a valid bonus number! ]:```');
