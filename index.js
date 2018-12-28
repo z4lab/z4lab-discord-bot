@@ -182,4 +182,18 @@ bot.on('guildMemberAdd', member => {
 
 
 
+
+//Listener if new user joins the guild
+
+bot.on('guildMemberAdd', member => {
+
+    let role = member.guild.roles.find(role => role.name == 'Member'); //looks for the Member role
+
+    member.addRole(role); //add the Member role to the user
+
+});
+
+
+
+
 bot.login(config.token);

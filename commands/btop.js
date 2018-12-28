@@ -15,7 +15,7 @@ function checkTime(i) {
 }
 
 
-module.exports.run = async (bot, message, args, prefix, db) => {
+module.exports.run = function (bot, message, args, prefix, db){
 
     if (!args[0]) return message.channel.send('```md\n[Error] No bonus number entered! ]:\n\n[Usage] : ' + prefix + 'btop [bonus] [map] ]:```');
     if (String(Number(args[0])) === 'NaN') return message.channel.send('```md\n[Error] Enter a valid bonus number! ]:```');
@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args, prefix, db) => {
 
     let bonus = args[0];
     let map = args[1];
-    db.query(`SELECT * FROM ck_bonus WHERE mapname = '${map}' AND style = 0 AND zonegroup = '${bonus}' ORDER BY runtime ASC`, function (err, get) {
+    db.query(`SELECT * FROM ck_bonus WHERE mapname = '${map}' AND zonegroup = '${bonus}' ORDER BY runtime ASC`, function (err, get) {
         if (err) console.log(err);
         if (String(get) == []) {
             db.query(`SELECT * FROM ck_maptier WHERE mapname = '${map}'`, function (err, get) {
