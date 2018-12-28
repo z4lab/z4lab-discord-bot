@@ -12,7 +12,7 @@ module.exports.run = function (bot, message, args, prefix){
     let embed = new Discord.RichEmbed()
         .setTitle('Time until Unixtime Overflow :')
         .setThumbnail(bot.user.avatarURL)
-        .addField(String(duration))
+        .setDescription(String(duration))
         .addField('More Information','https://en.wikipedia.org/wiki/Year_2038_problem', true);
 
     return message.channel.send(embed);
