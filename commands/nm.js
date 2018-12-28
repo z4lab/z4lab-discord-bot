@@ -3,12 +3,12 @@ const mysql = require("mysql");
 
 function checkTime(i) {
     if (i < 10) {
-        return i = '0' + i;
+        i = '0' + i;
     }
     return i;
 }
 
-module.exports.run = async (bot, message, args, prefix, db, config) => {
+module.exports.run = function (bot, message, args, prefix, db, config){
     if (config.timer == 'ck') return message.channel.send('```md\n[Error] Command not supported with ckSurf! ]:```');
     var map = [];
     var msg = "";
@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args, prefix, db, config) => {
             number = get.length;
         }
         for (var i = 0; i < number; i++) {
-            get[i].date = new Date(get[i].date)
+            get[i].date = new Date(get[i].date);
             map.push({
                 name: get [i].mapname,
                 tier: get [i].tier,

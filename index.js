@@ -11,7 +11,7 @@ const steam = require('steamidconvert')();
 
 console.log('');
 console.log(colors.magenta('----------------------------------------'));
-console.log(colors.magenta('          Surftimer Bot by Ace          '));
+console.log(colors.magenta('            z4lab Bot by Ace            '));
 console.log(colors.magenta('----------------------------------------'));
 console.log('');
 
@@ -31,8 +31,8 @@ if (!config.database.host) throw new Error('Please set a database host in the co
 if (!config.database.user) throw new Error('Please set a database user in the config file!');
 if (!config.database.password) throw new Error('Please set a database password in the config file!');
 if (!config.database.database) throw new Error('Please set a database in the config file!');
-if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');.
-if (!config.timer || config.tmer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
+if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');
+if (!config.timer || config.timer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
 
 
 var db_config = config.database;
@@ -56,6 +56,18 @@ fs.readdir("./commands/", (err, file) => { // gets content of /commands folder
 bot.on('ready', () => {
     console.log(colors.green('[Discord] Connected!'));
     console.log(colors.grey(`[Discord] ${bot.user.tag} started!`));
+    let botUser = bot.guilds.first().members.get(bot.user.id);
+    if (config.version.inName == true) {
+        botUser.edit({
+            nick: bot.user.username + ` [${config.version.version}]`
+        });
+    } else {
+        botUser.edit({
+            nick: bot.user.username
+        });
+    }
+    config.presence.game.name += ` ${config.prefix}help`;
+    bot.user.setPresence(config.presence);
 });
 
 
@@ -70,13 +82,12 @@ bot.on('message', message => {
     if (message.author.id === bot.user.id) return;
     if (message.author.bot) return;
     if (message.channel.type === "dm") return message.channel.send("I don't anwser in this chat!");
-    if (!message.channel.name.includes('bot')) return;
 
-    try {
-        message.delete();
-    } catch (e){
-        console.log(colors.yellow('[Warning] Can\'t delete message : '+e));
-    }
+    if (config.channel.type == 'id/name' && !message.channel.name.includes('bot')) return;
+    if (!config.channel.name && !config.channel.id && !message.channel.name.includes('bot')) return;
+    if (config.channel.type == 'name' && !config.channel.id && message.channel.name != config.channel.name) return;
+    if (config.channel.type == 'id' && message.channel.id != config.channel.id) return;
+    if (config.channel.type == 'name' && config.channel.id && config.channel.name && message.channel.id != config.channel.id) return;
 
     let prefix = config.prefix;
 
@@ -122,6 +133,20 @@ function dbErrorHandler() {
     });
 }
 dbErrorHandler();
+
+
+
+//Listener if new user joins the guild
+
+bot.on('guildMemberAdd', member => {
+
+    let role = member.guild.roles.find(role => role.name == 'Member'); //looks for the Member role
+
+    member.addRole(role); //add the Member role to the user
+
+});
+
+
 
 
 bot.login(config.token);

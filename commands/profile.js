@@ -5,13 +5,14 @@ const colors = require('colors/safe');
 const SteamID = require('steamid');
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
+const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 
-module.exports.run = async (bot, message, args, prefix, db) => {
+module.exports.run = function (bot, message, args, prefix, db){
 
     if (!args[0]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + prefix + 'profile [Name] ]:```');
     var name = String(args.join(" "));
-    db.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' AND style = '0' ORDER BY name DESC`, function (err, get) {
+    db.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' ORDER BY points DESC`, function (err, get) {
         if (err) return console.log(String(err));
         if (!get[0]) return message.channel.send('```md\n[Error] The user wasn\'t found in the database! ]:```');
         let country = get[0].country;
@@ -27,7 +28,7 @@ module.exports.run = async (bot, message, args, prefix, db) => {
         let wrbs = get[0].wrbs;
         let wrcps = get[0].wrcps;
         let sid = get[0].steamid;
-        db.query(`SELECT * FROM ck_playerrank WHERE style = 0 ORDER BY points DESC`, function (err, get) {
+        db.query(`SELECT * FROM ck_playerrank ORDER BY points DESC`, function (err, get) {
             for (var i = 0; i < get.length; i++) {
                 if (get[i].steamid == sid) var rank = i + 1;
             }
@@ -38,10 +39,7 @@ module.exports.run = async (bot, message, args, prefix, db) => {
                     .addField('Country: ', country, true)
                     .addField('Rank: ', `${rank}/${i}`, true)
                     .addField('Points: ', points, true)
-                    .addField('Connections: ', connections, true)
-                    .addField('Map Records: ', `${wrs}/${finishedmaps}`, true)
-                    .addField('Bonus Records: ', `${wrbs}/${finishedbonuses}`, true)
-                    .addField('Stage Records: ', `${wrcps}/${finishedstages}`, true);
+                    .addField('Finished Maps: ', `${finishedmaps}`, true);
 
                 return message.channel.send(embed);
             });

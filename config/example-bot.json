@@ -1,0 +1,30 @@
+{
+    "token": "DISCORD-BOT-TOKEN",
+    "prefix": "!",
+    "database": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
+    },
+    "steam": {
+        "api-key": "STEAM-API-KEY"
+    },
+    "timer": "ck/surftimer",
+    "channel": {
+        "type": "id/name",
+        "name": "",
+        "id": ""
+    },
+    "presence": {
+        "game": {
+            "name": "z4lab.com |"
+        },
+        "status": "online"
+    },
+    "version": {
+        "inName": true,
+        "version": "1.1.0",
+        "build": "stable"
+    }
+}
