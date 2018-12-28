@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const mysql = require("mysql");
+const config = require('../config/bot.json');
 
 function checkTime(i) {
     if (i < 10) {
@@ -8,7 +9,7 @@ function checkTime(i) {
     return i;
 }
 
-module.exports.run = function (bot, message, args, prefix, db, config){
+module.exports.run = function (bot, message, args, prefix, db){
     if (config.timer == 'ck') return message.channel.send('```md\n[Error] Command not supported with ckSurf! ]:```');
     var map = [];
     var msg = "";

@@ -10,9 +10,10 @@ module.exports.run = function (bot, message, args, prefix){
     duration = toDuration(time);
 
     let embed = new Discord.RichEmbed()
-        .setTitle('Time until unixend :')
+        .setTitle('Time until Unixtime Overflow :')
         .setThumbnail(bot.user.avatarURL)
-        .addField(`Time left`, String(duration), false);
+        .addField(String(duration))
+        .addField('More Information','https://en.wikipedia.org/wiki/Year_2038_problem', true);
 
     return message.channel.send(embed);
 

@@ -1,4 +1,5 @@
 const config = require("./config/bot.json");
+const dbs = require('./config/dbs.json');
 const Discord = require("discord.js");
 const fs = require("fs");
 const mysql = require('mysql');
@@ -26,16 +27,22 @@ bot.commands = new Discord.Collection();
 if (!config) throw new Error('The config-file is empty!');
 if (!config.token || config.token == 'DISCORD-BOT-TOKEN') throw new Error('Please set a bot token in the config file!');
 if (!config.prefix) throw new Error('Please set a prefix in the config file!');
-if (!config.database) throw new Error('Please set the database settings in the config file!');
-if (!config.database.host) throw new Error('Please set a database host in the config file!');
-if (!config.database.user) throw new Error('Please set a database user in the config file!');
-if (!config.database.password) throw new Error('Please set a database password in the config file!');
-if (!config.database.database) throw new Error('Please set a database in the config file!');
+if (!dbs.beginner) throw new Error('Please set the database settings in the dbs file!');
+if (!dbs.beginner.host) throw new Error('Please set a database host in the dbs file!');
+if (!dbs.beginner.user) throw new Error('Please set a database user in the dbs file!');
+if (!dbs.beginner.password) throw new Error('Please set a database password in the dbs file!');
+if (!dbs.beginner.database) throw new Error('Please set a database in the dbs file!');
+if (!dbs.pro) throw new Error('Please set the database settings in the dbs file!');
+if (!dbs.pro.host) throw new Error('Please set a database host in the dbs file!');
+if (!dbs.pro.user) throw new Error('Please set a database user in the dbs file!');
+if (!dbs.pro.password) throw new Error('Please set a database password in the dbs file!');
+if (!dbs.pro.database) throw new Error('Please set a database in the dbs file!');
 if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');
 if (!config.timer || config.timer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
 
 
-var db_config = config.database;
+var db_config_beginner = dbs.beginner;
+var db_config_pro = dbs.pro;
 
 fs.readdir("./commands/", (err, file) => { // gets content of /commands folder
     if (err) console.log(err); // err handling
@@ -103,36 +110,76 @@ bot.on('message', message => {
 
     let commandFile = bot.commands.get(cmd.slice(prefix.length));
 
-    if (commandFile) commandFile.run(bot, message, args, prefix, db, config);
+    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro);
 
 });
 
 
-var db;
+var db_beginner;
 
-function dbErrorHandler() {
-    db = mysql.createConnection(db_config);
+function db_beginnerErrorHandler() {
+    db_beginner = mysql.createConnection(db_config_beginner);
 
 
-    db.connect(function (err) {
+    db_beginner.connect(function (err) {
         if (err) {
-            console.log('[DB] error when connecting:', err);
-            setTimeout(dbErrorHandler, 2000);
+            console.log('[db_beginner] error when connecting:', err);
+            setTimeout(db_beginnerErrorHandler, 2000);
         } else {
-            console.log(colors.green('[DB] Connected!'));
+            console.log(colors.green('[db_beginner] Connected!'));
         }
     });
 
-    db.on('error', function (err) {
-        console.log('[DB] db error', err);
+    db_beginner.on('error', function (err) {
+        console.log('[db_beginner] db error', err);
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
-            dbErrorHandler();
+            db_beginnerErrorHandler();
         } else {
             throw err;
         }
     });
 }
-dbErrorHandler();
+db_beginnerErrorHandler();
+
+var db_pro;
+
+function db_proErrorHandler() {
+    db_pro = mysql.createConnection(db_config_pro);
+
+
+    db_pro.connect(function (err) {
+        if (err) {
+            console.log('[db_pro] error when connecting:', err);
+            setTimeout(db_proErrorHandler, 2000);
+        } else {
+            console.log(colors.green('[db_pro] Connected!'));
+        }
+    });
+
+    db_pro.on('error', function (err) {
+        console.log('[db_pro] db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            db_proErrorHandler();
+        } else {
+            throw err;
+        }
+    });
+}
+db_proErrorHandler();
+
+
+
+//Listener if new user joins the guild
+
+bot.on('guildMemberAdd', member => {
+
+    let role = member.guild.roles.find(role => role.name == 'Member'); //looks for the Member role
+
+    member.addRole(role); //add the Member role to the user
+
+});
+
+
 
 
 
