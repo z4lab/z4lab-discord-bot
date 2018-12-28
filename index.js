@@ -110,7 +110,7 @@ bot.on('message', message => {
 
     let commandFile = bot.commands.get(cmd.slice(prefix.length));
 
-    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, config);
+    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro);
 
 });
 
