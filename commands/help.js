@@ -6,7 +6,7 @@ const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 
-module.exports.run = async (bot, message, args, prefix) => {
+module.exports.run = function (bot, message, args, prefix){
 
     let embed = new Discord.RichEmbed()
         .setTitle('z4lab-Bot Commands :')
@@ -16,7 +16,8 @@ module.exports.run = async (bot, message, args, prefix) => {
         .addField(`${prefix}profile [username]`, '└ Shows user stats', false)
         .addField(`${prefix}author`, '└ Shows the authors of the bot', false)
         .addField(`${prefix}version`, '└ Shows the current bot versions', false)
-        .addField(`${prefix}unixend`, '└ Shows how much time until the world goes down', false);
+        .addField(`${prefix}unixend`, '└ Shows how much time until the world goes down', false)
+        .addField(`${prefix}servers`, '└ Shows the serverlist and advanced server commands', false);
 
     return message.channel.send(embed);
 

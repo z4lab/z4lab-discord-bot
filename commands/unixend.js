@@ -3,7 +3,7 @@ const colors = require('colors/safe');
 const config = require("../config/bot.json");
 const toDuration = require('humanize-duration');
 
-module.exports.run = async (bot, message, args, prefix) => {
+module.exports.run = function (bot, message, args, prefix){
 
     let time = Math.floor(2147483647 - Math.floor((message.createdAt / 1000))) * 1000;
 
