@@ -1,0 +1,14 @@
+{
+    "beginner": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
+    },
+    "pro": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
+    }
+}
