@@ -1,12 +1,6 @@
 {
     "token": "DISCORD-BOT-TOKEN",
     "prefix": "!",
-    "database": {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
-    },
     "steam": {
         "api-key": "STEAM-API-KEY"
     },
