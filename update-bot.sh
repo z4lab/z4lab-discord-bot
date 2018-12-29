@@ -1,10 +1,10 @@
 #!/bin/bash
 
-### CHANGE THIS SETTINGS FOR YOU INSTANCE ###
+### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
 INSTALLDIR="/srv"
 TMPDIR="/srv/tmp"
 CURRENTINSTALL="/srv/z4lab-discord-bot"
-### CHANGE THIS SETTINGS FOR YOU INSTANCE ###
+### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
 
 # check if tmp directory exists, if not create it
 mkdir -p $TEMPDIR
