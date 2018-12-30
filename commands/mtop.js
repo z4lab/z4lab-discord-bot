@@ -65,11 +65,11 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
             });
         });
     } else {
-        db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} ORDER BY runtimepro ASC`, function (err, get) {
+        db_pro.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} ORDER BY runtimepro ASC`, function (err, get) {
             if (err) console.log(err);
             if (String(get) != []) map = get[0].mapname;
             if (String(get) == []) {
-                db_beginner.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (err, get) {
+                db_pro.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (err, get) {
                     if (err) console.log(err);
                     if (String(get) == []) return message.channel.send('```md\n[Error] Map <' + map + '> isn\'t on the server or wasn\'t added yet! ]:```');
                     if (name != 'AND 1=1') return message.channel.send('```md\n[Error] The player hasn\'t finished <' + get[0].mapname + '> yet! ]:```');
@@ -90,7 +90,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
             seconds = checkTime(seconds); //seconds force to two-digit
             milli = checkTime(milli); //milli force to two-digit
             let id = get[0].steamid;
-            db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
+            db_pro.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {
                     if (get[i].steamid == id) var rank = i + 1;
                 }
