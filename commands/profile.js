@@ -12,10 +12,8 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
 
     if (!args[0]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + prefix + 'profile [Name] ]:```');
     var name = args[0];
-    console.log(args[1]);
     if (!args[1]) args[1] = 'beginner';
     if (args[1] != 'pro') args[1] = 'beginner';
-    console.log(args[1]);
     if (args[1] === 'beginner') {
         db_beginner.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' ORDER BY points DESC`, function (err, get) {
             if (err) return console.log(String(err));
