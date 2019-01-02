@@ -17,7 +17,8 @@ module.exports.run = function (bot, message, args, prefix){
         .addField(`${prefix}author`, '└ Shows the authors of the bot', false)
         .addField(`${prefix}version`, '└ Shows the current bot versions', false)
         .addField(`${prefix}unixend`, '└ Shows how much time until the world goes down', false)
-        .addField(`${prefix}servers`, '└ Shows the serverlist and advanced server commands', false);
+        .addField(`${prefix}servers`, '└ Shows the serverlist and advanced server commands', false)
+        .addField(`${prefix}arena`, '└ Shows advanced arena commands', false);
 
     return message.channel.send(embed);
 

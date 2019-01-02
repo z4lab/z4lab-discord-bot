@@ -10,5 +10,11 @@
         "user": "",
         "password": "",
         "database": ""
+    },
+    "arena": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
     }
 }
