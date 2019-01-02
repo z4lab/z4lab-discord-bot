@@ -4,6 +4,7 @@ const colors = require('colors/safe');
 
 
 bot.on('ready', () => {
+    console.log('');
     console.log(colors.green('[Discord] Connected!'));
     console.log(colors.grey(`[Discord] ${bot.user.tag} started!`));
     let botUser = bot.guilds.first().members.get(bot.user.id);

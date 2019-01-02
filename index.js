@@ -1,46 +1,22 @@
-const config = require("./config/bot.json");
-const dbs = require('./config/dbs.json');
 const Discord = require("discord.js");
 const fs = require("fs");
-const mysql = require('mysql');
 const colors = require('colors/safe');
-const SteamID = require('steamid');
-const steam = require('steamidconvert')();
 
-// Console stuff
+const config = require("./config/bot.json");
+const dbs = require('./config/dbs.json');
+const channels = require('./config/channels.json');
 
-console.log('');
-console.log(colors.magenta('----------------------------------------'));
-console.log(colors.magenta('            z4lab Bot by Ace            '));
-console.log(colors.magenta('----------------------------------------'));
-console.log('');
+require('./util/console');
+require('./util/dbHandler');
+require('./util/config');
+
+const { db_arena, db_beginner, db_pro } = require('./util/dbHandler');
 
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 
-// Config Stuff
 
-if (!config) throw new Error('The config-file is empty!');
-if (!config.token || config.token == 'DISCORD-BOT-TOKEN') throw new Error('Please set a bot token in the config file!');
-if (!config.prefix) throw new Error('Please set a prefix in the config file!');
-if (!dbs.beginner) throw new Error('Please set the database settings in the dbs file!');
-if (!dbs.beginner.host) throw new Error('Please set a database host in the dbs file!');
-if (!dbs.beginner.user) throw new Error('Please set a database user in the dbs file!');
-if (!dbs.beginner.password) throw new Error('Please set a database password in the dbs file!');
-if (!dbs.beginner.database) throw new Error('Please set a database in the dbs file!');
-if (!dbs.pro) throw new Error('Please set the database settings in the dbs file!');
-if (!dbs.pro.host) throw new Error('Please set a database host in the dbs file!');
-if (!dbs.pro.user) throw new Error('Please set a database user in the dbs file!');
-if (!dbs.pro.password) throw new Error('Please set a database password in the dbs file!');
-if (!dbs.pro.database) throw new Error('Please set a database in the dbs file!');
-if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');
-if (!config.timer || config.timer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
-
-
-var db_config_beginner = dbs.beginner;
-var db_config_pro = dbs.pro;
-
-fs.readdir("./commands/", (err, file) => { // gets content of /commands folder
+fs.readdir('./commands', (err, file) => { // gets content of /commands folder
     if (err) console.log(err); // err handling
 
     let jsfile = file.filter(f => f.split(".").pop() === "js"); // checks for .js files
@@ -56,100 +32,22 @@ fs.readdir("./commands/", (err, file) => { // gets content of /commands folder
     console.log('');
 });
 
-var db_beginner;
-
-function db_beginnerErrorHandler() {
-    db_beginner = mysql.createConnection(db_config_beginner);
-
-
-    db_beginner.connect(function (err) {
-        if (err) {
-            console.log('[DB Beginner] error when connecting:', err);
-            setTimeout(db_beginnerErrorHandler, 2000);
-        } else {
-            console.log(colors.green('[db_beginner] Connected!'));
-        }
-    });
-
-    db_beginner.on('error', function (err) {
-        console.log('[DB Beginner] db error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
-            db_beginnerErrorHandler();
-        } else {
-            throw err;
-        }
-    });
-}
-db_beginnerErrorHandler();
-
-var db_pro;
-
-function db_proErrorHandler() {
-    db_pro = mysql.createConnection(db_config_pro);
-
-
-    db_pro.connect(function (err) {
-        if (err) {
-            console.log('[DB Pro] error when connecting:', err);
-            setTimeout(db_proErrorHandler, 2000);
-        } else {
-            console.log(colors.green('[db_pro] Connected!'));
-        }
-    });
-
-    db_pro.on('error', function (err) {
-        console.log('[DB Pro] db error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
-            db_proErrorHandler();
-        } else {
-            throw err;
-        }
-    });
-}
-db_proErrorHandler();
-
 
 Object.assign(module.exports, {
     bot,
     config,
+    db_arena,
     db_beginner,
     db_pro,
     dbs,
+    channels,
 });
+
 
 require('./events/error');
 require('./events/guildMemberAdd');
 require('./events/guildMemberRemove');
 require('./events/message');
 require('./events/ready');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 bot.login(config.token);
