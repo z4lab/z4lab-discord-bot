@@ -5,14 +5,7 @@ const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
-
-
-function checkTime(i) {
-    if (i < 10) {
-        i = "0" + i;
-    }
-    return i;
-}
+const fixTime = require("../util/fixTime.js");
 
 
 module.exports.run = function (bot, message, args, prefix, db){
@@ -47,9 +40,9 @@ module.exports.run = function (bot, message, args, prefix, db){
         milli = milli % 100; //ms define
         minutes = Math.floor(minutes); //minutes define
         seconds = Math.floor(seconds); //seconds define
-        minutes = checkTime(minutes); //minutes force to two-digit
-        seconds = checkTime(seconds); //seconds force to two-digit
-        milli = checkTime(milli); //milli force to two-digit
+        minutes = fixTime(minutes); //minutes force to two-digit
+        seconds = fixTime(seconds); //seconds force to two-digit
+        milli = fixTime(milli); //milli force to two-digit
         let id = get[0].steamid;
         steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
             return message.channel.send('```md\n# Bonus Record: Normal #\n\n[' + summary.nickname + '] holds the bonus ' + get[0].zonegroup + ' record on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + ":" + milli + ' > ! ]:```');
