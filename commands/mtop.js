@@ -5,14 +5,9 @@ const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
+const fixTime = require("../util/fixTime.js");
 
 
-function checkTime(i) {
-    if (i < 10) {
-        i = "0" + i;
-    }
-    return i;
-}
 module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) {
 
     if (!args[0]) return message.channel.send('```md\n[Error] No map entered! ]:\n\n[Usage] : ' + prefix + 'mtop [map] ]:```');
@@ -45,9 +40,9 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
             milli = milli % 100; //ms define
             minutes = Math.floor(minutes); //minutes define
             seconds = Math.floor(seconds); //seconds define
-            minutes = checkTime(minutes); //minutes force to two-digit
-            seconds = checkTime(seconds); //seconds force to two-digit
-            milli = checkTime(milli); //milli force to two-digit
+            minutes = fixTime(minutes); //minutes force to two-digit
+            seconds = fixTime(seconds); //seconds force to two-digit
+            milli = fixTime(milli); //milli force to two-digit
             let id = get[0].steamid;
             db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {
@@ -86,9 +81,9 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
             milli = milli % 100; //ms define
             minutes = Math.floor(minutes); //minutes define
             seconds = Math.floor(seconds); //seconds define
-            minutes = checkTime(minutes); //minutes force to two-digit
-            seconds = checkTime(seconds); //seconds force to two-digit
-            milli = checkTime(milli); //milli force to two-digit
+            minutes = fixTime(minutes); //minutes force to two-digit
+            seconds = fixTime(seconds); //seconds force to two-digit
+            milli = fixTime(milli); //milli force to two-digit
             let id = get[0].steamid;
             db_pro.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {

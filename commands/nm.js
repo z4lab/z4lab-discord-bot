@@ -1,13 +1,8 @@
 const Discord = require("discord.js");
 const mysql = require("mysql");
 const config = require('../config/bot.json');
+const fixTime = require("../util/fixTime.js");
 
-function checkTime(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
-}
 
 module.exports.run = function (bot, message, args, prefix, db){
     if (config.timer == 'ck') return message.channel.send('```md\n[Error] Command not supported with ckSurf! ]:```');
@@ -40,12 +35,12 @@ module.exports.run = function (bot, message, args, prefix, db){
                 tier: get [i].tier,
                 staged: get [i].staged,
                 date: {
-                    day: checkTime(get[i].date.getDate()),
-                    month: checkTime(get[i].date.getMonth()),
+                    day: fixTime(get[i].date.getDate()),
+                    month: fixTime(get[i].date.getMonth()),
                     year: get [i].date.getFullYear(),
-                    hours: checkTime(get[i].date.getHours()),
-                    minutes: checkTime(get[i].date.getMinutes()),
-                    seconds: checkTime(get[i].date.getSeconds())
+                    hours: fixTime(get[i].date.getHours()),
+                    minutes: fixTime(get[i].date.getMinutes()),
+                    seconds: fixTime(get[i].date.getSeconds())
                 }
             });
             if (map[i].staged == '1') map[i].staged = 'S';
