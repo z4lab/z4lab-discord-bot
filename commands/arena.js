@@ -13,7 +13,8 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             .setTitle('z4lab-Bot Commands :')
             .setThumbnail(bot.user.avatarURL)
             .addField(`${prefix}arena top3 `, '└ Shows top 3 players in the 1v1 server', false)
-            .addField(`${prefix}arena top5`, '└ Shows top 5 players in the 1v1 server', false);
+            .addField(`${prefix}arena top5`, '└ Shows top 5 players in the 1v1 server', false)
+            .addField(`${prefix}arena profile [name]`, '└ Shows the player stats', false);
 
         return message.channel.send(embed);
     }
