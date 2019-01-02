@@ -1,8 +1,4 @@
-const { bot } = require('../index');
-const { config } = require('../index');
-const { db_arena } = require('../index');
-const { db_beginner } = require('../index');
-const { db_pro } = require('../index');
+const { bot, config, db_arena, db_beginner, db_pro } = require('../index');
 const colors = require('colors/safe');
 
 
