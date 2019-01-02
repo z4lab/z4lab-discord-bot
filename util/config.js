@@ -1,0 +1,24 @@
+const config = require("../config/bot.json");
+const dbs = require('../config/dbs.json');
+const channels = require('../config/channels.json');
+
+if (!config) throw new Error('The config-file is empty!');
+if (!config.token || config.token == 'DISCORD-BOT-TOKEN') throw new Error('Please set a bot token in the config file!');
+if (!config.prefix) throw new Error('Please set a prefix in the config file!');
+if (!dbs.beginner) throw new Error('Please set the database settings in the dbs file!');
+if (!dbs.beginner.host) throw new Error('Please set a database host in the dbs file!');
+if (!dbs.beginner.user) throw new Error('Please set a database user in the dbs file!');
+if (!dbs.beginner.password) throw new Error('Please set a database password in the dbs file!');
+if (!dbs.beginner.database) throw new Error('Please set a database in the dbs file!');
+if (!dbs.pro) throw new Error('Please set the database settings in the dbs file!');
+if (!dbs.pro.host) throw new Error('Please set a database host in the dbs file!');
+if (!dbs.pro.user) throw new Error('Please set a database user in the dbs file!');
+if (!dbs.pro.password) throw new Error('Please set a database password in the dbs file!');
+if (!dbs.pro.database) throw new Error('Please set a database in the dbs file!');
+if (!dbs.arena) throw new Error('Please set the database settings in the dbs file!');
+if (!dbs.arena.host) throw new Error('Please set a database host in the dbs file!');
+if (!dbs.arena.user) throw new Error('Please set a database user in the dbs file!');
+if (!dbs.arena.password) throw new Error('Please set a database password in the dbs file!');
+if (!dbs.arena.database) throw new Error('Please set a database in the dbs file!');
+if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') throw new Error('Please set a steam-api key in the config file!');
+if (!config.timer || config.timer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
