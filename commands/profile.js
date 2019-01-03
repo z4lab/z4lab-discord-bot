@@ -1,6 +1,4 @@
-const Discord = require("discord.js");
-const mysql = require("mysql");
-const colors = require('colors/safe');
+const { RichEmbed } = require("discord.js");
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
@@ -34,7 +32,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                     if (get[i].steamid == sid) var rank = i + 1;
                 }
                 steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
-                    let embed = new Discord.RichEmbed()
+                    let embed = new RichEmbed()
                         .setAuthor(summary.nickname + ' @ Beginner Server', '', summary.url)
                         .setThumbnail(summary.avatar.large)
                         .addField('Country: ', country, true)
@@ -68,7 +66,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                     if (get[i].steamid == sid) var rank = i + 1;
                 }
                 steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
-                    let embed = new Discord.RichEmbed()
+                    let embed = new RichEmbed()
                         .setAuthor(summary.nickname + ' @ Pro Server', '', summary.url)
                         .setThumbnail(summary.avatar.large)
                         .addField('Country: ', country, true)

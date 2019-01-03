@@ -1,15 +1,9 @@
-const Discord = require("discord.js");
-const mysql = require("mysql");         // is this really needed here?
-const colors = require('colors/safe');
-const steam = require('steamidconvert')();  // is this really needed here?
-const SteamAPI = require('steamapi');   // is this really needed here?
-const config = require("../config/bot.json");
-const steamapi = new SteamAPI(config.steam["api-key"]); // is this really needed here?
+const { RichEmbed } = require("discord.js");
 
 module.exports.run = function (bot, message, args, prefix){
 
-    let embed = new Discord.RichEmbed()
-        .setTitle('Available commands:')
+    let embed = new RichEmbed()
+        .setTitle('z4lab-Bot Commands :')
         .setThumbnail(bot.user.avatarURL)
         .addField(`${prefix}servers`, '⬛ Displays our servers and advanced server commands', false)
         .addField(`${prefix}arena`, '⬛ Displays advanced arena commands', false)

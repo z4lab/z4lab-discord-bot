@@ -1,5 +1,3 @@
-const Discord = require("discord.js");
-const mysql = require("mysql");
 const config = require('../config/bot.json');
 const fixTime = require("../util/fixTime.js");
 
