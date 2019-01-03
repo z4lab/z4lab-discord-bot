@@ -1,12 +1,8 @@
-const Discord = require("discord.js");
-const colors = require('colors/safe');
-const config = require("../config/bot.json");
-const servers = require("../config/servers.json");
-
+const { RichEmbed } = require("discord.js");
 
 module.exports.run = function (bot, message, args, prefix) {
 
-    let embed = new Discord.RichEmbed()
+    let embed = new RichEmbed()
         .setTitle('z4lab Serverlist :')
         .setThumbnail(bot.user.avatarURL)
         .addField(`[ARENA] z4lab Multi 1v1 Server 128 Tick `, '`!1v1` for more infos', false)

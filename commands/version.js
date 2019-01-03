@@ -1,13 +1,9 @@
-const Discord = require("discord.js");
-const colors = require('colors/safe');
-const {
-    version
-} = require("discord.js");
+const { RichEmbed, version} = require("discord.js");
 const config = require("../config/bot.json");
 
 module.exports.run = function (bot, message, args, prefix){
 
-    let embed = new Discord.RichEmbed()
+    let embed = new RichEmbed()
         .setTitle('z4lab Discord Bot :')
         .setThumbnail(bot.user.avatarURL)
         .addField(`Client Version`, `v${config.version.version}`, true)

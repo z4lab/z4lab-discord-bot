@@ -1,6 +1,3 @@
-const Discord = require("discord.js");
-const mysql = require("mysql");
-const colors = require('colors/safe');
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");

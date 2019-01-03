@@ -1,11 +1,9 @@
-const Discord = require("discord.js");
-const colors = require('colors/safe');
-const config = require("../config/bot.json");
+const { RichEmbed } = require("discord.js");
 
 
 module.exports.run = function (bot, message, args, prefix){
 
-    let embed = new Discord.RichEmbed()
+    let embed = new RichEmbed()
         .setTitle('z4lab Discord Bot :')
         .setThumbnail(bot.user.avatarURL)
         .addField(`Main Script`, `<@235809101051985920>`, true)

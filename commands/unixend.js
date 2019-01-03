@@ -1,6 +1,4 @@
-const Discord = require("discord.js");
-const colors = require('colors/safe');
-const config = require("../config/bot.json");
+const { RichEmbed } = require("discord.js");
 const toDuration = require('humanize-duration');
 
 module.exports.run = function (bot, message, args, prefix){
@@ -9,7 +7,7 @@ module.exports.run = function (bot, message, args, prefix){
 
     duration = toDuration(time);
 
-    let embed = new Discord.RichEmbed()
+    let embed = new RichEmbed()
         .setTitle('Time until Unixtime Overflow')
         .setThumbnail(bot.user.avatarURL)
         .setDescription(String(duration))

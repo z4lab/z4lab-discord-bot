@@ -1,5 +1,4 @@
-const Discord = require("discord.js");
-const mysql = require("mysql");
+const { RichEmbed } = require("discord.js");
 const toTime = require("../util/toTime.js");
 
 module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, db_arena) {
@@ -9,7 +8,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
     if (!args[0] && !commandlist.includes(args[0])) {
         //arena help embed
 
-        let embed = new Discord.RichEmbed()
+        let embed = new RichEmbed()
             .setTitle('z4lab-Bot Commands :')
             .setThumbnail(bot.user.avatarURL)
             .addField(`${prefix}arena top3 `, '└ Shows top 3 players in the 1v1 server', false)
@@ -46,7 +45,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                 });
             });
 
-            var embed = new Discord.RichEmbed();
+            var embed = new RichEmbed();
             embed.setTitle(`z4lab Arena Top${count} :`);
             embed.setThumbnail(bot.user.avatarURL);
 
@@ -94,7 +93,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                     if (get[i].steam == sid) rank = i + 1;
                 }
 
-                var embed = new Discord.RichEmbed()
+                var embed = new RichEmbed()
                     .setTitle(`z4lab Arena Profile :`)
                     .setThumbnail(bot.user.avatarURL)
                     .addField('[' + rank + '] ' + user[0].name, user[0].sid, true)
