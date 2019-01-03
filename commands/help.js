@@ -1,14 +1,8 @@
-const Discord = require("discord.js");
-const mysql = require("mysql");
-const colors = require('colors/safe');
-const steam = require('steamidconvert')();
-const SteamAPI = require('steamapi');
-const config = require("../config/bot.json");
-const steamapi = new SteamAPI(config.steam["api-key"]);
+const { RichEmbed } = require("discord.js");
 
 module.exports.run = function (bot, message, args, prefix){
 
-    let embed = new Discord.RichEmbed()
+    let embed = new RichEmbed()
         .setTitle('z4lab-Bot Commands :')
         .setThumbnail(bot.user.avatarURL)
         .addField(`${prefix}mtop [map] {username/server(pro/beginner)} {server(pro/beginner)} `, '└ Shows current map/player record', false)
