@@ -1,9 +1,10 @@
 # z4lab-discord-bot
-discord bot for z4lab, main author @13ace37 - also forked from his surftimer-discord-bot
+discord bot for z4lab, main author @13ace37
 
 # features
 - add new user to specific role
 - provide surf timer information (player ranks, map times and much more)
+- provide arena stats (rankme kento)
 - provide game server information
 - some cool gimmicks like `!unixend`
 
@@ -12,6 +13,8 @@ discord bot for z4lab, main author @13ace37 - also forked from his surftimer-dis
 - clone the project to your desired location
 - rename `example-bot.json` to `bot.json` and enter your details
 - rename `example-dbs.json`to `dbs.json` and enter your details
+- rename `example-servers.json`to `servers.json` and enter your details
+- rename `example-channels.json`to `channels.json` and enter your details
 - run `npm install`
 - start bot with `forever start index.js`
 
