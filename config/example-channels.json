@@ -2,7 +2,6 @@
     "log": {
         "channelID": "channelID"
     },
-    // can we use the "lobby [afk]" voice channel for that? (on the dev discord) so it would display "lobby [afk] - 37 members
     "memberCount": {
         "channelID": "channelID"
     }
