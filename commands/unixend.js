@@ -8,10 +8,10 @@ module.exports.run = function (bot, message, args, prefix){
     duration = toDuration(time);
 
     let embed = new RichEmbed()
-        .setTitle('Time until Unixtime Overflow')
+        .setTitle('days until Unixtime overflow')
         .setThumbnail(bot.user.avatarURL)
         .setDescription(String(duration))
-        .addField('More Information','https://en.wikipedia.org/wiki/Year_2038_problem', true);
+        .addField('more information','https://en.wikipedia.org/wiki/Year_2038_problem', true);
 
     return message.channel.send(embed);
 
