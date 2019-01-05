@@ -4,7 +4,7 @@ const { RichEmbed } = require("discord.js");
 module.exports.run = function (bot, message, args, prefix){
 
     let embed = new RichEmbed()
-        .setTitle('z4lab Discord Bot :')
+        .setTitle('z4lab Discord Bot')
         .setThumbnail(bot.user.avatarURL)
         .addField(`Main Script`, `<@235809101051985920>`, true)
         .addField(`additional stuff/Ideas`, `<@521468077817200643>`, true)

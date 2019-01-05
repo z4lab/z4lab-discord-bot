@@ -1,3 +1,4 @@
+const { RichEmbed } = require('discord.js');
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
@@ -7,7 +8,14 @@ const fixTime = require("../util/fixTime.js");
 
 module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) {
 
-    if (!args[0]) return message.channel.send('```md\n[Error] No map entered! ]:\n\n[Usage] : ' + prefix + 'mtop [map] ]:```');
+    if (!args[0]) {
+        let embed = new RichEmbed()
+            .setTitle('z4lab Discord Bot mtop usage')
+            .setThumbnail(bot.user.avatarURL)
+            .addField(`${prefix}mtop [mapname] [BEGINNER/pro]`, '└ Shows maprecord for the given server', false)
+            .addField(`${prefix}mtop [mapname] [username] [BEGINNER/pro]`, '└ Shows playerrecord for the given user/server', false);
+        return message.channel.send(embed);
+    }
     if (!args[0].toLowerCase().startsWith('surf_') || args[0].length < 6) return message.channel.send('```md\n[Error] Invalid map entered! ]:```');
     let map = args[0];
     var name = 'AND 1=1';

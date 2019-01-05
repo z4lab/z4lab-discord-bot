@@ -24,7 +24,7 @@ module.exports.run = function (bot, message, args, prefix) {
                 let connectLink = `steam://connect/${state.query.host}:${state.query.port}`;
 
                 embed = new RichEmbed()
-                    .setTitle('z4lab Beginner Surf :')
+                    .setTitle('z4lab Pro Surf')
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Current Map`, map, true)
                     .addField(`Current Player`, playerCount + '/' + maxPlayers, true)
@@ -32,7 +32,7 @@ module.exports.run = function (bot, message, args, prefix) {
 
             } else {
                 embed = new RichEmbed()
-                    .setTitle('z4lab Beginner Surf :')
+                    .setTitle('z4lab Pro Surf')
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`The Server is offline!`, "Will be available soon", false);
             }
