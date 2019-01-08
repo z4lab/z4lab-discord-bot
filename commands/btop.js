@@ -1,3 +1,4 @@
+const { RichEmbed } = require('discord.js');
 const steam = require('steamidconvert')();
 const SteamAPI = require('steamapi');
 const config = require("../config/bot.json");
@@ -7,6 +8,14 @@ const fixTime = require("../util/fixTime.js");
 
 module.exports.run = function (bot, message, args, prefix, db){
     return; //currently disabled until next bigger update
+    if (!args[0]) {
+        let embed = new RichEmbed()
+            .setTitle('z4lab Discord Bot btop usage')
+            .setThumbnail(bot.user.avatarURL)
+            .addField(`${prefix}btop [bonus] [mapname] [BEGINNER/pro]`, '└ Shows bonusrecord for the given server/bonus', false);
+            //.addField(`${prefix}btop [bonus] [mapname] [username] [BEGINNER/pro]`, '└ Shows player bonusrecord for the given user/bonus/server', false);
+        return message.channel.send(embed);
+    }
     if (!args[0]) return message.channel.send('```md\n[Error] No bonus number entered! ]:\n\n[Usage] : ' + prefix + 'btop [bonus] [map] ]:```');
     if (String(Number(args[0])) === 'NaN') return message.channel.send('```md\n[Error] Enter a valid bonus number! ]:```');
     if (Number(args[0]) < 1) return message.channel.send('```md\n[Error] Enter a valid bonus number! ]:```');
