@@ -9,7 +9,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
         //arena help embed
 
         let embed = new RichEmbed()
-            .setTitle('z4lab-Bot Commands :')
+            .setTitle('z4lab Discord Bot arena usage')
             .setThumbnail(bot.user.avatarURL)
             .addField(`${prefix}arena top3 `, '└ Shows top 3 players in the 1v1 server', false)
             .addField(`${prefix}arena top5`, '└ Shows top 5 players in the 1v1 server', false)
@@ -46,7 +46,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             });
 
             var embed = new RichEmbed();
-            embed.setTitle(`z4lab Arena Top${count} :`);
+            embed.setTitle(`z4lab Arena Top${count}`);
             embed.setThumbnail(bot.user.avatarURL);
 
             let top = 1;
@@ -94,7 +94,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                 }
 
                 var embed = new RichEmbed()
-                    .setTitle(`z4lab Arena Profile :`)
+                    .setTitle(`z4lab Arena Profile`)
                     .setThumbnail(bot.user.avatarURL)
                     .addField('[' + rank + '] ' + user[0].name, user[0].sid, true)
                     .addField('Kills/Deaths', user[0].kills + '/' + user[0].deaths + ' (' + user[0].kd + ')', true)

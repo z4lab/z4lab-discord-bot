@@ -4,7 +4,7 @@ const config = require("../config/bot.json");
 module.exports.run = function (bot, message, args, prefix){
 
     let embed = new RichEmbed()
-        .setTitle('z4lab Discord Bot :')
+        .setTitle('z4lab Discord Bot')
         .setThumbnail(bot.user.avatarURL)
         .addField(`Client Version`, `v${config.version.version}`, true)
         .addField(`Client Build`, config.version.build, true)
