@@ -28,7 +28,7 @@ function logMember(member) {
     let username = member.user.tag;
     let userID = member.user.id;
 
-    channel.send(emoji + ' New User\n<@' + userID + '> (`' + userID + '`) joined the sanctuary!');
+    channel.send(emoji + ' New User\n' + username + ' ( ' + String(member) + ' ) joined the sanctuary!');
 
 }
 
