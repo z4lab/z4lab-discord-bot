@@ -106,6 +106,92 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             });
         });
     }
+    if (args[0] == 'weaponstats') {
+        if (!args[1]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + prefix + 'arena weaponstats [Name] ]:```');
+        db_arena.query(`SELECT * FROM rankme WHERE name LIKE '%${args[1]}%' ORDER BY score DESC LIMIT 1`, function (err, get) {
+            if (err) return console.log(err);
+            if (!get[0]) return message.channel.send('```md\n[Error] The user wasn\'t found in the database! ]:```');
+            let user = [];
+            user.push({
+                sid: get [0].steam,
+                name: get [0].name,
+                kills: get [0].kills,
+                usp: get [0].usp_silencer,
+                deagle: get [0].deagle,
+                ak: get [0].ak47,
+                m4a1: get [0].m4a1,
+                m4a1_silencer: get [0].m4a1_silencer,
+            });
+            let embed = new RichEmbed()
+                .setTitle(`z4lab Arena Weaponstats :`)
+                .setThumbnail(bot.user.avatarURL)
+                .addField(user[0].name, user[0].sid, true)
+                .addBlankField(true)
+                .addField('AK47 Kills:', `${user[0].ak}/${user[0].kills} (${Math.round((100*user[0].ak/user[0].kills) * 100) / 100}%)`);
+            
+            return message.channel.send(embed);
+            /*
+            let page = 1;
+            let pages = [{
+                title: user[0].name,
+                content: user[0].sid,
+            }, {
+                title: 'AK47 Kills:',
+                content: `${user[0].ak}/${user[0].kills} (${Math.round((100*user[0].ak/user[0].kills) * 100) / 100}%)`
+            }];
+
+            let embed = new RichEmbed()
+                .setTitle(`z4lab Arena Weaponstats :`)
+                .setThumbnail(bot.user.avatarURL)
+                .addField(user[0].name, user[0].sid, true)
+                .setFooter(`Page ${page} of ${pages.length}`);
+            var oldmsg = message;
+            return message.channel.send(embed).then(msg => {
+                let embed = new RichEmbed();
+                msg.react('\👈').then(r => {
+                    msg.react('\👉').then(r => {
+                        msg.react('\❌');
+                    });
+
+                    const bwFilter = (reaction, user) => reaction.emoji.name === '👈' && user.id != bot.user.id;
+                    const fwFilter = (reaction, user) => reaction.emoji.name === '👉' && user.id != bot.user.id;
+                    const rmFilter = (reaction, user) => reaction.emoji.name === '❌' && user.id != bot.user.id;
+
+                    const bw = msg.createReactionCollector(bwFilter);
+                    const fw = msg.createReactionCollector(fwFilter);
+                    const rm = msg.createReactionCollector(rmFilter);
+
+                    bw.on('collect', r => {
+                        if (page === 1) return;
+                        page--;
+                        embed.setTitle('z4lab-Bot Testing :')
+                            .setThumbnail(bot.user.avatarURL)
+                            .addField(pages[page - 1].title, pages[page - 1].content, false)
+                            .setFooter(`Page ${page} of ${pages.length}`);
+                        msg.edit(embed);
+                        embed = new RichEmbed();
+                    });
+
+                    fw.on('collect', r => {
+                        if (page === pages.length) return;
+                        page++;
+                        embed.setTitle('z4lab-Bot Testing :')
+                            .setThumbnail(bot.user.avatarURL)
+                            .addField(pages[page - 1].title, pages[page - 1].content, false)
+                            .setFooter(`Page ${page} of ${pages.length}`);
+                        msg.edit(embed);
+                        embed = new RichEmbed();
+                    });
+
+                    rm.on('collect', r => {
+                        oldmsg.delete();
+                        msg.delete();
+                    });
+
+                });
+            });*/
+        });
+    }
 
 };
 

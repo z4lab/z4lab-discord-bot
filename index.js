@@ -45,6 +45,7 @@ Object.assign(module.exports, {
 
 
 require('./events/error');
+require('./events/guildBanAdd');
 require('./events/guildMemberAdd');
 require('./events/guildMemberRemove');
 require('./events/message');
