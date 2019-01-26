@@ -19,6 +19,7 @@ bot.on('ready', () => {
             nick: bot.user.username
         });
     }
-    config.presence.game.name += ` ${config.prefix}help`;
-    bot.user.setPresence(config.presence);
+    let presence = config.presence;
+    presence.game.name += ` ${config.prefix}help`;
+    bot.user.setPresence(presence);
 });
