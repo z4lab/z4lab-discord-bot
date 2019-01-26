@@ -23,6 +23,7 @@ cp $INSTALLDIR/z4lab-discord-bot/config/bot.json $TMPDIR/bot.json
 cp $INSTALLDIR/z4lab-discord-bot/config/dbs.json $TMPDIR/dbs.json
 cp $INSTALLDIR/z4lab-discord-bot/config/servers.json $TMPDIR/servers.json
 cp $INSTALLDIR/z4lab-discord-bot/config/channels.json $TMPDIR/channels.json
+cp $INSTALLDIR/z4lab-discord-bot/config/whitelist.json $TMPDIR/whitelist.json
 echo -e "${RST}[2/8] ${YLW}backing up config files: ${GRN}DONE!${RST}"
 
 # stop the bot
@@ -46,6 +47,7 @@ mv $TMPDIR/bot.json $INSTALLDIR/z4lab-discord-bot/config/bot.json
 mv $TMPDIR/dbs.json $INSTALLDIR/z4lab-discord-bot/config/dbs.json
 mv $TMPDIR/servers.json $INSTALLDIR/z4lab-discord-bot/config/servers.json
 mv $TMPDIR/channels.json $INSTALLDIR/z4lab-discord-bot/config/channels.json
+mv $TMPDIR/whitelist.json $INSTALLDIR/z4lab-discord-bot/config/whitelist.json
 echo -e "${RST}[6/8] ${YLW}restoring backuped config files: ${GRN}DONE!${RST}"
 
 # move directory do npm install and start the bot
