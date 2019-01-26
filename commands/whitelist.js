@@ -37,8 +37,8 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
     var usage = new RichEmbed()
         .setTitle('z4lab Discord Bot whitelist usage')
         .setThumbnail(bot.user.avatarURL)
-        .addField(`${prefix}whitelist add [STEAMID]`, '└ Add a player to the whitelist', false)
-        .addField(`${prefix}whitelist rm/remove [STEAMID]`, '└ Remove a player to the whitelist', false);
+        .addField(`${prefix}whitelist add [STEAMID/STEAMID64]`, '└ Add a player to the whitelist', false)
+        .addField(`${prefix}whitelist rm/remove [STEAMID/STEAMID64]`, '└ Remove a player to the whitelist', false);
 
 
     if (!args[0]) return message.channel.send(usage);
@@ -46,6 +46,8 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
     if (args[0] == 'add') {
         //add command
         if (!args[1]) return message.channel.send(usage);
+
+        if (!args[1].startsWith('STEAM_') && args[1].length == '17') args[1] = steam.convertToText(args[1]);
 
         let sid = args[1].replace('_1', '_0') || args[1];
 
@@ -95,6 +97,8 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
     } else if (args[0] == 'rm' || args[0] == 'remove') {
         //remove command
         if (!args[1]) return message.channel.send(usage);
+
+        if (!args[1].startsWith('STEAM_') && args[1].length == '17') args[1] = steam.convertToText(args[1]);
 
         let sid = args[1].replace('_0', '_1') || args[1];
         db_whitelist.query(`SELECT * FROM mysql_whitelist`, function (err, get) {
