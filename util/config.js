@@ -1,6 +1,7 @@
 const config = require("../config/bot.json");
 const dbs = require('../config/dbs.json');
 const channels = require('../config/channels.json');
+const whitelist = require('../config/whitelist.json');
 
 if (!config) throw new Error('The config-file is empty!');
 if (!config.token || config.token == 'DISCORD-BOT-TOKEN') throw new Error('Please set a bot token in the config file!');
@@ -24,3 +25,4 @@ if (!config.steam['api-key'] || config.steam['api-key'] == 'STEAM-API-KEY') thro
 if (!config.timer || config.timer == 'ck/surftimer') throw new Error('Please enter a timer in the config file!');
 if (!channels.log.channelID || channels.log.channelID == 'channelID') throw new Error('Please enter a channelID in the channels file!');
 if (!channels.memberCount.channelID || channels.memberCount.channelID == 'channelID') throw new Error('Please enter a channelID in the channels file!');
+if (!whitelist.allowedIDs || whitelist.allowedIDs[0] == 'array of role id\'s') throw new Error('Please enter the allowed role ids in the whitelist file!');
