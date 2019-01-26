@@ -1,4 +1,4 @@
-const { bot, config, db_arena, db_beginner, db_pro } = require('../index');
+const { bot, config, db_arena, db_beginner, db_pro, db_whitelist } = require('../index');
 const colors = require('colors/safe');
 
 
@@ -28,6 +28,6 @@ bot.on('message', message => {
 
     let commandFile = bot.commands.get(cmd.slice(prefix.length));
 
-    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena);
+    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);
 
 });
