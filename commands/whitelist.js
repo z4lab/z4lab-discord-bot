@@ -26,8 +26,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             'The answer you\'re looking for is inside of you, but it\'s wrong.',
             'If you think nobody cares if you\'re alive, try missing a couple of payments.',
             'I thought this would never happen, but you just don\'t care enough for me to give you an answer.',
-            'If you want me to answer that question, you might want to do something better.',
-            'Je ne parle pas anglais, mais je ne réponds toujours pas à la question.'
+            'If you want me to answer that question, you might want to do something better.'
         ];
 
         let random = Math.floor(Math.random() * messageArray.length);
@@ -35,15 +34,22 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
         return message.channel.send(messageArray[random]);
     }
 
-    if (!args[0]) return message.channel.send('Add embed here - help if no args given!');
+    var usage = new RichEmbed()
+        .setTitle('z4lab Discord Bot whitelist usage')
+        .setThumbnail(bot.user.avatarURL)
+        .addField(`${prefix}whitelist add [STEAMID]`, '└ Add a player to the whitelist', false)
+        .addField(`${prefix}whitelist rm/remove [STEAMID]`, '└ Remove a player to the whitelist', false);
+
+
+    if (!args[0]) return message.channel.send(usage);
 
     if (args[0] == 'add') {
         //add command
-        if (!args[1]) return message.channel.send('Enter a valid steamID');
+        if (!args[1]) return message.channel.send(usage);
 
         let sid = args[1].replace('_1', '_0') || args[1];
 
-        if (!args[1].startsWith('STEAM_') || !new SteamID(sid).isValid()) return message.channel.send('Enter a valid steamID');
+        if (!args[1].startsWith('STEAM_') || !new SteamID(sid).isValid()) return message.channel.send('```md\n[Error] Invalid SteamID entered! ]:```');
 
 
         args[1] = args[1].replace('_0', '_1');
@@ -52,18 +58,43 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             //INSERT INTO `z4labtest`.`mysql_whitelist` (`steamid`) VALUES ('STEAM_1:0:27661072');
             db_whitelist.query("INSERT INTO `" + db.whitelist.database + "`.`mysql_whitelist` (`steamid`) VALUES ('" + args[1] + "');", function (err) {
                 
-                if (err && err.code != 'ER_DUP_ENTRY') return message.channel.send('An error has occurred while whitelisting the ID!').then(console.log(err));
+                if (err && err.code != 'ER_DUP_ENTRY') return message.channel.send('```md\n[Error] Failed to whitelist the ID! ]:```').then(console.log(err));
 
-                if (err && err.code == 'ER_DUP_ENTRY') return message.channel.send('The ID is already whitelisted!');
+                if (err && err.code == 'ER_DUP_ENTRY') {
 
-                return message.channel.send('The ID was successfully whitelisted!');
+                    steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
+
+                        let embed = new RichEmbed()
+                            .setTitle('z4lab Whitelist')
+                            .setDescription('Player is already on the whitelist!')
+                            .setThumbnail(summary.avatar.large)
+                            .addField(`[*] ${summary.nickname}`, summary.url);
+
+                        return message.channel.send(embed);
+
+                    });
+                    return;
+                }
+
+                steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
+
+                    let embed = new RichEmbed()
+                        .setTitle('z4lab Whitelist')
+                        .setDescription('Player successfully added to the whitelist!\nsteam://connect/94.130.8.161:27040')
+                        .setThumbnail(summary.avatar.large)
+                        .addField(`[+] ${summary.nickname}`, summary.url);
+
+                    return message.channel.send(embed);
+
+                });
+
 
             });
 
 
     } else if (args[0] == 'rm' || args[0] == 'remove') {
         //remove command
-        if (!args[1]) return message.channel.send('Enter a valid steamID');
+        if (!args[1]) return message.channel.send(usage);
 
         let sid = args[1].replace('_0', '_1') || args[1];
         db_whitelist.query(`SELECT * FROM mysql_whitelist`, function (err, get) {
@@ -74,17 +105,39 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                     db_whitelist.query("DELETE FROM `" + db.whitelist.database + "`.`mysql_whitelist` WHERE (`steamid` = '" + sid + "');", function (err) {
         
                         if (err) console.log(err);
-        
-                        return message.channel.send('The ID was successfully removed from the whitelist!');
+                        steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
 
+                            let embed = new RichEmbed()
+                                .setTitle('z4lab Whitelist')
+                                .setDescription('Player successfully removed from the whitelist!')
+                                .setThumbnail(summary.avatar.large)
+                                .addField(`[-] ${summary.nickname}`, summary.url);
+        
+                            return message.channel.send(embed);
+        
+                        });
+                        return;
                     });
                 } else {
-                    if (i == get.length - 1) return message.channel.send('The ID insn\'t on the whitelist!');
+                    if (i == get.length - 1) {
+                        steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
+
+                            let embed = new RichEmbed()
+                                .setTitle('z4lab Whitelist')
+                                .setDescription('Player wasn\'t found on the whitelist!')
+                                .setThumbnail(summary.avatar.large)
+                                .addField(`[*] ${summary.nickname}`, summary.url);
+        
+                            return message.channel.send(embed);
+        
+                        });
+                        return;
+                    }
                 }
             }
         });
 
-    } else return message.channel.send('Add embed here - help if false args given!');
+    } else return message.channel.send(usage);
 
     //mysql_whitelist -> steamid -> STEAM_1:0:27661072 (steamid needs STEAM_1 !!!)
 
