@@ -6,6 +6,7 @@ const dbs = require('../config/dbs.json');
 const db_config_beginner = dbs.beginner;
 const db_config_pro = dbs.pro;
 const db_config_arena = dbs.arena;
+const db_config_whitelist = dbs.whitelist;
 
 var db_beginner;
 
@@ -85,9 +86,38 @@ function db_arenaErrorHandler() {
 }
 db_arenaErrorHandler();
 
+var db_whitelist;
+
+function db_whitlistErrorHandler() {
+    db_whitelist = mysql.createConnection(db_config_whitelist);
+
+
+    db_whitelist.connect(function (err) {
+        if (err) {
+            console.log(timestamp() + '[DB Whitelist] error when connecting:', err);
+            setTimeout(db_whitlistErrorHandler, 2000);
+        } else {
+            console.log(timestamp() + colors.green('[db_whitelist] Connected!'));
+        }
+    });
+
+    db_whitelist.on('error', function (err) {
+        console.log(timestamp() + '[DB Whitelist] db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            db_whitlistErrorHandler();
+        } else {
+            throw err;
+        }
+    });
+}
+db_whitlistErrorHandler();
+
+
+
 
 Object.assign(module.exports, {
     db_arena,
     db_beginner,
     db_pro,
+    db_whitelist
 });

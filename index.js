@@ -10,7 +10,7 @@ require('./util/console');
 require('./util/dbHandler');
 require('./util/config');
 
-const { db_arena, db_beginner, db_pro } = require('./util/dbHandler');
+const { db_arena, db_beginner, db_pro, db_whitelist } = require('./util/dbHandler');
 
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
@@ -39,6 +39,7 @@ Object.assign(module.exports, {
     db_arena,
     db_beginner,
     db_pro,
+    db_whitelist,
     dbs,
     channels,
 });
