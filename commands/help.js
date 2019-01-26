@@ -13,7 +13,8 @@ module.exports.run = function (bot, message, args, prefix){
         .addField(`${prefix}author`, '# Displays the authors of the bot', false)
         .addField(`${prefix}version`, '# Displays the current bot version', false)
         .addField(`${prefix}unixend`, '# Displays time till end of the world', false)
-        .addField(`${prefix}z4lab`, '# Displays community links', false);
+        .addField(`${prefix}z4lab`, '# Displays community links', false)
+        .addField(`${prefix}whitelist [add/rm] [steamID/steamID64]`, '# Adds/Removes a player from the vip-server whitelist (VIP Only Command)', false);
 
     return message.channel.send(embed);
 
