@@ -15,6 +15,7 @@ discord bot for z4lab, main author @13ace37
 - rename `example-dbs.json`to `dbs.json` and enter your details
 - rename `example-servers.json`to `servers.json` and enter your details
 - rename `example-channels.json`to `channels.json` and enter your details
+- rename `example-whitelist.json`to `whitelist.json` and enter your details
 - run `npm install`
 - start bot with `forever start index.js`
 

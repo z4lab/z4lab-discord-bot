@@ -1,8 +1,6 @@
-const { bot } = require('../index');
-const { config } = require('../index');
+const { bot, config } = require('../index');
 const colors = require('colors/safe');
 const timestamp = require('../util/timeStamp');
-
 
 bot.on('ready', () => {
     console.log('');
