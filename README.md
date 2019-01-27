@@ -5,7 +5,8 @@ discord bot for z4lab, main author @13ace37
 - add new user to specific role
 - provide surf timer information (player ranks, map times and much more)
 - provide arena stats (rankme kento)
-- provide game server information
+- provide game server information (csgo at the moment)
+- provide users (specific role) to whitelist themself on whitelisted servers
 - some cool gimmicks like `!unixend`
 
 # install
