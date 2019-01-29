@@ -20,12 +20,15 @@ function db_beginnerErrorHandler() {
             setTimeout(db_beginnerErrorHandler, 2000);
         } else {
             console.log(timestamp() + colors.green('[db_beginner] Connected!'));
+            var db_beginner_pinger = require('db-keep-alive').create_pinger(db_beginner, 60, 'SELECT 1');
+            db_beginner_pinger.start();
         }
     });
 
     db_beginner.on('error', function (err) {
         console.log(timestamp() + '[DB Beginner] db error', err);
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            db_beginner_pinger.stop();
             db_beginnerErrorHandler();
         } else {
             throw err;
@@ -46,12 +49,15 @@ function db_proErrorHandler() {
             setTimeout(db_proErrorHandler, 2000);
         } else {
             console.log(timestamp() + colors.green('[db_pro] Connected!'));
+            var db_pro_pinger = require('db-keep-alive').create_pinger(db_pro, 60, 'SELECT 1');
+            db_pro_pinger.start();
         }
     });
 
     db_pro.on('error', function (err) {
         console.log(timestamp() + '[DB Pro] db error', err);
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            db_pro_pinger.stop();
             db_proErrorHandler();
         } else {
             throw err;
@@ -72,12 +78,15 @@ function db_arenaErrorHandler() {
             setTimeout(db_arenaErrorHandler, 2000);
         } else {
             console.log(timestamp() + colors.green('[db_arena] Connected!'));
+            var db_arena_pinger = require('db-keep-alive').create_pinger(db_arena, 60, 'SELECT 1');
+            db_arena_pinger.start();
         }
     });
 
     db_arena.on('error', function (err) {
         console.log(timestamp() + '[DB Arena] db error', err);
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            db_arena_pinger.stop();
             db_arenaErrorHandler();
         } else {
             throw err;
@@ -98,12 +107,15 @@ function db_whitlistErrorHandler() {
             setTimeout(db_whitlistErrorHandler, 2000);
         } else {
             console.log(timestamp() + colors.green('[db_whitelist] Connected!'));
+            var db_whitelist_pinger = require('db-keep-alive').create_pinger(db_whitelist, 60, 'SELECT 1');
+            db_whitelist_pinger.start();
         }
     });
 
     db_whitelist.on('error', function (err) {
         console.log(timestamp() + '[DB Whitelist] db error', err);
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            db_whitelist_pinger.stop();
             db_whitlistErrorHandler();
         } else {
             throw err;
@@ -111,8 +123,6 @@ function db_whitlistErrorHandler() {
     });
 }
 db_whitlistErrorHandler();
-
-
 
 
 Object.assign(module.exports, {
