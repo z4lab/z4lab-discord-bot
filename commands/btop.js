@@ -46,7 +46,7 @@ module.exports.run = function (bot, message, args, prefix, db){
         else milli = fixTime(milli);
         let id = get[0].steamid;
         steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
-            return message.channel.send('```md\n# Bonus Record: Normal #\n\n[' + summary.nickname + '] holds the bonus ' + get[0].zonegroup + ' record on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + ":" + milli + ' > ! ]:```');
+            return message.channel.send('```md\n# Bonus Record: Normal #\n\n[' + summary.nickname + '] holds the bonus ' + get[0].zonegroup + ' record on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + "." + milli + ' > ! ]:```');
         });
     });
 };
