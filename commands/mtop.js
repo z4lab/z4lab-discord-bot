@@ -56,7 +56,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                     record2 = 'his personal';
                 }
                 steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
-                    return message.channel.send('```md\n# ' + record + ' Record @ Beginner Server #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + ":" + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
+                    return message.channel.send('```md\n# ' + record + ' Record @ Beginner Server #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + "." + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
                 });
             });
         });
@@ -92,7 +92,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                     record2 = 'his personal';
                 }
                 steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
-                    return message.channel.send('```md\n# ' + record + ' Record @ Pro Server #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + ":" + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
+                    return message.channel.send('```md\n# ' + record + ' Record @ Pro Server #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + "." + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
                 });
             });
         });
