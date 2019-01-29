@@ -36,18 +36,14 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                 });
                 return;
             }
-            let runtime = get[0].runtimepro; //timestuff
-            let minutes = runtime / 60; //minutes define
-            minutes = minutes % 60; //minutes define
-            let seconds = Math.round(runtime); //seconds define
-            seconds = runtime % 60; //seconds define
-            let milli = Math.round(runtime * 100); //ms define
-            milli = milli % 100; //ms define
-            minutes = Math.floor(minutes); //minutes define
-            seconds = Math.floor(seconds); //seconds define
-            minutes = fixTime(minutes); //minutes force to two-digit
-            seconds = fixTime(seconds); //seconds force to two-digit
-            milli = fixTime(milli); //milli force to two-digit
+
+            let ms = get[0].runtimepro * 1000;
+            let round = ms > 0 ? Math.floor : Math.ceil;
+            let minutes = fixTime(round(ms / 60000) % 60);
+            let seconds = fixTime(round(ms / 1000) % 60);
+            let milli = round(ms) % 1000;
+            if (milli.length > '2') milli = fixTime(milli.slice(0, -1));
+            else milli = fixTime(milli);
             let id = get[0].steamid;
             db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {
@@ -77,18 +73,13 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                 });
                 return;
             }
-            let runtime = get[0].runtimepro; //timestuff
-            let minutes = runtime / 60; //minutes define
-            minutes = minutes % 60; //minutes define
-            let seconds = Math.round(runtime); //seconds define
-            seconds = runtime % 60; //seconds define
-            let milli = Math.round(runtime * 100); //ms define
-            milli = milli % 100; //ms define
-            minutes = Math.floor(minutes); //minutes define
-            seconds = Math.floor(seconds); //seconds define
-            minutes = fixTime(minutes); //minutes force to two-digit
-            seconds = fixTime(seconds); //seconds force to two-digit
-            milli = fixTime(milli); //milli force to two-digit
+            let ms = get[0].runtimepro * 1000;
+            let round = ms > 0 ? Math.floor : Math.ceil;
+            let minutes = fixTime(round(ms / 60000) % 60);
+            let seconds = fixTime(round(ms / 1000) % 60);
+            let milli = round(ms) % 1000;
+            if (milli.length > '2') milli = fixTime(milli.slice(0, -1));
+            else milli = fixTime(milli);
             let id = get[0].steamid;
             db_pro.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {
