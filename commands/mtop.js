@@ -53,7 +53,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                 var record2 = 'the record';
                 if (name != 'AND 1=1') {
                     record = 'Player';
-                    record2 = 'his personal';
+                    record2 = 'his personal record';
                 }
                 steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
                     return message.channel.send('```md\n# ' + record + ' Record @ Beginner Server #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + "." + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
@@ -89,7 +89,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                 var record2 = 'the record';
                 if (name != 'AND 1=1') {
                     record = 'Player';
-                    record2 = 'his personal';
+                    record2 = 'his personal record';
                 }
                 steamapi.getUserSummary(steam.convertTo64(id)).then(summary => {
                     return message.channel.send('```md\n# ' + record + ' Record @ Pro Server #\n\n[' + summary.nickname + '] holds ' + record2 + ' on < ' + get[0].mapname + ' > with a time of < ' + minutes + ":" + seconds + "." + milli + ' > ! Rank [' + rank + '/' + get.length + '] ]:```');
