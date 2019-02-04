@@ -18,7 +18,7 @@
     },
     "version": {
         "inName": true,
-        "version": "1.1.2",
+        "version": "1.10.2",
         "build": "stable"
     }
 }
