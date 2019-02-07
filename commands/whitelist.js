@@ -143,6 +143,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
         });
 
     } else if (args[0] == 'list' || args[0] == 'ls') {
+        return message.channel.send(usage);
         /*fs.writeFile("./temp/whitelist.txt", '', function(err) {
             if(err) {
                 return console.log(err);
