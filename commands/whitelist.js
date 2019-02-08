@@ -4,6 +4,7 @@ const whitelist = require('../config/whitelist.json');
 const steam = require('steamidconvert')();
 const SteamID = require('steamid');
 const SteamAPI = require('steamapi');
+const fs = require('fs');
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 
@@ -141,6 +142,42 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             }
         });
 
+    } else if (args[0] == 'list' || args[0] == 'ls') {
+        return message.channel.send(usage);
+        /*fs.writeFile("./temp/whitelist.txt", '', function(err) {
+            if(err) {
+                return console.log(err);
+            }
+        });*/
+        db_whitelist.query(`SELECT * FROM mysql_whitelist`, function (err, get) {
+            let amout = get.length;
+            let idArray = [];
+            let idString = '\n';
+            for (let i = 0; i < get.length; i++) {
+                var data = fs.readFileSync('./temp/whitelist.txt');
+                    if (err) throw err;
+                    if (i == 0) {
+                        idString = '';
+                    } else { 
+                        idString = data; 
+                    }
+                    console.log(idString);
+                    console.log(i == 0);
+
+                    steamapi.getUserSummary(steam.convertTo64(String(get[i].steamid))).then(summary => {
+                        idString += `${summary.nickname} - ${get[i].steamid}    `;
+                        fs.writeFile("./temp/whitelist.txt", idString, function(err) {
+                            if(err) throw err;
+                        }); 
+                        
+                    });
+                
+                if (i == get.length - 1) {
+                    setTimeout(function(){message.channel.send('Whitelisted Users : ', {files: ['./temp/whitelist.txt']})}, 1000);
+                    setTimeout(function(){return fs.writeFileSync('./temp/whitelist.txt', '   ');}, 1500);
+                }
+            }
+        });
     } else return message.channel.send(usage);
 
     //mysql_whitelist -> steamid -> STEAM_1:0:27661072 (steamid needs STEAM_1 !!!)
