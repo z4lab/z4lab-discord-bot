@@ -98,7 +98,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
     } else if (args[0] == 'rm' || args[0] == 'remove') {
         let del_access = false;
         whitelist.allowedIDs.remove.forEach(role => {
-            if (message.member.roles.has(role)) access = true;
+            if (message.member.roles.has(role)) del_access = true;
         });
 
         if (!del_access) {
