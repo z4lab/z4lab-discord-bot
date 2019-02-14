@@ -125,7 +125,13 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
 
         if (!args[1].startsWith('STEAM_') && args[1].length == '17') args[1] = steam.convertToText(args[1]);
 
-        let sid = args[1].replace('_0', '_1') || args[1];
+        let sid = args[1].replace('_1', '_0') || args[1];
+
+        if (!args[1].startsWith('STEAM_') || !new SteamID(sid).isValid()) return message.channel.send('```md\n[Error] Invalid SteamID entered! ]:```');
+
+
+        args[1] = args[1].replace('_0', '_1');
+
         db_whitelist.query(`SELECT * FROM mysql_whitelist`, function (err, get) {
 
             for (var i = 0; i < get.length; i++) {
@@ -149,6 +155,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                     });
                 } else {
                     if (i == get.length - 1) {
+                        if (!SteamID(sid).isValid()) return message.channel.send('```md\n[Error] Invalid SteamID entered! ]:```');
                         steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
 
                             let embed = new RichEmbed()
