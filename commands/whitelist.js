@@ -101,7 +101,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
             if (message.member.roles.has(role)) access = true;
         });
 
-        if (!access) {
+        if (!del_access) {
 
             let messageArray = ['Failure is simply the opportunity to begin again, this time more intelligently.',
                 'Ever tried. Ever failed. No matter. Try Again. Fail again. Fail better.',
