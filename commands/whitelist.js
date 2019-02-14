@@ -155,7 +155,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                     });
                 } else {
                     if (i == get.length - 1) {
-                        if (!SteamID(sid).isValid()) return message.channel.send('```md\n[Error] Invalid SteamID entered! ]:```');
+
                         steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
 
                             let embed = new RichEmbed()
