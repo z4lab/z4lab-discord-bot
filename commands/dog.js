@@ -1,0 +1,21 @@
+const Discord = require("discord.js");
+const superagent = require("superagent");
+
+module.exports.run = async (bot, message, args) => {
+    
+    let {body} = await superagent.get(`https://dog.ceo/api/breeds/image/random`);
+
+    let dogembed = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setTitle("Just a random Doggo : ")
+    .setImage(body.message)
+    .setTimestamp(new Date())
+    .setFooter(`requested by ${message.author.tag}`);
+
+    return message.channel.send(dogembed);
+
+};
+
+module.exports.help = {
+    name: "woof",
+};
