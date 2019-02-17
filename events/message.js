@@ -27,7 +27,7 @@ bot.on('message', message => {
 
     if (!message.content.startsWith(prefix)) return;
 
-    SpellChecker.getDictionary("z4lab", function(err, dictionary) {
+    /*SpellChecker.getDictionary("z4lab", function(err, dictionary) {
         cmd = cmd.slice(prefix.length);
         if(!err) {
             var misspelled = ! dictionary.spellCheck(cmd);
@@ -37,13 +37,13 @@ bot.on('message', message => {
             }
         }
 
-        cmd = String(prefix + cmd);
+        cmd = String(prefix + cmd);*/
     
         var commandFile = bot.commands.get(cmd.slice(prefix.length));
     
         if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);
 
-    });     
+//    });     
     
 
 });
