@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args, prefix) => {
         .setTitle('z4lab Discord Bot')
         .setThumbnail(bot.user.avatarURL)
         .addField(`Client Version`, `v${config.version.version}`, true)
-        .addField(`Client Build`, build, true)
+        .addField(`Client Build`, config.version.build, true)
         .addField(`DiscordJS Version`, `v${version}`, true)
         .addField(`NodeJS Version`, `${process.version}`, true);
 
