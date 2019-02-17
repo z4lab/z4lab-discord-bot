@@ -14,7 +14,13 @@ module.exports.run = function (bot, message, args, prefix){
         .addField(`${prefix}version`, '# Displays the current bot version', false)
         .addField(`${prefix}unixend`, '# Displays time till end of the world', false)
         .addField(`${prefix}z4lab`, '# Displays community links', false)
-        .addField(`${prefix}whitelist [add/rm] [steamID/steamID64]`, '# Adds/Removes a player from the vip-server whitelist (VIP Only Command)', false);
+        .addField(`${prefix}whitelist [add/rm] [steamID/steamID64]`, '# Adds/Removes a player from the vip-server whitelist (VIP Only Command)', false)
+        .addField(`${prefix}woof`, '# Displays random dog picture', false)
+        .addField(`${prefix}meow`, '# Displays random cat picture', false)
+        .addField(`${prefix}shiba`, '# Displays random shiba picture', false)
+        .addField(`${prefix}gs`, '# Displays random german shepherd picture', false)
+        .addField(`${prefix}fox`, '# Displays random fox picture', false)
+        .addField(`${prefix}hello`, '# Checks if bot is online / says hello', false);
 
     return message.channel.send(embed);
 
