@@ -2,3 +2,5 @@
 .jshintrc
 commands/disable/*
 todolist.txt
+node_modules/simple-spellchecker/dict/z4lab.dic
+*.dic
