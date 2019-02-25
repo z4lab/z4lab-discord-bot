@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
 
     let dogembed = new Discord.RichEmbed()
     .setColor('RANDOM')
-    .setTitle("Just a random Doggo : ")
+    .setTitle("here is a random doggo for you")
     .setImage(body.message)
     .setTimestamp(new Date())
     .setFooter(`requested by ${message.author.tag}`);

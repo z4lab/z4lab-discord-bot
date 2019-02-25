@@ -11,30 +11,32 @@ module.exports.run = function (bot, message, args, prefix) {
             var embed;
 
             if (!e) {
-                //map
+                // server hostname
+                let serverName = state.name;
+
+                // map
                 let mapArray = state.map.split('/');
                 let map = mapArray[2] || mapArray[0];
 
-                //players
+                // players
                 let playerCount = state.raw.numplayers;
-                let botCount = state.raw.numbots; //kp für was ich das brauch :/
                 let maxPlayers = state.maxplayers;
 
                 //connection
                 let connectLink = `steam://connect/${state.query.host}:${state.query.port}`;
 
                 embed = new RichEmbed()
-                    .setTitle('z4lab Beginner Surf')
+                    .setTitle(serverName, true)
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Current Map`, map, true)
-                    .addField(`Current Player`, playerCount + '/' + maxPlayers, true)
-                    .addField(`Connect-Link`, connectLink, false);
+                    .addField(`Current Players`, playerCount + '/' + maxPlayers, true)
+                    .addField(`Steam Connect Link`, connectLink, false);
 
             } else {
                 embed = new RichEmbed()
-                    .setTitle('z4lab Beginner Surf')
+                    .setTitle(serverName, true)
                     .setThumbnail(bot.user.avatarURL)
-                    .addField(`The Server is offline!`, "Will be available soon", false);
+                    .addField(`Server currently unavailable`, "check again soon", false);
             }
 
             return message.channel.send(embed);

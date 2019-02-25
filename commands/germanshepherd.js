@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
     let { body } = await superagent.get(`https://dog.ceo/api/breed/germanshepherd/images/random`);
     
     let catembed = new RichEmbed()
-    .setTitle("Just a random German Shepherd : ")
+    .setTitle("here is a random german shepherd for you")
     .setImage(body.message)
     .setTimestamp(new Date())
     .setFooter(`requested by ${message.author.tag}`);

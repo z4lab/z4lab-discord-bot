@@ -4,6 +4,7 @@
 INSTALLDIR="/srv"
 TMPDIR="/tmp"
 CURRENTINSTALL="/srv/z4lab-discord-bot"
+PM2ID="0"
 ### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
 
 # color settings, no need to change!
@@ -28,7 +29,8 @@ echo -e "${RST}[2/8] ${YLW}backing up config files: ${GRN}DONE!${RST}"
 
 # stop the bot
 echo -en "[3/8] ${YLW}stopping the current bot: ${BLNK}..."
-forever stopall
+# forever stopall
+pm2 stop $PM2ID
 echo -e "${RST}[3/8] ${YLW}stopping the current bot: ${GRN}DONE!${RST}"
 
 # remove current version
@@ -52,7 +54,8 @@ echo -e "${RST}[6/8] ${YLW}restoring backuped config files: ${GRN}DONE!${RST}"
 
 # move directory do npm install and start the bot
 echo -en "[7/8] ${YLW}npm install and starting the bot: ${BLNK}..."
-cd $INSTALLDIR/z4lab-discord-bot && npm install && forever start index.js
+# cd $INSTALLDIR/z4lab-discord-bot && npm install && forever start index.js
+cd $INSTALLDIR/z4lab-discord-bot && npm install && pm2 start $PM2ID
 echo -e "${RST}[7/8] ${YLW}npm install and starting the bot: ${GRN}DONE!${RST}"
 
 # clear console and print done
