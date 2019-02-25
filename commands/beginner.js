@@ -11,16 +11,15 @@ module.exports.run = function (bot, message, args, prefix) {
             var embed;
 
             if (!e) {
-                // hostname
+                // server hostname
                 let serverName = state.name;
 
-                //map
+                // map
                 let mapArray = state.map.split('/');
                 let map = mapArray[2] || mapArray[0];
 
-                //players
+                // players
                 let playerCount = state.raw.numplayers;
-                let botCount = state.raw.numbots; //kp für was ich das brauch :/
                 let maxPlayers = state.maxplayers;
 
                 //connection
@@ -37,7 +36,7 @@ module.exports.run = function (bot, message, args, prefix) {
                 embed = new RichEmbed()
                     .setTitle(serverName, true)
                     .setThumbnail(bot.user.avatarURL)
-                    .addField(`The Server is offline!`, "Will be available soon", false);
+                    .addField(`Server currently unavailable`, "check again soon", false);
             }
 
             return message.channel.send(embed);

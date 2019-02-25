@@ -20,7 +20,7 @@ module.exports.run = function (bot, message, args, prefix){
         .addField(`${prefix}shiba`, '# Displays random shiba picture', false)
         .addField(`${prefix}gs`, '# Displays random german shepherd picture', false)
         .addField(`${prefix}fox`, '# Displays random fox picture', false)
-        .addField(`${prefix}toothless`, '# Displays random toothless picture', false)
+        .addField(`${prefix}toothless`, '# get a random toothless gif', false)
         .addField(`${prefix}hello`, '# Checks if bot is online / says hello', false);
 
     return message.channel.send(embed);

@@ -7,7 +7,7 @@ discord bot for z4lab, main author @13ace37
 - provide arena stats (rankme kento)
 - provide game server information (csgo at the moment)
 - provide users (specific role) to whitelist themself on whitelisted servers
-- some cool gimmicks like `!unixend`
+- some cool gimmicks like `.unixend`
 
 # install
 - install forever with `npm install forever -g`
