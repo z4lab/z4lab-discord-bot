@@ -11,6 +11,9 @@ module.exports.run = function (bot, message, args, prefix) {
             var embed;
 
             if (!e) {
+                // hostname
+                let serverName = state.name;
+
                 //map
                 let mapArray = state.map.split('/');
                 let map = mapArray[2] || mapArray[0];
@@ -24,15 +27,15 @@ module.exports.run = function (bot, message, args, prefix) {
                 let connectLink = `steam://connect/${state.query.host}:${state.query.port}`;
 
                 embed = new RichEmbed()
-                    .setTitle('z4lab VIP-Surf')
+                    .setTitle(serverName, true)
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Current Map`, map, true)
-                    .addField(`Current Player`, playerCount + '/' + maxPlayers, true)
-                    .addField(`Connect-Link`, connectLink, false);
+                    .addField(`Current Players`, playerCount + '/' + maxPlayers, true)
+                    .addField(`Steam Connect Link`, connectLink, false);
 
             } else {
                 embed = new RichEmbed()
-                .setTitle('z4lab VIP-Surf')
+                    .setTitle(serverName, true)
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`The Server is offline!`, "Will be available soon", false);
             }

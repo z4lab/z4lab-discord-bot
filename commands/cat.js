@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
 
     let catembed = new Discord.RichEmbed()
     .setColor('RANDOM')
-    .setTitle("Just a random Cat : ")
+    .setTitle("here is a random cat for you")
     .setImage(body.file)
     .setTimestamp(new Date())
     .setFooter(`requested by ${message.author.tag}`);

@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
     let { body } = await superagent.get(`https://randomfox.ca/floof/`);
 
     let catembed = new RichEmbed()
-    .setTitle("Just a random Fox : ")
+    .setTitle("here is a random fox for you")
     .setImage(body.image)
     .setTimestamp(new Date())
     .setFooter(`requested by ${message.author.tag}`);
