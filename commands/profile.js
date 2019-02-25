@@ -11,7 +11,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
     if (!args[1]) args[1] = 'beginner';
     if (args[1] != 'pro') args[1] = 'beginner';
     if (args[1] === 'beginner') {
-        db_beginner.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' ORDER BY points DESC`, function (err, get) {
+        db_beginner.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' AND style = '0' ORDER BY points DESC`, function (err, get) {
             if (err) return console.log(String(err));
             if (!get[0]) return message.channel.send('```md\n[Error] The user wasn\'t found in the database! ]:```');
             let country = get[0].country;
@@ -27,7 +27,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
             let wrbs = get[0].wrbs;
             let wrcps = get[0].wrcps;
             let sid = get[0].steamid;
-            db_beginner.query(`SELECT * FROM ck_playerrank ORDER BY points DESC`, function (err, get) {
+            db_beginner.query(`SELECT * FROM ck_playerrank WHERE style = '0' ORDER BY points DESC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {
                     if (get[i].steamid == sid) var rank = i + 1;
                 }

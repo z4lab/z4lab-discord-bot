@@ -26,7 +26,7 @@ module.exports.run = function (bot, message, args, prefix) {
                 let connectLink = `steam://connect/${state.query.host}:${state.query.port}`;
 
                 embed = new RichEmbed()
-                    .setTitle(serverName, true)
+                    .setTitle(serverName)
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Current Map`, map, true)
                     .addField(`Current Players`, playerCount + '/' + maxPlayers, true)
