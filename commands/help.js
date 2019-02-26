@@ -21,7 +21,8 @@ module.exports.run = function (bot, message, args, prefix){
         .addField(`${prefix}gs`, '# Displays random german shepherd picture', false)
         .addField(`${prefix}fox`, '# Displays random fox picture', false)
         .addField(`${prefix}toothless`, '# get a random toothless gif', false)
-        .addField(`${prefix}hello`, '# Checks if bot is online / says hello', false);
+        .addField(`${prefix}hello`, '# Checks if bot is online / says hello', false)
+        .addField(`${prefix}nolife [username]`, '# Shows user playtime on our surf server', false);
 
     return message.channel.send(embed);
 
