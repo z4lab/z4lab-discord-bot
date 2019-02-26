@@ -1,5 +1,4 @@
 const { bot, config, db_arena, db_beginner, db_pro, db_whitelist } = require('../index');
-const SpellChecker = require('simple-spellchecker');
 const colors = require('colors/safe');
 
 
@@ -27,23 +26,10 @@ bot.on('message', message => {
 
     if (!message.content.startsWith(prefix)) return;
 
-    /*SpellChecker.getDictionary("z4lab", function(err, dictionary) {
-        cmd = cmd.slice(prefix.length);
-        if(!err) {
-            var misspelled = ! dictionary.spellCheck(cmd);
-            if(misspelled) {
-                var suggestions = dictionary.getSuggestions(cmd);
-                cmd = suggestions[0];
-            }
-        }
-
-        cmd = String(prefix + cmd);*/
     
         var commandFile = bot.commands.get(cmd.slice(prefix.length));
     
         if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);
-
-//    });     
     
 
 });
