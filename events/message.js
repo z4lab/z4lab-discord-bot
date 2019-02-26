@@ -1,5 +1,6 @@
 const { bot, config, db_arena, db_beginner, db_pro, db_whitelist } = require('../index');
 const colors = require('colors/safe');
+const alias = require('../util/alias');
 
 
 bot.on('message', message => {
@@ -26,10 +27,11 @@ bot.on('message', message => {
 
     if (!message.content.startsWith(prefix)) return;
 
+    cmd = alias(cmd.slice(prefix.length));
     
-        var commandFile = bot.commands.get(cmd.slice(prefix.length));
+    var commandFile = bot.commands.get(cmd);
     
-        if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);
+    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);    
     
 
 });
