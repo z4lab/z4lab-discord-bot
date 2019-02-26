@@ -24,7 +24,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
     if (!args[2]) args[2] = 'beginner';
     if (args[2] != 'pro') args[2] = 'beginner';
     if (args[2] == 'beginner') {
-        db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} ORDER BY runtimepro ASC`, function (err, get) {
+        db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} AND style = '0' ORDER BY runtimepro ASC`, function (err, get) {
             if (err) console.log(err);
             if (String(get) != []) map = get[0].mapname;
             if (String(get) == []) {
@@ -45,7 +45,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
             if (milli.length > '2') milli = fixTime(milli.slice(0, -1));
             else milli = fixTime(milli);
             let id = get[0].steamid;
-            db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' ORDER BY runtimepro ASC`, function (err, get) {
+            db_beginner.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE '%${map}%' AND style = '0' ORDER BY runtimepro ASC`, function (err, get) {
                 for (var i = 0; i < get.length; i++) {
                     if (get[i].steamid == id) var rank = i + 1;
                 }
