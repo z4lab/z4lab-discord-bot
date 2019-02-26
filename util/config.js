@@ -8,6 +8,8 @@ console.log(colors.grey('[Config] channels.json loaded!'));
 const whitelist = require('../config/whitelist.json');
 console.log(colors.grey('[Config] whitelist.json loaded!'));
 console.log(colors.grey('[Config] servers.json loaded!'));
+const alias = require('../config/alias.json');
+console.log(colors.grey('[Config] alias.json loaded!'));
 
 if (!config) throw new Error('The config-file is empty!');
 if (!config.token || config.token == 'DISCORD-BOT-TOKEN') throw new Error('Please set a bot token in the config file!');
@@ -32,3 +34,4 @@ if (!config.timer || config.timer == 'ck/surftimer') throw new Error('Please ent
 if (!channels.log.channelID || channels.log.channelID == 'channelID') throw new Error('Please enter a channelID in the channels file!');
 if (!channels.memberCount.channelID || channels.memberCount.channelID == 'channelID') throw new Error('Please enter a channelID in the channels file!');
 if (!whitelist.allowedIDs || whitelist.allowedIDs[0] == 'array of role id\'s') throw new Error('Please enter the allowed role ids in the whitelist file!');
+if (!alias) throw new Error('The alias-config is empty or non existent!');
