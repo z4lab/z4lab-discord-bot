@@ -35,10 +35,10 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                     let embed = new RichEmbed()
                         .setAuthor(summary.nickname + ' on our Surf Server', '', summary.url)
                         .setThumbnail(summary.avatar.large)
-                        .addField('Country: ', country, true)
-                        .addField('Rank: ', `${rank}/${i}`, true)
-                        .addField('Points: ', points, true)
-                        .addField('Finished Maps: ', `${finishedmaps}`, true);
+                        .addField('Country ', country, true)
+                        .addField('Rank ', `${rank}/${i}`, true)
+                        .addField('Points ', points, true)
+                        .addField('Finished Maps ', `${finishedmaps}`, true);
 
                     return message.channel.send(embed);
                 });
@@ -69,10 +69,10 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                     let embed = new RichEmbed()
                         .setAuthor(summary.nickname + ' on our Surf Pro Server', '', summary.url)
                         .setThumbnail(summary.avatar.large)
-                        .addField('Country: ', country, true)
-                        .addField('Rank: ', `${rank}/${i}`, true)
-                        .addField('Points: ', points, true)
-                        .addField('Finished Maps: ', `${finishedmaps}`, true);
+                        .addField('Country ', country, true)
+                        .addField('Rank ', `${rank}/${i}`, true)
+                        .addField('Points ', points, true)
+                        .addField('Finished Maps ', `${finishedmaps}`, true);
 
                     return message.channel.send(embed);
                 });
