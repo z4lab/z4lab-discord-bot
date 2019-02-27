@@ -7,7 +7,7 @@ bot.on('message', message => {
 
     if (message.author.id === bot.user.id) return;
     if (message.author.bot) return;
-    if (message.channel.type === "dm") return message.channel.send("I don't anwser in this chat!");
+    if (message.channel.type === "dm") return message.channel.send("Please use our #z4lab-bot channel");
 
     if (config.channel.type == 'id/name' && !message.channel.name.includes('bot')) return;
     if (!config.channel.name && !config.channel.id && !message.channel.name.includes('bot')) return;

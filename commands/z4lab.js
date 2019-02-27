@@ -4,7 +4,7 @@ const { RichEmbed } = require("discord.js");
 module.exports.run = function (bot, message, args, prefix) {
 
     let embed = new RichEmbed()
-        .setTitle('z4lab Discord Bot Quick Links')
+        .setTitle('z4lab Community Links')
         .setThumbnail(bot.user.avatarURL)
         .addField('Homepage', '<https://z4lab.com>  ', true)
         .addField('Steam Group', '<https://z4lab.com/group/>', true)

@@ -7,8 +7,8 @@ module.exports.run = function (bot, message, args, prefix){
         .setTitle('z4lab Discord Bot')
         .setThumbnail(bot.user.avatarURL)
         .addField(`Main Script`, `<@235809101051985920>`, true)
-        .addField(`additional stuff/Ideas`, `<@521468077817200643>`, true)
-        .addField(`Github Repository`, `https://github.com/totles/z4lab-discord-bot`, true);
+        .addField(`Team Maintainer`, `<@521468077817200643>`, true)
+        .addField(`GitHub Repository`, `https://github.com/totles/z4lab-discord-bot`, true);
 
     return message.channel.send(embed);
 

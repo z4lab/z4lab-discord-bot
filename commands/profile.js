@@ -33,7 +33,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                 }
                 steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
                     let embed = new RichEmbed()
-                        .setAuthor(summary.nickname + ' @ Beginner Server', '', summary.url)
+                        .setAuthor(summary.nickname + ' on our Surf Server', '', summary.url)
                         .setThumbnail(summary.avatar.large)
                         .addField('Country: ', country, true)
                         .addField('Rank: ', `${rank}/${i}`, true)
@@ -67,7 +67,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
                 }
                 steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
                     let embed = new RichEmbed()
-                        .setAuthor(summary.nickname + ' @ Pro Server', '', summary.url)
+                        .setAuthor(summary.nickname + ' on our Surf Pro Server', '', summary.url)
                         .setThumbnail(summary.avatar.large)
                         .addField('Country: ', country, true)
                         .addField('Rank: ', `${rank}/${i}`, true)

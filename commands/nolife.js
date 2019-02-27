@@ -22,13 +22,13 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro) 
         let _timeonline = toDuration(timeonline*1000, { units: ['mo', 'w', 'd', 'h', 'm'], round: true });
         steamapi.getUserSummary(String(get[0].steamid64)).then(summary => {
             let embed = new RichEmbed()
-                .setAuthor(summary.nickname + ' on Surf Server', '', summary.url)
+                .setAuthor(summary.nickname + ' on our Surf Server', '', summary.url)
                 .setThumbnail(summary.avatar.large)
-                .addField('Total time on Surf Server', _timeonline, false)
+                .addField('Total time online', _timeonline, false)
                 .addField('Time playing', _timealive, true)
                 .addField('Time specating', _timespec, true)
                 .setTimestamp(new Date(lastseen*1000))
-                .setFooter(`Last seen`);
+                .setFooter(`last seen`);
 
             return message.channel.send(embed);
         });

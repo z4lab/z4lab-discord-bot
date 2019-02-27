@@ -4,7 +4,7 @@ const config = require("../config/bot.json");
 
 module.exports.run = async (bot, message, args, prefix) => {
 
-    let res = await superagent.get('https://raw.githubusercontent.com/13ace37/discordjs-surftimer/z4lab/config/example-bot.json');
+    let res = await superagent.get('https://raw.githubusercontent.com/totles/z4lab-discord-bot/master/config/example-bot.json');
 
     var clientVersion = JSON.parse(res.text).version.version;
     var _version = config.version.version;
