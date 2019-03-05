@@ -1,7 +1,11 @@
 const SteamAPI = require('steamapi');
+const {
+    RichEmbed
+} = require("discord.js");
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 const fixTime = require("../util/fixTime.js");
+const toDuration = require('humanize-duration');
 var dbRequest = {};
 module.exports = dbRequest;
 /**
@@ -38,22 +42,24 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
     if (name != null) name = "AND name LIKE '%" + String(username) + "%'";
     else name = '';
 
-    mysql.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} AND style = '0' ORDER BY runtimepro ASC`, function (error, res) {
+    mysql.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} AND style = '0' ORDER BY runtimepro ASC`, async function (error, res) {
         if (error) {
             result.error.id = 1;
             result.error.name = 'Error while database request!';
             return console.log(result.error);
         } else {
             if (String(res) != []) map = res[0].mapname;
+
+
             if (String(res) == []) {
-                mysql.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (error, res) {
+                mysql.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (error, get) {
                     if (error) {
                         result.error.id = 1;
                         result.error.name = 'Error while database request!';
                         return console.log(result.error);
                     }
 
-                    if (String(res) == [] && result.error.id == 0) {
+                    if (String(get) == [] && result.error.id == 0) {
                         result.error.id = 2;
                         result.error.name = '```md\n[Error] Map <' + map + '> isn\'t on the server or wasn\'t added yet! ]:```';
                         result.error.print = true;
@@ -61,16 +67,19 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
 
                     if (name != '' && result.error.id == 0) {
                         result.error.id = 3;
-                        result.error.name = '```md\n[Error] The player hasn\'t finished <' + res[0].mapname + '> yet! ]:```';
+                        result.error.name = '```md\n[Error] The player hasn\'t finished <' + get[0].mapname + '> yet! ]:```';
                         result.error.print = true;
                     }
+
                     if (result.error.id == 0) {
                         result.error.id = 4;
                         result.error.name = '```md\n[Error] <' + get[0].mapname + '> wasn\'t finished yet! ]:```';
                         result.error.print = true;
                     }
+
                     return;
                 });
+                await sleep(100);
             }
             if (result.error.id == 0) {
                 let ms = res[0].runtimepro * 1000;
@@ -109,10 +118,83 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
  * @param {object} mysql0 beginner server mysql connection
  * @param {object} mysql1 pro server mysql connection
  */
-var getPlaytime = dbRequest.getPlaytime = function getPlaytime(name, mysql0, mysql1) {
+var getPlaytime = dbRequest.getPlaytime = async function getPlaytime(name, mysql0, mysql1) {
+
+    var result = {};
+    result.error = {};
+    result.error.id = 0;
+    result.error.name = '';
+    result.error.print = false;
+
+    var lastseen = '';
+    var firstseen = '';
+    var timealive = '';
+    var timespec = '';
+    var timeonline = '';
+    var _timealive = '';
+    var _timespec = '';
+    var _timeonline = '';
+
+    mysql0.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' AND style = '0' ORDER BY points DESC`, async function (err, beginner) {
+        if (err) return console.log(String(err));
+        var beginnerTime = beginner;
+        mysql1.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' AND style = '0' ORDER BY points DESC`, async function (err, pro) {
+            if (err) return console.log(String(err));
+            var proTime = pro;
+            if (beginnerTime[0] && !proTime[0]) {
+                lastseen = beginnerTime[0].lastseen;
+                firstseen = beginnerTime[0].joined;
+                timealive = beginnerTime[0].timealive;
+                timespec = beginnerTime[0].timespec;
+                timeonline = timealive + timespec;
+            } else if (!beginnerTime[0] && proTime[0]) {
+                lastseen = proTime[0].lastseen;
+                firstseen = proTime[0].joined;
+                timealive = proTime[0].timealive;
+                timespec = proTime[0].timespec;
+                timeonline = timealive + timespec;
+            } else if (beginnerTime[0] && proTime[0] && beginnerTime[0].steamid64 == proTime[0].steamid64) {
+                if (beginnerTime[0].lastseen > proTime[0].lastseen) lastseen = beginnerTime[0].lastseen;
+                else lastseen = proTime[0].lastseen;
+                if (beginnerTime[0].firstseen < proTime[0].firstseen) firstseen = beginnerTime[0].firstseen;
+                else firstseen = proTime[0].firstseen;
+                timealive = beginnerTime[0].timealive + proTime[0].timealive;
+                timespec = beginnerTime[0].timespec + proTime[0].timespec;
+                timeonline = timealive + timespec;
+            } else {
+                result.error.id = 1;
+                result.error.name = '```md\n[Error] The user wasn\'t found in the database! ]:```';
+                result.error.print = true;
+            }
+            if (result.error.id == 0) {
+                _timealive = toDuration(timealive * 1000, {
+                    units: ['mo', 'w', 'd', 'h', 'm'],
+                    round: true
+                });
+                _timespec = toDuration(timespec * 1000, {
+                    units: ['mo', 'w', 'd', 'h', 'm'],
+                    round: true
+                });
+                _timeonline = toDuration(timeonline * 1000, {
+                    units: ['mo', 'w', 'd', 'h', 'm'],
+                    round: true
+                });
 
 
-
+            }
+            var summary = await steamapi.getUserSummary(String(beginnerTime[0].steamid64) || String(proTime[0].steamid64));
+            result.embed = new RichEmbed()
+                .setAuthor(summary.nickname + ' on Surf Servers', '', summary.url)
+                .setThumbnail(summary.avatar.large)
+                .addField('Total time on Surf Server', _timeonline, false)
+                .addField('Time playing', _timealive, true)
+                .addField('Time specating', _timespec, true)
+                .setTimestamp(new Date(lastseen * 1000))
+                .setFooter(`Last seen`);
+        });
+    });
+    await sleep(1000);
+    return result;
 };
 
 
