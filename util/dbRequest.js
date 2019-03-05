@@ -186,7 +186,7 @@ var getPlaytime = dbRequest.getPlaytime = async function getPlaytime(name, mysql
             result.embed = new RichEmbed()
                 .setAuthor(summary.nickname + ' on Surf Servers', '', summary.url)
                 .setThumbnail(summary.avatar.large)
-                .addField('Total time on Surf Server', _timeonline, false)
+                .addField('Total time on Surf Servers', _timeonline, false)
                 .addField('Time playing', _timealive, true)
                 .addField('Time specating', _timespec, true)
                 .setTimestamp(new Date(lastseen * 1000))
