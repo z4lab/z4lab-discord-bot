@@ -26,8 +26,3 @@ discord bot for z4lab, main author @13ace37
 - run chmod +x `update-bot.sh`
 - change the default variables in the file (Line 4, 5, 6 and 7)
 - run the script with `./update-bot.sh`
-
-# todo list
-- [ ] add a `.ts` command which shows teamspeak server information/users
-- [ ] add `.rcon` command for discord admins to run commands on csgo servers (like `.rcon all say "hello"` or `.rcon surf say "hello"`)
-- [ ] combine `.nolife` with both surf and pro surf server
