@@ -1,9 +1,9 @@
-const superagent = require('superagent');
-const { RichEmbed } = require('discord.js');
+const superagent = require("superagent");
+const { RichEmbed } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
     
-    let { body } = await superagent.get(`https://randomfox.ca/floof/`);
+    let { body } = await superagent.get("https://randomfox.ca/floof/");
 
     let catembed = new RichEmbed()
     .setTitle("here is a random fox for you")
