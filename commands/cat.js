@@ -4,10 +4,10 @@ const superagent = require("superagent");
 module.exports.run = async (bot, message, args) => {
     
     let {body} = await superagent
-    .get(`https://aws.random.cat/meow`);
+    .get("https://aws.random.cat/meow");
 
     let catembed = new Discord.RichEmbed()
-    .setColor('RANDOM')
+    .setColor("RANDOM")
     .setTitle("here is a random cat for you")
     .setImage(body.file)
     .setTimestamp(new Date())
