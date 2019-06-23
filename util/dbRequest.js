@@ -6,6 +6,7 @@ const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
 const fixTime = require("../util/fixTime.js");
 const toDuration = require('humanize-duration');
+const formatID = require('../util/formatID');
 var dbRequest = {};
 module.exports = dbRequest;
 /**
@@ -21,11 +22,11 @@ var getProfile = dbRequest.getProfile = function getProfile(name, server, mysql)
 };
 /**
  * getMaptime function
- * @param {string} name player name -- user input
- * @param {bool}   record maprecord or not -- user input if name isnt defined
- * @param {object} map map name -- user input
- * @param {string} server server name -- user input
- * @param {object} mysql pro server mysql connection
+ * @param {string}  name player name -- user input
+ * @param {boolean} record maprecord or not -- user input if name isnt defined
+ * @param {object}  map map name -- user input
+ * @param {string}  server server name -- user input
+ * @param {object}  mysql pro server mysql connection
  */
 var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, map, server, mysql) {
 
@@ -182,7 +183,10 @@ var getPlaytime = dbRequest.getPlaytime = async function getPlaytime(name, mysql
 
 
             }
-            var summary = await steamapi.getUserSummary(String(beginnerTime[0].steamid64) || String(proTime[0].steamid64));
+            let id = "";
+            if (!beginnerTime[0]) id = String(proTime[0].steamid64);
+            else id = String(beginnerTime[0].steamid64);
+            var summary = await steamapi.getUserSummary(id);
             result.embed = new RichEmbed()
                 .setAuthor(summary.nickname + ' on Surf Servers', '', summary.url)
                 .setThumbnail(summary.avatar.large)
@@ -195,8 +199,58 @@ var getPlaytime = dbRequest.getPlaytime = async function getPlaytime(name, mysql
     });
     await sleep(1000);
     return result;
-};
+}
 
+/**
+ * getVipList function
+ * @param {object}  mysql vip srv mysql connection
+ */
+var getVipList = dbRequest.getVipList = async function getVipList(mysql) {
+
+    var result = {};
+    result.error = false;
+
+    mysql.query(`SELECT * FROM mysql_whitelist`, function (error, res) {
+        if (error) return result.error = error;
+        result.list = res;
+    });
+
+    await sleep(100);
+    return result;
+}
+
+
+/**
+ * checkVipList function
+ * @param {object}  mysql vip srv mysql connection
+ * @param {strng}   id    steamID/steamID64 from given user -- userinput
+ */
+var checkVipList = dbRequest.checkVipList = async function checkVipList(mysql, id) {
+
+    var result = {};
+    result.error = false;
+    result.vip = false;
+
+    //id = await formatID(id);
+
+    if (!id) {
+        result.error = {
+            id: 1,
+            msg: 'md\n[Error] Invalid SteamID entered! ]:'
+        };
+        return result;
+    }
+
+
+    mysql.query(`SELECT * FROM mysql_whitelist WHERE steamid = '${id}'`, function (error, res) {
+        if (error) return result.error = error;
+        if (res.length != 0) result.vip = true;
+        else result.vip = false;
+    });
+
+    await sleep(100);
+    return result;
+}
 
 function sleep(ms) {
     return new Promise(resolve => {
