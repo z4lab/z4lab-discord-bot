@@ -1,4 +1,4 @@
-
-.jshintrc
 commands/disable/*
 todolist.txt
+
+\.vscode/

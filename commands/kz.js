@@ -5,6 +5,8 @@ const gamedig = require('gamedig');
 
 module.exports.run = function (bot, message, args, prefix) {
 
+    message.channel.startTyping();
+
     gamedig.query(servers["kz"],
         function (e, state) {
 
@@ -39,6 +41,7 @@ module.exports.run = function (bot, message, args, prefix) {
                     .addField(`Server currently unavailable`, "check again soon", false);
             }
 
+            message.channel.stopTyping();
             return message.channel.send(embed);
 
         });

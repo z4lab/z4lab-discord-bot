@@ -5,6 +5,8 @@ const gamedig = require('gamedig');
 
 module.exports.run = function (bot, message, args, prefix) {
 
+    message.channel.startTyping();
+
     gamedig.query(servers["beginner"],
         function (e, state) {
 
@@ -38,11 +40,12 @@ module.exports.run = function (bot, message, args, prefix) {
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Server currently unavailable`, "check again soon", false);
             }
-
+            
+            message.channel.stopTyping();
+            
             return message.channel.send(embed);
 
         });
-
 
 
 };
