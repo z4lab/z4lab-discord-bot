@@ -1,9 +1,8 @@
 const SteamAPI = require('steamapi');
-const {
-    RichEmbed
-} = require("discord.js");
+const { RichEmbed } = require("discord.js");
 const config = require("../config/bot.json");
 const steamapi = new SteamAPI(config.steam["api-key"]);
+const steam = require('steamidconvert')();
 const fixTime = require("../util/fixTime.js");
 const toDuration = require('humanize-duration');
 const formatID = require('../util/formatID');
@@ -15,9 +14,68 @@ module.exports = dbRequest;
  * @param {string} server server name -- user input
  * @param {object} mysql beginner/pro server mysql connection
  */
-var getProfile = dbRequest.getProfile = function getProfile(name, server, mysql) {
+var getProfile = dbRequest.getProfile = async function getProfile(name, server, mysql) {
 
+    var result = {};
+    result.error = {};
+    result.error.id = 0;
+    result.error.name = false;
+    result.error.print = false;
 
+    if (server == "pro") server = " Pro";
+    else server = "";
+
+    mysql.query(`SELECT * FROM ck_playerrank WHERE name LIKE '%${name}%' AND style = '0' ORDER BY points DESC`, function (err, get) {
+        if (err) {
+            result.error.id = 1;
+            result.error.name = "```md\n[Error] Failed to load client profile ]:```";
+            result.error.print = true;
+            return result;
+        }
+        if (!get[0]) {
+            result.error.id = 1;
+            result.error.name = "```md\n[Error] The user wasn\'t found in the database! ]:```";
+            result.error.print = true;
+            return result;
+        }
+        let country = get[0].country;
+        let points = get[0].points;
+        let connections = get[0].connections;
+        let wrpoints = get[0].wrpoints;
+        let wrbpoints = get[0].wrpoints;
+        let wrcppoints = get[0].wrcppoints;
+        let finishedmaps = get[0].finishedmapspro;
+        let finishedbonuses = get[0].finishedbonuses;
+        let finishedstages = get[0].finishedstages;
+        let wrs = get[0].wrs;
+        let wrbs = get[0].wrbs;
+        let wrcps = get[0].wrcps;
+        let sid = get[0].steamid;
+        mysql.query(`SELECT * FROM ck_playerrank WHERE style = '0' ORDER BY points DESC`, function (err, get) {
+            if (err) {
+                result.error.id = 2;
+                result.error.name = "```md\n[Error] Failed to load client profile ]:```";
+                result.error.print = true;
+                return result;
+            }
+            for (var i = 0; i < get.length; i++) {
+                if (get[i].steamid == sid) var rank = i + 1;
+            }
+            steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
+                result.embed = new RichEmbed()
+                    .setAuthor(`${summary.nickname} on our${server} Surf Server`, '', summary.url)
+                    .setThumbnail(summary.avatar.large)
+                    .addField('Country ', country, true)
+                    .addField('Rank ', `${rank}/${i}`, true)
+                    .addField('Points ', points, true)
+                    .addField('Finished Maps ', `${finishedmaps}`, true);
+            });
+        });
+    });
+
+    console.log(result);
+    await sleep(500);
+    return result;
 
 };
 /**
