@@ -5,21 +5,15 @@ const alias = require('../util/alias');
 
 bot.on('message', message => {
 
+    var fChannelId = config.channels[0];
+
     if (message.author.id === bot.user.id) return;
     if (message.author.bot) return;
-    if (message.channel.type === "dm") return message.channel.send("Please use our #z4lab-bot channel");
+    if (message.channel.type === "dm") return message.channel.send(`Please use our <#${fChannelId}> channel`);
 
-    if (config.channel.type == 'id/name' && !message.channel.name.includes('bot')) return;
-    if (!config.channel.name && !config.channel.id && !message.channel.name.includes('bot')) return;
-    if (config.channel.type == 'name' && !config.channel.id && message.channel.name != config.channel.name) return;
-    if (config.channel.type == 'id' && message.channel.id != config.channel.id) return;
-    if (config.channel.type == 'name' && config.channel.id && config.channel.name && message.channel.id != config.channel.id) return;
+    if (!config.channels.includes(message.channel.id)) return;
 
     var prefix = config.prefix;
-
-    var botid = bot.user.id;
-
-    var mbot = message.guild.members.get(botid);
 
     var messageArray = message.content.split(" ");
     var cmd = messageArray[0].toLowerCase();
@@ -33,5 +27,4 @@ bot.on('message', message => {
     
     if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);    
     
-
 });

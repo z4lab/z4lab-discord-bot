@@ -5,11 +5,7 @@
         "api-key": "STEAM-API-KEY"
     },
     "timer": "ck/surftimer",
-    "channel": {
-        "type": "id/name",
-        "name": "",
-        "id": ""
-    },
+    "channels": [""],
     "presence": {
         "game": {
             "name": "z4lab.com |"
