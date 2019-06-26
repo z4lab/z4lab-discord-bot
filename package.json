@@ -11,7 +11,7 @@
     "moment-duration-format": "^2.2.2",
     "humanize-duration": "^3.16.0",
     "mysql": "^2.16.0",
-    "node-gyp": "^3.8.0",
+    "node-gyp": "^5.0.0",
     "os": "^0.1.1",
     "gamedig": "^1.0.47",
     "random-hex-color": "^1.0.1",
@@ -20,7 +20,7 @@
     "steamapi": "^2.0.3",
     "steamid": "^1.1.0",
     "steamidconvert": "^0.2.4",
-    "superagent": "^4.0.0-beta.5"
+    "superagent": "^5.0.5"
   },
   "devDependencies": {},
   "scripts": {
