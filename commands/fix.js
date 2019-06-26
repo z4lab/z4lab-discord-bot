@@ -11,15 +11,7 @@ module.exports.run = function (bot, message, args) {
         var count = 0;
 
         message.guild.members.forEach(member => {
-<<<<<<< Updated upstream
             if (!member.roles.find(role => role.name === "Member")) {
-=======
-<<<<<<< HEAD
-            if (!member.roles.find(role => role.name === "Member") && !member.user.bot) {
-=======
-            if (!member.roles.find(role => role.name === "Member")) {
->>>>>>> parent of 9c73812... fixed fix command :D
->>>>>>> Stashed changes
                 addMember(member);
                 count++;
             }
