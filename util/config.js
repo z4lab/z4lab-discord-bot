@@ -10,6 +10,9 @@ console.log(colors.grey('[Config] whitelist.json loaded!'));
 console.log(colors.grey('[Config] servers.json loaded!'));
 const alias = require('../config/alias.json');
 console.log(colors.grey('[Config] alias.json loaded!'));
+const npm = require('../package.json');
+
+if (npm.version != config.version.version) console.log(colors.yellow.underline("[Config] NPM Version != Bot Version!"));
 
 if (!config) throw new Error('The config-file is empty!');
 if (!config.token || config.token == 'DISCORD-BOT-TOKEN') throw new Error('Please set a bot token in the config file!');
