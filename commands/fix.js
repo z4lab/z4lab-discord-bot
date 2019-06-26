@@ -11,7 +11,7 @@ module.exports.run = function (bot, message, args) {
         var count = 0;
 
         message.guild.members.forEach(member => {
-            if (!member.roles.find(role => role.name === "Member") && !member.bot) {
+            if (!member.roles.find(role => role.name === "Member") && !member.user.bot) {
                 addMember(member);
                 count++;
             }
