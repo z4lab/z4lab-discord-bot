@@ -8,8 +8,6 @@ module.exports = async function (input = false) {
 
     if (!input) return false;
 
-    console.log(input);
-
     try {
         var id = await steamapi.resolve("'"+String(input)+"'");
         if (id) input = id; 
