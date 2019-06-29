@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) => {
     res = res.body;
     
     var embed = new RichEmbed()
-        .setTitle(`Weather @ ${res.name} / ${res.sys.country}`)
+        .setTitle(`Weather for ${res.name} / ${res.sys.country} @ ${new Date((Date.now()+(res.timezone*1000))).toLocaleString('en-US')}`)
         .setThumbnail(res.weather[0].icon)
         .setFooter("Last update")
         .setTimestamp(res.dt*1000)
