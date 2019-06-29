@@ -31,6 +31,6 @@ function memberCount(member) {
     let channel = member.guild.channels.find(channel => channel.id == channelID);
     let guild = bot.guilds.first();
 
-    channel.setName("lounge [afk] - " + guild.memberCount + " members");
+    channel.setName("[afk] - " + guild.memberCount + " members");
 
 }
