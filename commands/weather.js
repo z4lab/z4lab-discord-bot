@@ -5,7 +5,7 @@ const { RichEmbed } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-    if (args.length === 0) return;
+    if (args.length === 0) return message.channel.send('Please enter a city/village name!');
 
     let testArgs = args.join(" ");
 
@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
         return city.name.match(testArgs);
     });
 
-    if (citiesArray.length == 0) return message.channel.send("Can't find a city!");
+    if (citiesArray.length == 0) return message.channel.send("Can't find a city/village!");
 
     var city = citiesArray[0];
 
