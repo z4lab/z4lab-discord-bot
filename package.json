@@ -14,7 +14,7 @@
     "mysql": "^2.16.0",
     "node-gyp": "^5.0.0",
     "os": "^0.1.1",
-    "gamedig": "^1.0.47",
+    "gamedig": "^2.0.14",
     "random-hex-color": "^1.0.1",
     "rebuild": "^0.1.2",
     "steam-user": "^3.28.2",
