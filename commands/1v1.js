@@ -51,5 +51,8 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "1v1"
+    name: "1v1",
+    category: "servers",
+    usage: false,
+    permissionLvl: 0
 };

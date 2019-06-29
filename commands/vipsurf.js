@@ -51,5 +51,8 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "vipsurf"
+    name: "vipsurf",
+    category: "servers",
+    usage: false,
+    permissionLvl: 0
 };

@@ -57,4 +57,7 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "weather",
+    category: "main",
+    usage: `${prefix} weather [city/village]`,,
+    permissionLvl: 0
 };

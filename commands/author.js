@@ -15,5 +15,8 @@ module.exports.run = function (bot, message, args, prefix){
 };
 
 module.exports.help = {
-    name: "author"
+    name: "author",
+    category: "main",
+    usage: false,
+    permissionLvl: 0
 };

@@ -52,5 +52,8 @@ module.exports.run = function (bot, message, args, prefix, db){
 };
 
 module.exports.help = {
-    name: "btop"
+    name: "btop",
+    category: false,
+    usage: false,
+    permissionLvl: 0
 };

@@ -24,5 +24,8 @@ module.exports.run = function (bot, message, args, prefix){
 };
 
 module.exports.help = {
-    name: "help"
+    name: "help",
+    category: false,
+    usage: false,
+    permissionLvl: 0
 };

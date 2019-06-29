@@ -19,5 +19,8 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "z4lab"
+    name: "z4lab",
+    category: "main",
+    usage: false,
+    permissionLvl: 0
 };

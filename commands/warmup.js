@@ -51,5 +51,8 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "warmup"
+    name: "warmup",
+    category: "servers",
+    usage: false,
+    permissionLvl: 0
 };

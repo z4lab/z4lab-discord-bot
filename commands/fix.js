@@ -30,6 +30,9 @@ module.exports.run = function (bot, message, args) {
 
 module.exports.help = {
     name: "fix",
+    category: false,
+    usage: false,
+    permissionLvl: 3
 };
 
 function memberCount(member) {

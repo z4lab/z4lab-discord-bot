@@ -17,5 +17,8 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "servers"
+    name: "servers",
+    category: "main",
+    usage: false,
+    permissionLvl: 0
 };

@@ -19,5 +19,8 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 };
 
 module.exports.help = {
-    name: "profile"
+    name: "profile",
+    category: "main",
+    usage: `${prefix} profile [name]`,,
+    permissionLvl: 0
 };

@@ -12,5 +12,8 @@ module.exports.run = async (bot, message) => {
 };
 
 module.exports.help = {
-    name: "reboot"
+    name: "reboot",
+    category: false,
+    usage: false,
+    permissionLvl: 3
 };

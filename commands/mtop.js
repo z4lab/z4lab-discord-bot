@@ -33,5 +33,14 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 };
 
 module.exports.help = {
-    name: "mtop"
+    name: "mtop",
+    category: "main",
+    usage: usage,
+    permissionLvl: 0
 };
+
+var usage = new RichEmbed()
+.setTitle('z4lab Discord Bot mtop usage')
+.setThumbnail(bot.user.avatarURL)
+.addField(`${prefix}mtop [mapname] [BEGINNER/pro]`, '└ Shows maprecord for the given server', false)
+.addField(`${prefix}mtop [mapname] [username] [BEGINNER/pro]`, '└ Shows playerrecord for the given user/server', false);

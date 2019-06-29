@@ -88,5 +88,14 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 };
 
 module.exports.help = {
-    name: "whitelist"
+    name: "whitelist",
+    category: "main",
+    usage: dUsage,
+    permissionLvl: 1
 };
+
+var dUsage = new RichEmbed()
+.setTitle('z4lab Discord Bot whitelist usage')
+.setThumbnail(bot.user.avatarURL)
+.addField(`${prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
+.addField(`${prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);

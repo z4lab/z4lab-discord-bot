@@ -130,59 +130,6 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                 .addField('AK47 Kills:', `${user[0].ak}/${user[0].kills} (${Math.round((100*user[0].ak/user[0].kills) * 100) / 100}%)`);
 
              return message.channel.send(embed);
-            /*
-            let page = 1;
-            let pages = [{
-                title: user[0].name,
-                content: user[0].sid,
-            }, {
-                title: 'AK47 Kills:',
-                content: `${user[0].ak}/${user[0].kills} (${Math.round((100*user[0].ak/user[0].kills) * 100) / 100}%)`
-            }];
-             let embed = new RichEmbed()
-                .setTitle(`z4lab Arena Weaponstats :`)
-                .setThumbnail(bot.user.avatarURL)
-                .addField(user[0].name, user[0].sid, true)
-                .setFooter(`Page ${page} of ${pages.length}`);
-            var oldmsg = message;
-            return message.channel.send(embed).then(msg => {
-                let embed = new RichEmbed();
-                msg.react('\👈').then(r => {
-                    msg.react('\👉').then(r => {
-                        msg.react('\❌');
-                    });
-                     const bwFilter = (reaction, user) => reaction.emoji.name === '👈' && user.id != bot.user.id;
-                    const fwFilter = (reaction, user) => reaction.emoji.name === '👉' && user.id != bot.user.id;
-                    const rmFilter = (reaction, user) => reaction.emoji.name === '❌' && user.id != bot.user.id;
-                     const bw = msg.createReactionCollector(bwFilter);
-                    const fw = msg.createReactionCollector(fwFilter);
-                    const rm = msg.createReactionCollector(rmFilter);
-                     bw.on('collect', r => {
-                        if (page === 1) return;
-                        page--;
-                        embed.setTitle('z4lab-Bot Testing :')
-                            .setThumbnail(bot.user.avatarURL)
-                            .addField(pages[page - 1].title, pages[page - 1].content, false)
-                            .setFooter(`Page ${page} of ${pages.length}`);
-                        msg.edit(embed);
-                        embed = new RichEmbed();
-                    });
-                     fw.on('collect', r => {
-                        if (page === pages.length) return;
-                        page++;
-                        embed.setTitle('z4lab-Bot Testing :')
-                            .setThumbnail(bot.user.avatarURL)
-                            .addField(pages[page - 1].title, pages[page - 1].content, false)
-                            .setFooter(`Page ${page} of ${pages.length}`);
-                        msg.edit(embed);
-                        embed = new RichEmbed();
-                    });
-                     rm.on('collect', r => {
-                        oldmsg.delete();
-                        msg.delete();
-                    });
-                 });
-            });*/
         });
     }
 
@@ -193,5 +140,15 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
 
 
 module.exports.help = {
-    name: "arena"
+    name: "arena",
+    category: "main",
+    usage: usage,
+    permissionLvl: 0
 };
+
+var usage = new RichEmbed()
+.setTitle('z4lab Discord Bot arena usage')
+.setThumbnail(bot.user.avatarURL)
+.addField(`${prefix}arena top3 `, '└ Shows top 3 players in the 1v1 server', false)
+.addField(`${prefix}arena top5`, '└ Shows top 5 players in the 1v1 server', false)
+.addField(`${prefix}arena profile [name]`, '└ Shows the player stats', false);

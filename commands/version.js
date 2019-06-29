@@ -34,5 +34,8 @@ module.exports.run = async (bot, message, args, prefix) => {
 };
 
 module.exports.help = {
-    name: "version"
+    name: "version",
+    category: "main",
+    usage: false,
+    permissionLvl: 0
 };
