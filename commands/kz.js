@@ -36,7 +36,7 @@ module.exports.run = function (bot, message, args, prefix) {
 
             } else {
                 embed = new RichEmbed()
-                    .setTitle(serverName, true)
+                    .setTitle("[KZ] z4lab Climbing/Kreedz | 128 Tick // z4lab.com", true)
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Server currently unavailable`, "check again soon", false);
             }

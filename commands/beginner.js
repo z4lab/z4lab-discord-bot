@@ -36,7 +36,7 @@ module.exports.run = function (bot, message, args, prefix) {
 
             } else {
                 embed = new RichEmbed()
-                    .setTitle(serverName, true)
+                    .setTitle("[SURF] z4lab Beginner Surf | EASY | 102 Tick // z4lab.com", true)
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Server currently unavailable`, "check again soon", false);
             }

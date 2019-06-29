@@ -73,7 +73,6 @@ var getProfile = dbRequest.getProfile = async function getProfile(name, server, 
         });
     });
 
-    console.log(result);
     await sleep(500);
     return result;
 
