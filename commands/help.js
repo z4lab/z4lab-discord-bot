@@ -17,6 +17,7 @@ module.exports.run = function (bot, message, args, prefix){
         //.addField(`${prefix}btop [bonusnumber] [map]`, '# Shows current bonus record', false)
         .addField(`${prefix}unixend`, 'countdown to the worlds end', false)
         .addField(`${prefix}random`, 'displays all random commands available', false)
+        .addField(`${prefix}weather [city/village]`, 'show the current weather for the given city or village', false)
 
     return message.channel.send(embed);
 
