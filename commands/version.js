@@ -37,5 +37,6 @@ module.exports.help = {
     name: "version",
     category: "main",
     usage: false,
+    description: "displays the current versions of this bot",
     permissionLvl: 0
 };

@@ -21,6 +21,10 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 module.exports.help = {
     name: "nolife",
     category: "main",
-    usage: `${prefix} nolife [name]`,
+    usage: [{
+        command: "[username]",
+        description: "displays a users playtime on our surf servers"
+    }],
+    description: "displays a users playtime on our surf servers",
     permissionLvl: 0
 };

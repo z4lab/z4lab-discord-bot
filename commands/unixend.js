@@ -21,5 +21,6 @@ module.exports.help = {
     name: "unixend",
     category: "main",
     usage: false,
+    description: "cuntdown to the worlds end",
     permissionLvl: 0
 };

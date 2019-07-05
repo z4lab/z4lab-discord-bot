@@ -54,5 +54,6 @@ module.exports.help = {
     name: "beginner",
     category: "servers",
     usage: false,
+    description: false,
     permissionLvl: 0
 };

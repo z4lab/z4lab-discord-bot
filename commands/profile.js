@@ -21,6 +21,10 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 module.exports.help = {
     name: "profile",
     category: "main",
-    usage: `${prefix} profile [name]`,,
+    usage: [{
+        command: "[username] [BEGINNER/pro]",
+        description: "displays user stats on given server"
+    }],
+    description: "displays user stats on given server",
     permissionLvl: 0
 };

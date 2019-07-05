@@ -20,5 +20,6 @@ module.exports.help = {
     name: "servers",
     category: "main",
     usage: false,
+    description: "displays our servers and advanced server commands",
     permissionLvl: 0
 };

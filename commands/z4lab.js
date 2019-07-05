@@ -22,5 +22,6 @@ module.exports.help = {
     name: "z4lab",
     category: "main",
     usage: false,
+    description: "displays our community links",
     permissionLvl: 0
 };

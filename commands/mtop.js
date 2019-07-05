@@ -17,7 +17,7 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
     var record = false;
     var username = null;
     var name = 'AND 1=1';
-    if (args[1] && args[1].toLowerCase() != 'pro' && args[1].toLowerCase() != 'beginner'){
+    if (args[1] && args[1].toLowerCase() != 'pro' && args[1].toLowerCase() != 'beginner') {
         name = "AND name LIKE '%" + String(args[1]) + "%'";
         username = String(args[1]);
     }
@@ -35,12 +35,13 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 module.exports.help = {
     name: "mtop",
     category: "main",
-    usage: usage,
+    usage: [{
+        command: "[mapname] [BEGINNER/pro]",
+        description: "Shows maprecord for the given map/server"
+    }, {
+        command: "[mapname] [username] [BEGINNER/pro]",
+        description: "Shows playerrecord for the given map/user/server"
+    }],
+    description: "shows current map/player record for given map",
     permissionLvl: 0
 };
-
-var usage = new RichEmbed()
-.setTitle('z4lab Discord Bot mtop usage')
-.setThumbnail(bot.user.avatarURL)
-.addField(`${prefix}mtop [mapname] [BEGINNER/pro]`, '└ Shows maprecord for the given server', false)
-.addField(`${prefix}mtop [mapname] [username] [BEGINNER/pro]`, '└ Shows playerrecord for the given user/server', false);

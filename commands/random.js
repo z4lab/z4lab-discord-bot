@@ -20,5 +20,6 @@ module.exports.help = {
     name: "random",
     category: "main",
     usage: false,
+    description: "displays all random commands available",
     permissionLvl: 0
 };

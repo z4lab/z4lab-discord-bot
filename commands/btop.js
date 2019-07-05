@@ -55,5 +55,6 @@ module.exports.help = {
     name: "btop",
     category: false,
     usage: false,
+    description: false,
     permissionLvl: 0
 };

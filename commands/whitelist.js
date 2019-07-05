@@ -90,12 +90,13 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 module.exports.help = {
     name: "whitelist",
     category: "main",
-    usage: dUsage,
+    usage: [{
+        command: "add [STEAMID/STEAMID64/CUSTOM-URL]",
+        description: "Add a player to the whitelist"
+    }, {
+        command: "rm/remove [STEAMID/STEAMID64/CUSTOM-URL]",
+        description: "Remove a player to the whitelist"
+    }],
+    description: "add or remove a player on our VIP Surf Server's whitelist",
     permissionLvl: 1
 };
-
-var dUsage = new RichEmbed()
-.setTitle('z4lab Discord Bot whitelist usage')
-.setThumbnail(bot.user.avatarURL)
-.addField(`${prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
-.addField(`${prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);

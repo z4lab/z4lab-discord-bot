@@ -21,5 +21,6 @@ module.exports.help = {
     name: "meow",
     category: "random",
     usage: false,
+    description: "displays a random cat",
     permissionLvl: 0
 };

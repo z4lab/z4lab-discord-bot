@@ -19,5 +19,6 @@ module.exports.help = {
     name: "fox",
     category: "random",
     usage: false,
+    description: "displays a random fox",
     permissionLvl: 0
 };

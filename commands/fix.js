@@ -32,6 +32,7 @@ module.exports.help = {
     name: "fix",
     category: false,
     usage: false,
+    description: "Fixes roles and memberCount channel",
     permissionLvl: 3
 };
 

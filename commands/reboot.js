@@ -15,5 +15,6 @@ module.exports.help = {
     name: "reboot",
     category: false,
     usage: false,
+    description: "reboots bot",
     permissionLvl: 3
 };

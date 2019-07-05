@@ -54,5 +54,6 @@ module.exports.help = {
     name: "1v1",
     category: "servers",
     usage: false,
+    description: false,
     permissionLvl: 0
 };

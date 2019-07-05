@@ -1,4 +1,6 @@
-const { RichEmbed } = require("discord.js");
+const {
+    RichEmbed
+} = require("discord.js");
 const toTime = require("../util/toTime.js");
 
 module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, db_arena) {
@@ -129,7 +131,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
                 .addBlankField(true)
                 .addField('AK47 Kills:', `${user[0].ak}/${user[0].kills} (${Math.round((100*user[0].ak/user[0].kills) * 100) / 100}%)`);
 
-             return message.channel.send(embed);
+            return message.channel.send(embed);
         });
     }
 
@@ -142,13 +144,16 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
 module.exports.help = {
     name: "arena",
     category: "main",
-    usage: usage,
+    usage: [{
+        command: "top3",
+        description: "Shows top 3 players in the 1v1 server"
+    }, {
+        command: "top5",
+        description: "Shows top 5 players in the 1v1 server"
+    }, {
+        command: "profile [username]",
+        description: "Shows the player's stats"
+    }],
+    description: "displays advanced arena commands",
     permissionLvl: 0
 };
-
-var usage = new RichEmbed()
-.setTitle('z4lab Discord Bot arena usage')
-.setThumbnail(bot.user.avatarURL)
-.addField(`${prefix}arena top3 `, '└ Shows top 3 players in the 1v1 server', false)
-.addField(`${prefix}arena top5`, '└ Shows top 5 players in the 1v1 server', false)
-.addField(`${prefix}arena profile [name]`, '└ Shows the player stats', false);

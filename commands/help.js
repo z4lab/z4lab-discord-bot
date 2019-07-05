@@ -27,5 +27,6 @@ module.exports.help = {
     name: "help",
     category: false,
     usage: false,
+    description: false,
     permissionLvl: 0
 };

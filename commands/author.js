@@ -18,5 +18,6 @@ module.exports.help = {
     name: "author",
     category: "main",
     usage: false,
+    description: "displays the author of this bot",
     permissionLvl: 0
 };
