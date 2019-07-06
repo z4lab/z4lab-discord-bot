@@ -6,6 +6,7 @@ const config = require("./config/bot.json");
 const dbs = require('./config/dbs.json');
 const channels = require('./config/channels.json');
 const servers = require("./config/servers.json");
+const whitelist = require("./config/whitelist.json");
 
 require('./util/console');
 require('./util/dbHandler');
@@ -20,6 +21,7 @@ bot.config.main = config;
 bot.config.dbs = dbs;
 bot.config.channels = channels;
 bot.config.servers = servers;
+bot.config.whitelist = whitelist;
 bot.db = {};
 bot.db.db_arena = db_arena;
 bot.db.db_beginner = db_beginner;

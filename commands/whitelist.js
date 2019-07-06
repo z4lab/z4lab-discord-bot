@@ -1,13 +1,11 @@
 const { RichEmbed } = require("discord.js");
-const whitelist = require("../config/whitelist.json");
-const config = require("../config/bot.json");
 const dbPost = require("../util/dbPost");
 
-module.exports.run = async function (bot, message, args, prefix) {
+module.exports.run = async function (bot, message, args) {
 
     let access = false;
 
-    whitelist.allowedIDs.add.forEach(role => {
+    bot.config.whitelist.allowedIDs.add.forEach(role => {
         if (message.member.roles.has(role)) access = true;
     });
 
@@ -33,8 +31,8 @@ module.exports.run = async function (bot, message, args, prefix) {
     var usage = new RichEmbed()
         .setTitle('z4lab Discord Bot whitelist usage')
         .setThumbnail(bot.user.avatarURL)
-        .addField(`${prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
-        .addField(`${prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);
+        .addField(`${bot.config.main.prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
+        .addField(`${bot.config.main.prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);
 
 
     if (!args[0]) return message.channel.send(usage);
@@ -52,7 +50,7 @@ module.exports.run = async function (bot, message, args, prefix) {
 
     } else if (args[0] == 'rm' || args[0] == 'remove') {
         let del_access = false;
-        whitelist.allowedIDs.remove.forEach(role => {
+        bot.config.whitelist.allowedIDs.remove.forEach(role => {
             if (message.member.roles.has(role)) del_access = true;
         });
 
