@@ -1,22 +1,21 @@
 const { bot } = require('../index');
-const colors = require('colors/safe');
 const alias = require('../util/alias');
 const getPermissionLvl = require('../util/permissionLvl');
 
 
 bot.on('message', message => {
 
-    var fChannelId = config.channels[0];
+    var fChannelId = bot.config.main.channels[0];
 
     if (message.author.id === bot.user.id) return;
     if (message.author.bot) return;
     if (message.channel.type === "dm") return message.channel.send(`Please use our <#${fChannelId}> channel`);
 
-    if (!config.channels.includes(message.channel.id)) return;
+    if (!bot.config.main.channels.includes(message.channel.id)) return;
 
     var permissionLvl = getPermissionLvl(message.member);
 
-    var prefix = config.prefix;
+    var prefix = bot.config.main.prefix;
 
     var messageArray = message.content.split(" ");
     var cmd = messageArray[0].toLowerCase();
