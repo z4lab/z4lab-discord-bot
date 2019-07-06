@@ -1,4 +1,4 @@
-const { bot, config, db_arena, db_beginner, db_pro, db_whitelist } = require('../index');
+const { bot } = require('../index');
 const colors = require('colors/safe');
 const alias = require('../util/alias');
 const getPermissionLvl = require('../util/permissionLvl');
@@ -28,7 +28,8 @@ bot.on('message', message => {
     
     var commandFile = bot.commands.get(cmd);
 
-    if (permissionLvl >= commandFile.help.permissionLvl && commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);    
-    else if (permissionLvl < commandFile.help.permissionLvl && commandFile) return message.reply("you don't have enough permission to use this command!");
-    
+    if (commandFile && permissionLvl >= commandFile.help.permissionLvl) commandFile.run(bot, message, args);    
+    else if (commandFile && permissionLvl < commandFile.help.permissionLvl) return message.reply("you don't have enough permission to use this command!");
+    else return;
+
 });

@@ -3,7 +3,9 @@ const {
 } = require("discord.js");
 const toTime = require("../util/toTime.js");
 
-module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, db_arena) {
+module.exports.run = function (bot, message, args) {
+
+    return;
 
     let commandlist = ["top3", "top5", "profile"];
 
@@ -143,7 +145,7 @@ module.exports.run = function (bot, message, args, prefix, db_beginner, db_pro, 
 
 module.exports.help = {
     name: "arena",
-    category: "main",
+    category: false,
     usage: [{
         command: "top3",
         description: "Shows top 3 players in the 1v1 server"
@@ -155,5 +157,5 @@ module.exports.help = {
         description: "Shows the player's stats"
     }],
     description: "displays advanced arena commands",
-    permissionLvl: 0
+    permissionLvl: 1
 };

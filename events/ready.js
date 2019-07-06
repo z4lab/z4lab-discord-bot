@@ -8,17 +8,17 @@ bot.on('ready', () => {
     console.log(timestamp() + colors.grey(`[Discord] ${bot.user.tag} started!`));
     console.log('');
     let botUser = bot.guilds.first().members.get(bot.user.id);
-    if (config.version.inName == true) {
+    if (bot.config.main.version.inName == true) {
         botUser.edit({
-            nick: bot.user.username + ` [${config.version.version}]`
+            nick: bot.user.username + ` [${bot.config.main.version.version}]`
         });
     } else {
         botUser.edit({
             nick: bot.user.username
         });
     }
-    let presence = config.presence;
-    presence.game.name += ` ${config.prefix}help`;
+    let presence = bot.config.main.presence;
+    presence.game.name += ` ${bot.config.main.prefix}help`;
     bot.user.setPresence(presence);
     bot.setInterval(() => {
         bot.user.setStatus('idle'); 

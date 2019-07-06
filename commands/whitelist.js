@@ -3,7 +3,7 @@ const whitelist = require("../config/whitelist.json");
 const config = require("../config/bot.json");
 const dbPost = require("../util/dbPost");
 
-module.exports.run = async function (bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist) {
+module.exports.run = async function (bot, message, args, prefix) {
 
     let access = false;
 
@@ -43,7 +43,7 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
         //add command
         if (!args[1]) return message.channel.send(usage);
 
-        let result = await dbPost.whitelistAdd(db_whitelist, args[1]);
+        let result = await dbPost.whitelistAdd(bot.db.db_whitelist, args[1]);
 
         if (result.error) return message.channel.send(result.error.message);
         if (result.embed) return message.channel.send(result.embed);
@@ -78,7 +78,7 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
         //remove command
         if (!args[1]) return message.channel.send(usage);
 
-        let result = await dbPost.whitelistRemove(db_whitelist, args[1]);
+        let result = await dbPost.whitelistRemove(bot.db.db_whitelist, args[1]);
 
         if (result.error) return message.channel.send(result.error.message);
         if (result.embed) return message.channel.send(result.embed);

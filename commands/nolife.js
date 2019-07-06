@@ -1,16 +1,11 @@
-const { RichEmbed } = require("discord.js");
-const toDuration = require('humanize-duration');
-const SteamAPI = require('steamapi');
-const config = require("../config/bot.json");
-const steamapi = new SteamAPI(config.steam["api-key"]);
 const dbRequest = require('../util/dbRequest');
 
-module.exports.run = async function (bot, message, args, prefix, db_beginner, db_pro) {
+module.exports.run = async function (bot, message, args) {
 
-    if (!args[0]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + prefix + 'nolife [Name] ]:```');
+    if (!args[0]) return message.channel.send('```md\n[Error] No Name entered! ]:\n\n[Usage] : ' + bot.config.main.prefix + 'nolife [Name] ]:```');
     let name = args[0];
 
-    var result = await dbRequest.getPlaytime(name, db_beginner, db_pro);
+    var result = await dbRequest.getPlaytime(name, bot.db.db_beginner, bot.db.db_pro);
 
     if (result.error.print) return message.channel.send(result.error.name);
     if (result.embed) return message.channel.send(result.embed);

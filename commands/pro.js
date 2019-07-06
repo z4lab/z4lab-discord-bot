@@ -1,13 +1,12 @@
 const { RichEmbed } = require("discord.js");
-const servers = require("../config/servers.json");
 const gamedig = require('gamedig');
 
 
-module.exports.run = function (bot, message, args, prefix) {
+module.exports.run = function (bot, message, args) {
 
     message.channel.startTyping();
 
-    gamedig.query(servers["pro"],
+    gamedig.query(bot.config.servers["pro"],
         function (e, state) {
 
             var embed;
@@ -51,7 +50,7 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "kz",
+    name: "pro",
     category: "servers",
     usage: false,
     description: false,

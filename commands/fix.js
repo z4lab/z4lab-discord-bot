@@ -1,10 +1,8 @@
-const channels = require('../config/channels.json');
-
 module.exports.run = function (bot, message, args) {
     
     if (message.member.hasPermission("ADMINISTRATOR")) {
 
-        var mC = message.guild.channels.find(channel => channel.id == channels.memberCount.channelID).name.includes(message.guild.memberCount);
+        var mC = message.guild.channels.find(channel => channel.id == bot.config.channels.memberCount.channelID).name.includes(message.guild.memberCount);
 
         memberCount(message.member);
         
@@ -26,6 +24,24 @@ module.exports.run = function (bot, message, args) {
         return message.channel.send("Pssst... you shouldn't know this command ._.");
     }
 
+    function memberCount(member) {
+
+        let channelID = bot.config.channels.memberCount.channelID;
+        let channel = member.guild.channels.find(channel => channel.id == channelID);
+        let guild = member.guild;
+    
+        channel.setName("[afk] - " + guild.memberCount + " members");
+    
+    }
+    
+    function addMember(member) {
+    
+        let role = member.guild.roles.find(role => role.name == 'Member'); //looks for the Member role
+    
+        member.addRole(role); //add the Member role to the user
+    
+    }
+
 };
 
 module.exports.help = {
@@ -35,21 +51,3 @@ module.exports.help = {
     description: "Fixes roles and memberCount channel",
     permissionLvl: 3
 };
-
-function memberCount(member) {
-
-    let channelID = channels.memberCount.channelID;
-    let channel = member.guild.channels.find(channel => channel.id == channelID);
-    let guild = member.guild;
-
-    channel.setName("[afk] - " + guild.memberCount + " members");
-
-}
-
-function addMember(member) {
-
-    let role = member.guild.roles.find(role => role.name == 'Member'); //looks for the Member role
-
-    member.addRole(role); //add the Member role to the user
-
-}

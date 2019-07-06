@@ -6,7 +6,7 @@ const steamapi = new SteamAPI(config.steam["api-key"]);
 const fixTime = require("../util/fixTime.js");
 
 
-module.exports.run = function (bot, message, args, prefix, db){
+module.exports.run = function (bot, message, args){
     return; //currently disabled until next bigger update
     if (!args[0]) {
         let embed = new RichEmbed()

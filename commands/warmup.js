@@ -1,13 +1,12 @@
 const { RichEmbed } = require("discord.js");
-const servers = require("../config/servers.json");
 const gamedig = require('gamedig');
 
 
-module.exports.run = function (bot, message, args, prefix) {
+module.exports.run = function (bot, message, args) {
 
     message.channel.startTyping();
 
-    gamedig.query(servers["warmup"],
+    gamedig.query(bot.config.servers["warmup"],
         function (e, state) {
 
             var embed;

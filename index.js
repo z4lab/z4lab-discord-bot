@@ -5,6 +5,7 @@ const colors = require('colors/safe');
 const config = require("./config/bot.json");
 const dbs = require('./config/dbs.json');
 const channels = require('./config/channels.json');
+const servers = require("./config/servers.json");
 
 require('./util/console');
 require('./util/dbHandler');
@@ -14,6 +15,16 @@ const { db_arena, db_beginner, db_pro, db_whitelist } = require('./util/dbHandle
 
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
+bot.config = {};
+bot.config.main = config;
+bot.config.dbs = dbs;
+bot.config.channels = channels;
+bot.config.servers = servers;
+bot.db = {};
+bot.db.db_arena = db_arena;
+bot.db.db_beginner = db_beginner;
+bot.db.db_pro = db_pro;
+bot.db.db_whitelist = db_whitelist;
 
 
 fs.readdir('./commands', (err, file) => { // gets content of /commands folder
@@ -34,14 +45,7 @@ fs.readdir('./commands', (err, file) => { // gets content of /commands folder
 
 
 Object.assign(module.exports, {
-    bot,
-    config,
-    db_arena,
-    db_beginner,
-    db_pro,
-    db_whitelist,
-    dbs,
-    channels,
+    bot
 });
 
 
