@@ -22,3 +22,4 @@ module.exports.help = {
     usage: false,
     description: "displays a random doggo",
     permissionLvl: 0
+}
