@@ -157,5 +157,5 @@ module.exports.help = {
         description: "Shows the player's stats"
     }],
     description: "displays advanced arena commands",
-    permissionLvl: 1
+    permissionLvl: 0
 };
