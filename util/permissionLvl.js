@@ -1,4 +1,6 @@
-module.exports = function (member = false) {
+var permissionLevel = {};
+
+permissionLevel.getUserLevel = function (member = false) {
 
     if (!member) return -1;
 
@@ -12,3 +14,4 @@ module.exports = function (member = false) {
     else return 0;
 
 };
+module.exports = permissionLevel;

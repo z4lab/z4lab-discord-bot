@@ -1,6 +1,6 @@
 const { bot } = require('../index');
 const alias = require('../util/alias');
-const getPermissionLvl = require('../util/permissionLvl');
+const permissionLevel = require('../util/permissionLvl');
 
 
 bot.on('message', message => {
@@ -13,7 +13,7 @@ bot.on('message', message => {
 
     if (!bot.config.main.channels.includes(message.channel.id)) return;
 
-    var permissionLvl = getPermissionLvl(message.member);
+    message.author.permissionLvl  = permissionLevel.getUserLevel(message.member);
 
     var prefix = bot.config.main.prefix;
 
@@ -27,8 +27,9 @@ bot.on('message', message => {
     
     var commandFile = bot.commands.get(cmd);
 
-    if (commandFile && permissionLvl >= commandFile.help.permissionLvl) commandFile.run(bot, message, args);    
-    else if (commandFile && permissionLvl < commandFile.help.permissionLvl) return message.reply("you don't have enough permission to use this command!");
+    if (commandFile && commandFile.help.permissionLvl >= 2 && !bot.config.main.adminChannels.includes(message.channel.id)) return message.reply("you may not use this command in this channel!");
+    else if (commandFile && message.author.permissionLvl >= commandFile.help.permissionLvl) commandFile.run(bot, message, args);    
+    else if (commandFile && message.author.permissionLvl < commandFile.help.permissionLvl) return message.reply("you don't have enough permission to use this command!");
     else return;
 
 });
