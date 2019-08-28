@@ -13,7 +13,7 @@ bot.on('message', message => {
 
     if (!bot.config.main.channels.includes(message.channel.id)) return;
 
-    message.author.permissionLvl  = permissionLevel.getUserLevel(message.member);
+    message.author.permissionLvl = permissionLevel.getUserLevel(message.member);
 
     var prefix = bot.config.main.prefix;
 

@@ -3,7 +3,7 @@ const getPermissionLvl = require("../util/permissionLvl");
 
 module.exports.run = function (bot, message, args) {
 
-    let permissionLvl = getPermissionLvl(message.member);
+    let permissionLvl = getPermissionLvl.getUserLevel(message.member);
 
     let embed = new RichEmbed()
         .setTitle(`z4lab Discord Bot Commands Overview @ PermLvl ${permissionLvl}`)
