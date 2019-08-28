@@ -18,4 +18,8 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "woof",
-};
+    category: "random",
+    usage: false,
+    description: "displays a random doggo",
+    permissionLvl: 0
+}

@@ -19,4 +19,8 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "meow",
+    category: "random",
+    usage: false,
+    description: "displays a random cat",
+    permissionLvl: 0
 };

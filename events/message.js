@@ -1,19 +1,21 @@
-const { bot, config, db_arena, db_beginner, db_pro, db_whitelist } = require('../index');
-const colors = require('colors/safe');
+const { bot } = require('../index');
 const alias = require('../util/alias');
+const permissionLevel = require('../util/permissionLvl');
 
 
 bot.on('message', message => {
 
-    var fChannelId = config.channels[0];
+    var fChannelId = bot.config.main.channels[0];
 
     if (message.author.id === bot.user.id) return;
     if (message.author.bot) return;
     if (message.channel.type === "dm") return message.channel.send(`Please use our <#${fChannelId}> channel`);
 
-    if (!config.channels.includes(message.channel.id)) return;
+    if (!bot.config.main.channels.includes(message.channel.id)) return;
 
-    var prefix = config.prefix;
+    message.author.permissionLvl = permissionLevel.getUserLevel(message.member);
+
+    var prefix = bot.config.main.prefix;
 
     var messageArray = message.content.split(" ");
     var cmd = messageArray[0].toLowerCase();
@@ -24,7 +26,10 @@ bot.on('message', message => {
     cmd = alias(cmd.slice(prefix.length));
     
     var commandFile = bot.commands.get(cmd);
-    
-    if (commandFile) commandFile.run(bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist);    
-    
+
+    if (commandFile && commandFile.help.permissionLvl >= 2 && !bot.config.main.adminChannels.includes(message.channel.id)) return message.reply("you may not use this command in this channel!");
+    else if (commandFile && message.author.permissionLvl >= commandFile.help.permissionLvl) commandFile.run(bot, message, args);    
+    else if (commandFile && message.author.permissionLvl < commandFile.help.permissionLvl) return message.reply("you don't have enough permission to use this command!");
+    else return;
+
 });

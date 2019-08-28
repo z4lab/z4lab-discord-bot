@@ -17,4 +17,8 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "toothless",
+    category: "random",
+    usage: false,
+    description: "displays a random Toothless gif",
+    permissionLvl: 0
 };

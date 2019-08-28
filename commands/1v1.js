@@ -1,13 +1,12 @@
 const { RichEmbed } = require("discord.js");
-const servers = require("../config/servers.json");
 const gamedig = require('gamedig');
 
 
-module.exports.run = function (bot, message, args, prefix) {
+module.exports.run = function (bot, message, args) {
 
     message.channel.startTyping();
 
-    gamedig.query(servers["1v1"],
+    gamedig.query(bot.config.servers["1v1"],
         function (e, state) {
 
             var embed;
@@ -51,5 +50,9 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "1v1"
+    name: "1v1",
+    category: "servers",
+    usage: false,
+    description: false,
+    permissionLvl: 0
 };

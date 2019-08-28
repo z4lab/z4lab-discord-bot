@@ -2,3 +2,5 @@ commands/disable/*
 todolist.txt
 
 \.vscode/
+\node_modules/
+config/db/

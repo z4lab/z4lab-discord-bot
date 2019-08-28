@@ -1,7 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const toDuration = require('humanize-duration');
 
-module.exports.run = function (bot, message, args, prefix){
+module.exports.run = function (bot, message, args){
 
     let time = Math.floor(2147483647 - Math.floor((message.createdAt / 1000))) * 1000;
 
@@ -18,5 +18,9 @@ module.exports.run = function (bot, message, args, prefix){
 };
 
 module.exports.help = {
-    name: "unixend"
+    name: "unixend",
+    category: "main",
+    usage: false,
+    description: "cuntdown to the worlds end",
+    permissionLvl: 0
 };

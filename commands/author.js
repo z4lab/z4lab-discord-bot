@@ -1,7 +1,7 @@
 const { RichEmbed } = require("discord.js");
 
 
-module.exports.run = function (bot, message, args, prefix){
+module.exports.run = function (bot, message, args){
 
     let embed = new RichEmbed()
         .setTitle('z4lab Discord Bot')
@@ -15,5 +15,9 @@ module.exports.run = function (bot, message, args, prefix){
 };
 
 module.exports.help = {
-    name: "author"
+    name: "author",
+    category: "main",
+    usage: false,
+    description: "displays the author of this bot",
+    permissionLvl: 0
 };

@@ -20,11 +20,7 @@ echo -e "${RST}[1/8] check for tmp directory: ${GRN}DONE!${RST}"
 
 # backup bot.json file
 echo -en "[2/8] ${YLW}backing up config files: ${BLNK}..."
-cp $INSTALLDIR/z4lab-discord-bot/config/bot.json $TMPDIR/bot.json
-cp $INSTALLDIR/z4lab-discord-bot/config/dbs.json $TMPDIR/dbs.json
-cp $INSTALLDIR/z4lab-discord-bot/config/servers.json $TMPDIR/servers.json
-cp $INSTALLDIR/z4lab-discord-bot/config/channels.json $TMPDIR/channels.json
-cp $INSTALLDIR/z4lab-discord-bot/config/whitelist.json $TMPDIR/whitelist.json
+cp $INSTALLDIR/z4lab-discord-bot/config/*.json $TMPDIR/
 echo -e "${RST}[2/8] ${YLW}backing up config files: ${GRN}DONE!${RST}"
 
 # stop the bot
@@ -35,7 +31,7 @@ echo -e "${RST}[3/8] ${YLW}stopping the current bot: ${GRN}DONE!${RST}"
 
 # remove current version
 echo -en "[4/8] ${YLW}removing current version: ${BLNK}..."
-rm -R $CURRENTINSTALL
+rm -rf $CURRENTINSTALL
 echo -e "${RST}[4/8] ${YLW}removing current version: ${GRN}DONE!${RST}"
 
 # get new version

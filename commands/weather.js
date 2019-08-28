@@ -57,4 +57,11 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "weather",
+    category: "main",
+    usage: [{
+        command: "[city/village]",
+        description: "displays the current weather for the given city/village"
+    }],
+    description: "displays the current weather for the given city/village",
+    permissionLvl: 0
 };

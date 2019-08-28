@@ -1,13 +1,13 @@
 const { RichEmbed } = require("discord.js");
-const whitelist = require("../config/whitelist.json");
-const config = require("../config/bot.json");
 const dbPost = require("../util/dbPost");
+const dbRequest = require("../util/dbRequest");
 
-module.exports.run = async function (bot, message, args, prefix, db_beginner, db_pro, db_arena, db_whitelist) {
+
+module.exports.run = async function (bot, message, args) {
 
     let access = false;
 
-    whitelist.allowedIDs.add.forEach(role => {
+    bot.config.whitelist.allowedIDs.add.forEach(role => {
         if (message.member.roles.has(role)) access = true;
     });
 
@@ -33,8 +33,8 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
     var usage = new RichEmbed()
         .setTitle('z4lab Discord Bot whitelist usage')
         .setThumbnail(bot.user.avatarURL)
-        .addField(`${prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
-        .addField(`${prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);
+        .addField(`${bot.config.main.prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
+        .addField(`${bot.config.main.prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);
 
 
     if (!args[0]) return message.channel.send(usage);
@@ -43,7 +43,7 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
         //add command
         if (!args[1]) return message.channel.send(usage);
 
-        let result = await dbPost.whitelistAdd(db_whitelist, args[1]);
+        let result = await dbPost.whitelistAdd(bot.db.db_whitelist, args[1]);
 
         if (result.error) return message.channel.send(result.error.message);
         if (result.embed) return message.channel.send(result.embed);
@@ -52,7 +52,7 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
 
     } else if (args[0] == 'rm' || args[0] == 'remove') {
         let del_access = false;
-        whitelist.allowedIDs.remove.forEach(role => {
+        bot.config.whitelist.allowedIDs.remove.forEach(role => {
             if (message.member.roles.has(role)) del_access = true;
         });
 
@@ -78,15 +78,33 @@ module.exports.run = async function (bot, message, args, prefix, db_beginner, db
         //remove command
         if (!args[1]) return message.channel.send(usage);
 
-        let result = await dbPost.whitelistRemove(db_whitelist, args[1]);
+        let result = await dbPost.whitelistRemove(bot.db.db_whitelist, args[1]);
 
         if (result.error) return message.channel.send(result.error.message);
         if (result.embed) return message.channel.send(result.embed);
         return;
 
-    } 
+    } else if (args[0] == "list" || args[0] == "ls") {
+
+        let res = await dbRequest.getVipList(bot.db.db_whitelist);
+
+        message.channel.send(res.list.string).catch(error => {
+            return message.channel.send("```\n" + error + "```")
+        });
+
+    }
 };
 
 module.exports.help = {
-    name: "whitelist"
+    name: "whitelist",
+    category: "main",
+    usage: [{
+        command: "add [STEAMID/STEAMID64/CUSTOM-URL]",
+        description: "Add a player to the whitelist"
+    }, {
+        command: "rm/remove [STEAMID/STEAMID64/CUSTOM-URL]",
+        description: "Remove a player to the whitelist"
+    }],
+    description: "add or remove a player on our VIP Surf Server's whitelist",
+    permissionLvl: 1
 };

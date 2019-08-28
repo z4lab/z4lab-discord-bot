@@ -1,7 +1,7 @@
 const { RichEmbed } = require("discord.js");
 
 
-module.exports.run = function (bot, message, args, prefix) {
+module.exports.run = function (bot, message, args) {
 
     let embed = new RichEmbed()
         .setTitle('z4lab Community Links')
@@ -19,5 +19,9 @@ module.exports.run = function (bot, message, args, prefix) {
 };
 
 module.exports.help = {
-    name: "z4lab"
+    name: "z4lab",
+    category: "main",
+    usage: false,
+    description: "displays our community links",
+    permissionLvl: 0
 };

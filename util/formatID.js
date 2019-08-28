@@ -15,13 +15,11 @@ module.exports = async function (input = false) {
         throw (e);
     }
 
-    if (!input.startsWith('STEAM_') && input.length == '17') input = steam.convertToText(input);
-
-    let sid = input.replace('_1', '_0') || input;
-
-    if (!input.startsWith('STEAM_') || !new SteamID(sid).isValid()) return false;
+    input = steam.convertToText(input);
 
     input = input.replace('_0', '_1');
+
+    console.log(input);
 
     return input;
 
