@@ -9,8 +9,8 @@ const servers = require("./config/servers.json");
 const whitelist = require("./config/whitelist.json");
 
 require('./util/console');
-require('./util/dbHandler');
 require('./util/config');
+require('./util/dbHandler');
 
 const { db_arena, db_beginner, db_pro, db_whitelist } = require('./util/dbHandler');
 
@@ -58,5 +58,7 @@ require('./events/guildMemberAdd');
 require('./events/guildMemberRemove');
 require('./events/message');
 require('./events/ready');
+
+require('./util/rconHandler');
 
 bot.login(config.token);

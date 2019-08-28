@@ -269,11 +269,65 @@ var getVipList = dbRequest.getVipList = async function getVipList(mysql) {
 
     mysql.query(`SELECT * FROM mysql_whitelist`, function (error, res) {
         if (error) return result.error = error;
-        result.list = res;
+        result.raw = res;
     });
 
     await sleep(100);
+
+    result.list = {};
+    result.list.string = "```md\n[Whitelist] contains < "+ result.raw.length +" > users: ]:\n\n";
+    result.list.buffer = [];
+    result.list.array = [];
+
+    result.raw.forEach(async (steamid) => {
+        let data = await getPlayerData(steamid.steamid);
+        data.steamid = steamid.steamid;
+        result.list.array.push(data);
+        result.list.buffer.push(data.nickname);
+    });
+
+    await sleep(500);
+
+    var longestName = 0;
+    var longestNameIndex = 0;
+    var i = 0;
+
+    result.list.buffer.forEach(name => {
+        i++;
+        if (longestName < name.length) {
+            longestName = name.length;
+            longestNameIndex = i;
+        } 
+    });
+
+    result.list.array.sort(function (a, b) {
+        if (a.nickname > b.nickname) {
+            return -1;
+        }
+        if (b.nickname > a.nickname) {
+            return 1;
+        }
+    return 0;});
+    result.list.array.reverse();
+    result.list.array.forEach(user => {
+        result.list.string += `[${user.nickname}]${String(".").repeat(longestName-user.nickname.length)} | <${user.steamid}> ]:\n`;
+    });
+    
+
+    
+
+    result.list.string += "```";
+
     return result;
+
+}
+
+/**
+ * getPlayerData function
+ * @param {object} steamid steam id of client
+ */
+var getPlayerData = dbRequest.getPlayerData = async function getPlayerData(steamid) {
+    return await steamapi.getUserSummary(steam.convertTo64(String(steamid)));
 }
 
 

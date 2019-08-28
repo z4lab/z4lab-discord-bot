@@ -1,5 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const dbPost = require("../util/dbPost");
+const dbRequest = require("../util/dbRequest");
+
 
 module.exports.run = async function (bot, message, args) {
 
@@ -82,7 +84,15 @@ module.exports.run = async function (bot, message, args) {
         if (result.embed) return message.channel.send(result.embed);
         return;
 
-    } 
+    } else if (args[0] == "list" || args[0] == "ls") {
+
+        let res = await dbRequest.getVipList(bot.db.db_whitelist);
+
+        message.channel.send(res.list.string).catch(error => {
+            return message.channel.send("```\n" + error + "```")
+        });
+
+    }
 };
 
 module.exports.help = {
