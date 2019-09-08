@@ -16,7 +16,7 @@ bot.on('guildMemberAdd', member => {
     
     function logMember(member) {
     
-        let channelID = bot.config.guildschannels.log.channelID;
+        let channelID = bot.config.channels.log.channelID;
         let channel = member.guild.channels.find(channel => channel.id == channelID);
         let emoji = bot.emojis.find(emoji => emoji.name == 'userJoined');
     
