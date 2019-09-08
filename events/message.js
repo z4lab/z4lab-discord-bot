@@ -1,9 +1,9 @@
 const { bot } = require('../index');
-const alias = require('../util/alias');
+const sql = require("../util/db/sql");
 const permissionLevel = require('../util/permissionLvl');
 
 
-bot.on('message', message => {
+bot.on('message', async message => {
 
     var fChannelId = bot.config.main.channels[0];
 
@@ -23,7 +23,7 @@ bot.on('message', message => {
 
     if (!message.content.startsWith(prefix)) return;
 
-    cmd = alias(cmd.slice(prefix.length));
+    cmd = await sql.checkAlias(bot, cmd.slice(prefix.length));
     
     var commandFile = bot.commands.get(cmd);
 

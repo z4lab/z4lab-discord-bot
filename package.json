@@ -1,6 +1,6 @@
 {
   "name": "z4lab-discord-bot",
-  "version": "1.25.1",
+  "version": "1.26.0",
   "description": "z4lab Bot for Discord",
   "main": "index.js",
   "dependencies": {
@@ -17,7 +17,7 @@
     "os": "^0.1.1",
     "random-hex-color": "^1.0.1",
     "rebuild": "^0.1.2",
-    "sqlite3": "^4.0.9",
+    "sqlite3": "^4.1.0",
     "steam-user": "^4.11.1",
     "steamapi": "^2.0.3",
     "steamid": "^1.1.0",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db": "node _createDB.js && node _mergeDB.js"
   },
   "repository": {
     "type": "git",

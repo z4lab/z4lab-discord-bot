@@ -102,6 +102,7 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
 
     mysql.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} AND style = '0' ORDER BY runtimepro ASC`, async function (error, res) {
         if (error) {
+            result.error.error = error;
             result.error.id = 1;
             result.error.name = 'Error while database request!';
             return console.log(result.error);
@@ -112,6 +113,7 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
             if (String(res) == []) {
                 mysql.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (error, get) {
                     if (error) {
+                        result.error.error = error;
                         result.error.id = 1;
                         result.error.name = 'Error while database request!';
                         return console.log(result.error);
