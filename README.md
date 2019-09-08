@@ -23,6 +23,11 @@ discord bot for z4lab, main author @13ace37
     - config files will no longer effect the bot
 -   start bot with `pm2 start index.js`
 
+## updating the bot's settings
+-   change settings in one of the `.json` files
+-   run `npm reload`
+-   use `{prefix}reload` in discord
+
 ## updating the bot
 -   move `update-bot.sh` outside the install directory
 -   run chmod +x `update-bot.sh`

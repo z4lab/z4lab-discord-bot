@@ -26,7 +26,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "db": "node _createDB.js && node _mergeDB.js"
+    "db": "node _createDB.js && node _mergeDB.js",
+    "reload": "node _mergeDB.js"
   },
   "repository": {
     "type": "git",
