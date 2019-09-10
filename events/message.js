@@ -23,7 +23,7 @@ bot.on('message', async message => {
 
     if (!message.content.startsWith(prefix)) return;
 
-    cmd = await sql.checkAlias(bot, cmd.slice(prefix.length));
+    if (!bot.commands.get(cmd)) cmd = await sql.checkAlias(bot, cmd.slice(prefix.length));
     
     var commandFile = bot.commands.get(cmd);
 

@@ -27,6 +27,10 @@ bot.sleep = function (ms) {
     });
 };
 
+bot.modifiedDate = function (file) {  
+    let { mtime } = fs.statSync(file);
+    return mtime;
+};
 
 fs.readdir('./commands', (err, file) => { // gets content of /commands folder
     if (err) console.log(err); // err handling
@@ -38,7 +42,8 @@ fs.readdir('./commands', (err, file) => { // gets content of /commands folder
     }
     jsfile.forEach((f, i) => { // gets all files
         let props = require(`./commands/${f}`); // from /commands folder
-        console.log(colors.white(timestamp()) + colors.grey(`[Command] ${f} loaded!`)); // console log print form module
+        let date = bot.modifiedDate(`./commands/${f}`);
+        console.log(colors.white(timestamp(date)) + colors.grey(`[Command] ${f} loaded!`)); // console log print form module
         bot.commands.set(props.help.name, props); // set files as command
     });
     console.log('');

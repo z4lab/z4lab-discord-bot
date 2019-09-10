@@ -83,10 +83,72 @@ sql.checkAlias = async function(bot, word) {
     db.all(`SELECT * FROM alias WHERE alias = "${alias}"`, [], (err, rows) => {
         if (err) return;
         if (rows.length === 0) return;
+        if (alias == "alias") return;
         alias = rows[0].command;
     });
     await bot.sleep(0.5);
     return alias;
+};
+
+sql.insertAlias = async function(bot, command, alias) {
+
+    if (command === alias) return ["```md\n[Error] Can't bind command to command! ]:```", true];
+    
+    var check = await sql.checkAlias(bot, alias)
+    
+    if (check == command) return ["```md\n[Error] This bind is already existing! ]:```", true];
+    if (check != alias) return ["```md\n[Error] Bind already in use by < "+check+" >! ]:```", true];
+    if (!bot.commands.get(command)) return ["```md\n[Error] Given command is non existant! Do you mean < "+check+" >? ]:```", true];
+
+    db.run(`INSERT INTO alias (alias, command) VALUES ("${alias}", "${command}");`, (err) => {
+        if (err) throw err;
+    });
+
+    await bot.sleep(0.5);
+
+    return ["```md\n[Alias] Bind successfully created from < "+alias+" > to < "+command+" > ]:```"];
+
+};
+
+sql.deleteAlias = async function(bot, alias) {
+    
+    var check = await sql.checkAlias(bot, alias);
+    var error = false;
+
+    if (check === alias) return ["```md\n[Error] This bind is non-existent! ]:```", true];
+
+    db.run(`DELETE FROM alias WHERE alias = "${alias}";`, (err) => {
+        if (err) {
+            error = true;
+            throw err;                        
+        } 
+    });
+
+    await bot.sleep(0.5);
+
+    if (error) return ["```md\n[Error] Failed to delete bind! ]:```", true];
+
+    return ["```md\n[Alias] Bind between < "+alias+" > and < "+check+" > successfully deleted! ]:```"];
+    
+};
+
+sql.modifyAlias = async function(bot, oldAlias, newAlias) {
+
+    if (oldAlias === newAlias) return ["```md\n[Error] New name can't be old name! ]:```", true];
+
+    var oldCheck = await sql.checkAlias(bot, oldAlias);
+    var newCheck = await sql.checkAlias(bot, newAlias);
+    var error = false;
+
+    if (oldCheck === oldAlias) return ["```md\n[Error] This bind is non-existent! ]:```", true];
+    if (newCheck != newAlias || bot.commands.get(newAlias)) return ["```md\n[Error] New name is already in use! ]:```", true];
+
+    db.run(`UPDATE alias SET alias = "${newAlias}" WHERE alias = "${oldAlias}";`);
+
+    await bot.sleep(0.5);
+
+    return ["```md\n[Alias] Name of < "+oldAlias+" > successfully changed to < "+newAlias+" >! ]:```"];
+
 };
 
 module.exports = sql;
