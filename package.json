@@ -1,6 +1,6 @@
 {
   "name": "z4lab-discord-bot",
-  "version": "1.26.0",
+  "version": "1.27.0",
   "description": "z4lab Bot for Discord",
   "main": "index.js",
   "dependencies": {

@@ -6,9 +6,9 @@ module.exports.run = async (bot, message, args) => {
 
     if (!args || args.length === 0) return;
 
-    if ((args[0] === "add" || args[0] === "create") && args.length >= 3) result = await sql.insertAlias(bot, args[1], args[2]);
-    else if ((args[0] === "remove" || args[0] === "rm") && args.length >= 2) result = await sql.deleteAlias(bot, args[1]);
-    else if ((args[0] === "rename" || args[0] === "rn") && args.length >= 3) result = await sql.modifyAlias(bot, args[1], args[2]);
+    if ((args[0] === "add" || args[0] === "create") && args.length >= 3) result = await sql.alias.insert(bot, args[1], args[2]);
+    else if ((args[0] === "remove" || args[0] === "rm") && args.length >= 2) result = await sql.alias.delete(bot, args[1]);
+    else if ((args[0] === "rename" || args[0] === "rn") && args.length >= 3) result = await sql.alias.rename(bot, args[1], args[2]);
     else return;
     
     message.channel.send(result[0]);

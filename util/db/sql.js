@@ -78,7 +78,9 @@ sql.loadSettings = function (bot) {
     });
 };
 
-sql.checkAlias = async function(bot, word) {
+sql.alias = {};
+
+sql.alias.check = async function(bot, word) {
     var alias = word;
     db.all(`SELECT * FROM alias WHERE alias = "${alias}"`, [], (err, rows) => {
         if (err) return;
@@ -90,11 +92,12 @@ sql.checkAlias = async function(bot, word) {
     return alias;
 };
 
-sql.insertAlias = async function(bot, command, alias) {
+
+sql.alias.insert = async function(bot, command, alias) {
 
     if (command === alias) return ["```md\n[Error] Can't bind command to command! ]:```", true];
     
-    var check = await sql.checkAlias(bot, alias)
+    var check = await sql.alias.check(bot, alias)
     
     if (check == command) return ["```md\n[Error] This bind is already existing! ]:```", true];
     if (check != alias) return ["```md\n[Error] Bind already in use by < "+check+" >! ]:```", true];
@@ -110,9 +113,9 @@ sql.insertAlias = async function(bot, command, alias) {
 
 };
 
-sql.deleteAlias = async function(bot, alias) {
+sql.alias.delete = async function(bot, alias) {
     
-    var check = await sql.checkAlias(bot, alias);
+    var check = await sql.alias.check(bot, alias);
     var error = false;
 
     if (check === alias) return ["```md\n[Error] This bind is non-existent! ]:```", true];
@@ -132,12 +135,12 @@ sql.deleteAlias = async function(bot, alias) {
     
 };
 
-sql.modifyAlias = async function(bot, oldAlias, newAlias) {
+sql.alias.rename = async function(bot, oldAlias, newAlias) {
 
     if (oldAlias === newAlias) return ["```md\n[Error] New name can't be old name! ]:```", true];
 
-    var oldCheck = await sql.checkAlias(bot, oldAlias);
-    var newCheck = await sql.checkAlias(bot, newAlias);
+    var oldCheck = await sql.alias.check(bot, oldAlias);
+    var newCheck = await sql.alias.check(bot, newAlias);
     var error = false;
 
     if (oldCheck === oldAlias) return ["```md\n[Error] This bind is non-existent! ]:```", true];
@@ -148,6 +151,27 @@ sql.modifyAlias = async function(bot, oldAlias, newAlias) {
     await bot.sleep(0.5);
 
     return ["```md\n[Alias] Name of < "+oldAlias+" > successfully changed to < "+newAlias+" >! ]:```"];
+
+};
+
+sql.prefix = {};
+
+sql.prefix.change = async function(bot, newPrefix) {
+
+    var oldPrefix = bot.config.main.prefix;
+
+    if (oldPrefix === newPrefix) return ["```md\n[Error] New prefix can't be old prefix! ]:```", true];
+
+    var prefixMaxLength = 2; // move to config == db!
+    if (prefixMaxLength <= 0 || prefixMaxLength >= 10) prefixMaxLength = 2; // forcing to 1 digit length
+    var s = "";
+    if (prefixMaxLength != 1) s = "s";
+
+    if (newPrefix.length > prefixMaxLength) return [`\`\`\`md\n[Error] Prefix shouldn't be longer then < ${prefixMaxLength} > character${s}! ]:\`\`\``, true];
+
+    db.run(`UPDATE config_bot SET value = "${newPrefix}" WHERE option = "botPrefix";`);
+
+    return ["```md\n[Prefix] Prefix successfully changed from < "+oldPrefix+" > to < "+newPrefix+" >! ]:```"];
 
 };
 
