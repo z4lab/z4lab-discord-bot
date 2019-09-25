@@ -1,5 +1,4 @@
 const { RichEmbed } = require("discord.js");
-const servers = require("../config/servers.json");
 const gamedig = require('gamedig');
 
 

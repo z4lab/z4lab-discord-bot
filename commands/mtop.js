@@ -7,9 +7,9 @@ module.exports.run = async function (bot, message, args) {
     if (!args[0]) {
         let embed = new RichEmbed()
             .setTitle('z4lab Discord Bot mtop usage')
-            .setThumbnail(bot.user.avatarURL)
-            .addField(`${bot.config.main.prefix}mtop [mapname] [BEGINNER/pro]`, '└ Shows maprecord for the given server', false)
-            .addField(`${bot.config.main.prefix}mtop [mapname] [username] [BEGINNER/pro]`, '└ Shows playerrecord for the given user/server', false);
+            .setThumbnail(global.bot.user.avatarURL)
+            .addField(`${global.bot.config.main.prefix}mtop [mapname] [BEGINNER/pro]`, '└ Shows maprecord for the given server', false)
+            .addField(`${global.bot.config.main.prefix}mtop [mapname] [username] [BEGINNER/pro]`, '└ Shows playerrecord for the given user/server', false);
         return message.channel.send(embed);
     }
     if (!args[0].toLowerCase().startsWith('surf_') || args[0].length < 6) return message.channel.send('```md\n[Error] Invalid map entered! ]:```');
@@ -25,8 +25,8 @@ module.exports.run = async function (bot, message, args) {
     if (!args[2]) args[2] = 'beginner';
     if (args[2] != 'pro') args[2] = 'beginner';
     if (name == 'AND 1=1') record = true;
-    var mysql = bot.db.db_beginner;
-    if (args[2] != 'beginner') mysql = bot.db.db_pro;
+    var mysql = global.bot.db.db_beginner;
+    if (args[2] != 'beginner') mysql = global.bot.db.db_pro;
     var result = await dbRequest.getMaptime(username, record, map, args[2], mysql);
     if (result.error.print) return message.channel.send(result.error.name);
     return message.channel.send(result.runtime);

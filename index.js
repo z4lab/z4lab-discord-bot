@@ -1,19 +1,18 @@
 const Discord = require("discord.js");
-const fs = require("fs");
-const colors = require('colors/safe');
+const timestamp = require(__dirname+"/util/timeStamp");
 
-const timestamp = require('./util/timeStamp');
+const config = require(__dirname+"/config/bot.json");
+const dbs = require(__dirname+"/config/dbs.json");
+const channels = require(__dirname+"/config/channels.json");
+const servers = require(__dirname+"/config/servers.json");
+const whitelist = require(__dirname+"/config/whitelist.json");
 
-const config = require("./config/bot.json");
-const dbs = require('./config/dbs.json');
-const channels = require('./config/channels.json');
-const servers = require("./config/servers.json");
-const whitelist = require("./config/whitelist.json");
-
-require('./util/console');
 
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
+
+require(__dirname+"/util/modules")(bot);
+
 bot.config = {};
 bot.config.main = config;
 bot.config.dbs = dbs;
@@ -28,41 +27,38 @@ bot.sleep = function (ms) {
 };
 
 bot.modifiedDate = function (file) {  
-    let { mtime } = fs.statSync(file);
+    let { mtime } = bot.modules.file.fs.statSync(file);
     return mtime;
 };
 
-fs.readdir('./commands', (err, file) => { // gets content of /commands folder
+bot.modules.file.fs.readdir(__dirname+"/commands", (err, file) => { // gets content of /commands folder
     if (err) console.log(err); // err handling
 
     let jsfile = file.filter(f => f.split(".").pop() === "js"); // checks for .js files
     if (jsfile.length <= 0) { // checks if no file exist
-        console.log(colors.yellow("[WARNING] Couldn't find any commands!")); // no file err
+        console.log(bot.modules.util.colors.yellow("[WARNING] Couldn't find any commands!")); // no file err
         return; // leave
     }
     jsfile.forEach((f, i) => { // gets all files
-        let props = require(`./commands/${f}`); // from /commands folder
-        let date = bot.modifiedDate(`./commands/${f}`);
-        console.log(colors.white(timestamp(date)) + colors.grey(`[Command] ${f} loaded!`)); // console log print form module
+        let props = require(__dirname+`/commands/${f}`); // from /commands folder
+        let date = bot.modifiedDate(__dirname+`/commands/${f}`);
+        console.log(bot.modules.util.colors.white(timestamp(date)) + bot.modules.util.colors.grey(`[Command] ${f} loaded!`)); // console log print form module
         bot.commands.set(props.help.name, props); // set files as command
     });
-    console.log('');
+    console.log("");
 });
 
+global.bot = bot;
 
-Object.assign(module.exports, {
-    bot
-});
+require(__dirname+"/events/error");
+require(__dirname+"/events/guildBanAdd");
+require(__dirname+"/events/guildBanRemove");
+require(__dirname+"/events/guildMemberAdd");
+require(__dirname+"/events/guildMemberRemove");
+require(__dirname+"/events/message");
+require(__dirname+"/events/ready");
 
-
-require('./events/error');
-require('./events/guildBanAdd');
-require('./events/guildBanRemove');
-require('./events/guildMemberAdd');
-require('./events/guildMemberRemove');
-require('./events/message');
-require('./events/ready');
-
-require('./util/rconHandler');
+require(__dirname+"/util/console");
+require(__dirname+"/util/rconHandler");
 
 bot.login(config.token);

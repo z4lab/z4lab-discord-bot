@@ -1,6 +1,5 @@
 const superagent = require("superagent");
 const cities = require("all-the-cities");
-const fixTime = require("../util/fixTime");
 const { RichEmbed } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {

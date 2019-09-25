@@ -1,7 +1,3 @@
-const { bot } = require('../index');
-const colors = require('colors/safe');
-
-
-bot.on('error', () => {
-    console.log(colors.red.bold('[Discord] Error!'));
+global.bot.on('error', () => {
+    console.log(global.bot.modules.util.colors.red.bold('[Discord] Error!'));
 });

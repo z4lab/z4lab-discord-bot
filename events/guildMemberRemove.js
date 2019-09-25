@@ -1,16 +1,13 @@
-const { bot } = require('../index');
-
-bot.on('guildMemberRemove', member => {
+global.bot.on('guildMemberRemove', member => {
 
     logMember(member);
-
     memberCount(member);
     
     function logMember(member) {
     
-        let channelID = bot.config.channels.log.channelID;
+        let channelID = global.bot.config.channels.log.channelID;
         let channel = member.guild.channels.find(channel => channel.id == channelID);
-        let emoji = bot.emojis.find(emoji => emoji.name == 'userLeft');
+        let emoji = global.bot.emojis.find(emoji => emoji.name == 'userLeft');
     
         let username = member.user.tag;
         let userID = member.user.id;
@@ -21,9 +18,9 @@ bot.on('guildMemberRemove', member => {
     
     function memberCount(member) {
     
-        let channelID = bot.config.channels.memberCount.channelID;
+        let channelID = global.bot.config.channels.memberCount.channelID;
         let channel = member.guild.channels.find(channel => channel.id == channelID);
-        let guild = bot.guilds.first();
+        let guild = global.bot.guilds.first();
     
         channel.setName("[afk] - " + guild.memberCount + " members");
     

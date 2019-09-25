@@ -1,18 +1,7 @@
-const mysql = require('mysql');
-const colors = require('colors/safe');
-const SteamAPI = require('steamapi');
-const dbRequest = require('./dbRequest');
-const steam = require('steamidconvert')();
-const SteamID = require('steamid');
-const formatID = require('../util/formatID');
+const dbRequest = require(__dirname+"/dbRequest");
+const formatID = require(__dirname+"/formatID");
 
-const {
-    RichEmbed
-} = require("discord.js");
-
-const db = require('../config/dbs.json');
-const config = require("../config/bot.json");
-const steamapi = new SteamAPI(config.steam["api-key"]);
+const steamapi = new global.bot.modules.core.steam.api(global.bot.config.main.steam["api-key"]);
 
 var dbPost = {};
 module.exports = dbPost;
@@ -28,7 +17,7 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) 
     result.error = false;
     result.embed = false;
 
-    id = await formatID(id);
+    id = await formatID(id);    
 
     await sleep(10);
 
@@ -38,9 +27,9 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) 
 
     if (idCheck.vip) {
 
-        steamapi.getUserSummary(steam.convertTo64(String(id))).then(summary => {
+        steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-            let embed = new RichEmbed()
+            let embed = new global.bot.modules.core.discordjs.RichEmbed()
                 .setTitle('z4lab Whitelist')
                 .setDescription('Player is already on the whitelist!')
                 .setThumbnail(summary.avatar.large)
@@ -55,7 +44,7 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) 
 
     if (!idCheck.vip) {
 
-        mysql.query("INSERT INTO `" + db.whitelist.database + "`.`mysql_whitelist` (`steamid`) VALUES ('" + id + "');", function (err) {
+        mysql.query("INSERT INTO `" + global.bot.config.dbs.whitelist.database + "`.`mysql_whitelist` (`steamid`) VALUES ('" + id + "');", function (err) {
 
             if (err && err.code != 'ER_DUP_ENTRY') {
                 result.error.id = 1;
@@ -66,9 +55,9 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) 
 
             if (id) {
 
-                steamapi.getUserSummary(steam.convertTo64(String(id))).then(summary => {
+                steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-                    let embed = new RichEmbed()
+                    let embed = new global.bot.modules.core.discordjs.RichEmbed()
                         .setTitle('z4lab Whitelist')
                         .setDescription('Player successfully added to the whitelist!\nsteam://connect/94.130.8.161:27040')
                         .setThumbnail(summary.avatar.large)
@@ -107,14 +96,14 @@ var whitelistRemove = dbPost.whitelistRemove = async function whitelistRemove(my
 
     if (idCheck.vip) {
 
-        mysql.query("DELETE FROM `" + db.whitelist.database + "`.`mysql_whitelist` WHERE (`steamid` = '" + id + "');", function (err) {
+        mysql.query("DELETE FROM `" + global.bot.config.dbs.whitelist.database + "`.`mysql_whitelist` WHERE (`steamid` = '" + id + "');", function (err) {
 
             console.log(err);
 
             if (!err) {
-                steamapi.getUserSummary(steam.convertTo64(String(id))).then(summary => {
+                steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-                    let embed = new RichEmbed()
+                    let embed = new global.bot.modules.core.discordjs.RichEmbed()
                         .setTitle('z4lab Whitelist')
                         .setDescription('Player removed from the whitelist!')
                         .setThumbnail(summary.avatar.large)
@@ -132,9 +121,9 @@ var whitelistRemove = dbPost.whitelistRemove = async function whitelistRemove(my
     } else {
 
         if (id) {
-            steamapi.getUserSummary(steam.convertTo64(String(id))).then(summary => {
+            steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-                let embed = new RichEmbed()
+                let embed = new global.bot.modules.core.discordjs.RichEmbed()
                     .setTitle('z4lab Whitelist')
                     .setDescription('Player is not on the whitelist!')
                     .setThumbnail(summary.avatar.large)
