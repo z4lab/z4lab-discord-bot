@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) => {
 
     let citiesArray = cities.filter(city => {
         return city.name.toLowerCase() === testArgs.toLowerCase();
-    }); 
+    });
 
     if (citiesArray.length === 0) citiesArray = cities.filter(city => {
         return city.name.match(testArgs);
@@ -21,9 +21,9 @@ module.exports.run = async (bot, message, args) => {
     if (citiesArray.length === 0) return message.channel.send("Can't find a city/village!");
 
     let city = citiesArray[0];
-    let coords = {lon: city.lon, lat: city.lat};
+    let coords = {lon: city.loc.coordinates[0], lat: city.loc.coordinates[1]};
     let apiUrl = "https://fcc-weather-api.glitch.me/api/current?";
-    let settings = `lon=${Number(city.lon)}&lat=${Number(city.lat)}`;
+    let settings = `lon=${Number(coords.lon)}&lat=${Number(coords.lat)}`;
     let request = apiUrl+settings;
 
     await getWeatherData(request, coords, message);
