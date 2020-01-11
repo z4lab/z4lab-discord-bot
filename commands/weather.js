@@ -13,28 +13,28 @@ module.exports.run = async (bot, message, args) => {
     var citiesArray = [];
 
     citiesArray = cities.filter(city => {
-        return city.name.toLowerCase() == testArgs.toLowerCase();
+        return city.name.toLowerCase() === testArgs.toLowerCase();
     }); 
 
-    if (citiesArray.length == 0) citiesArray = cities.filter(city => {
+    if (citiesArray.length === 0) citiesArray = cities.filter(city => {
         return city.name.match(testArgs);
     });
 
-    if (citiesArray.length == 0) return message.channel.send("Can't find a city/village!");
+    if (citiesArray.length === 0) return message.channel.send("Can't find a city/village!");
 
-    var city = citiesArray[0];
+    let city = citiesArray[0];
 
-    var apiUrl = "https://fcc-weather-api.glitch.me/api/current?";
+    let apiUrl = "https://fcc-weather-api.glitch.me/api/current?";
 
-    var settings = `lon=${Number(city.lon)}&lat=${Number(city.lat)}`;
+    let settings = `lon=${Number(city.lon)}&lat=${Number(city.lat)}`;
 
-    var request = apiUrl+settings;
+    let request = apiUrl+settings;
 
     let res = await superagent.get(request);
 
     res = res.body;
     
-    var embed = new RichEmbed()
+    let embed = new RichEmbed()
         .setTitle(`Weather for ${res.name} / ${res.sys.country} @ ${new Date((Date.now()+((res.timezone-7200)*1000))).toLocaleString('en-US')}`)
         .setThumbnail(res.weather[0].icon)
         .setFooter("Last update")
