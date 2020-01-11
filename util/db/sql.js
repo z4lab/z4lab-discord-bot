@@ -101,11 +101,8 @@ sql.alias.insert = async function(bot, command, alias) {
 
     if (command === alias) return ["```md\n[Error] Can't bind command to command! ]:```", true];
     
-    var check = await sql.alias.check(global.bot, alias)
+    var check = await sql.alias.check(global.bot, alias);
     var check2 = await sql.alias.check(global.bot, command);
-
-    console.log(command);
-    console.log(check2);
     
     if (check === command) return ["```md\n[Error] This bind is already existing! ]:```", true];
     if (check !== alias) return ["```md\n[Error] Bind already in use by < "+check+" >! ]:```", true];
