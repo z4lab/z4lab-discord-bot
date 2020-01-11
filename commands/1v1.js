@@ -25,7 +25,7 @@ module.exports.run = async function (bot, message) {
         let maxPlayers = state.maxplayers;
 
         //connection
-        let connectLink = `steam://connect/${state.query.host}:${state.query.port}`;
+        let connectLink = `steam://connect/${state.connect}`;
 
         embed = new RichEmbed()
             .setTitle(serverName)
