@@ -3,7 +3,7 @@ const sql = {};
 const timestamp = require("../timeStamp");
 const db = new bot.modules.core.sqlite3.Database(bot.modules.file.path.resolve(__dirname, "../../config/main.db"));
 
-sql.loadSettings = function (bot) {
+sql.loadSettings = function (bot, channel = false, answer = false) {
     let setPresence = require(bot.modules.file.path.resolve(__dirname, "../presence"));
 
     db.all("SELECT * FROM config_bot", [], (err, rows) => {
@@ -16,6 +16,7 @@ sql.loadSettings = function (bot) {
         global.bot.config.main.version.version = require(bot.modules.file.path.resolve(__dirname, "../../package.json")).version;
         setPresence(global.bot);
         console.log(timestamp() + "[SQLite] Bot config loaded!");
+        if (channel && answer) answer.edit(answer.content + "\n```md\n[SQLite] 1/5 - Bot config loaded! ]:```");
     });
 
     db.all("SELECT * FROM channels", [], (err, rows) => {
@@ -30,6 +31,7 @@ sql.loadSettings = function (bot) {
             if (row.channeltype === 4) global.bot.config.channels.memberCount.channelID = row.channelid;
         });
         console.log(timestamp() + "[SQLite] Channel config loaded!");
+        if (channel && answer) answer.edit(answer.content + "\n```md\n[SQLite] 2/5 - Channel config loaded! ]:```");
     });
 
     db.all("SELECT * FROM whitelist_roles", [], (err, rows) => {
@@ -43,6 +45,7 @@ sql.loadSettings = function (bot) {
             if (row.type === 2) global.bot.config.whitelist.allowedIDs.remove.push(row.roleid);
         });
         console.log(timestamp() + "[SQLite] Role config loaded!");
+        if (channel && answer) answer.edit(answer.content + "\n```md\n[SQLite] 3/5 - Role config loaded! ]:```");
     });
 
     db.all("SELECT * FROM servers", [], (err, rows) => {
@@ -55,6 +58,7 @@ sql.loadSettings = function (bot) {
             global.bot.config.servers[row.name].rcon = row.rcon;
         });
         console.log(timestamp() + "[SQLite] Server config loaded!");
+        if (channel && answer) answer.edit(answer.content + "\n```md\n[SQLite] 4/5 - Server config loaded! ]:```");
     });
 
     db.all("SELECT * FROM database", [], (err, rows) => {
@@ -67,6 +71,7 @@ sql.loadSettings = function (bot) {
             global.bot.config.dbs[row.name].database = row.database;
         });
         console.log(timestamp() + "[SQLite] Database config loaded!");
+        if (channel && answer) answer.edit(answer.content + "\n```md\n[SQLite] 5/5 - Database config loaded! ]:```").then(message=>{message.channel.send("```md\n[SQLite] Bot successfully reloaded! ]:```");});
 
         let mysql = require("mysql");
         global.bot.db = {};
