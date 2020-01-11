@@ -2,11 +2,14 @@ const { RichEmbed } = require("discord.js");
 const gamedig = require('gamedig');
 
 
-module.exports.run = function (bot, message, args) {
+module.exports.run = function (bot, message) {
 
     message.channel.startTyping();
 
-    gamedig.query(bot.config.servers["beginner"],
+    let serverDetails = bot.config.servers.beginner;
+    delete serverDetails.rcon;
+
+    gamedig.query(serverDetails,
         function (e, state) {
 
             var embed;
