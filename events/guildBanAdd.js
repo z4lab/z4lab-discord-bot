@@ -1,13 +1,11 @@
-const { bot } = require('../index');
-
-bot.on('guildBanAdd', (guild, user) => {
+global.bot.on('guildBanAdd', (guild, user) => {
     logBan(guild, user);
     
     function logBan(guild, user) {
     
-        let channelID = bot.config.channels.log.channelID;
+        let channelID = global.bot.config.channels.log.channelID;
         let channel = guild.channels.find(channel => channel.id == channelID);
-        let emoji = bot.emojis.find(emoji => emoji.name == 'ban');
+        let emoji = global.bot.emojis.find(emoji => emoji.name == 'ban');
     
         let username = user.tag;
         let userID = user.id;

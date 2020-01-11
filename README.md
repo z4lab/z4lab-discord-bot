@@ -19,7 +19,14 @@ discord bot for z4lab, main author @13ace37
 -   rename `example-whitelist.json`to `whitelist.json` and enter your details
 -   rename `example-alias.json`to `alias.json` and enter your details
 -   run `npm install`
+-   run `npm db`
+    - config files will no longer effect the bot
 -   start bot with `pm2 start index.js`
+
+## updating the bot's settings
+-   change settings in one of the `.json` files
+-   run `npm reload`
+-   use `{prefix}reload` in discord
 
 ## updating the bot
 -   move `update-bot.sh` outside the install directory

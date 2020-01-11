@@ -1,11 +1,7 @@
-const { bot } = require('../index');
-
-bot.on('guildMemberAdd', member => {
+global.bot.on('guildMemberAdd', member => {
 
     addMember(member);
-
     logMember(member);
-
     memberCount(member);
 
     function addMember(member) {
@@ -16,9 +12,9 @@ bot.on('guildMemberAdd', member => {
     
     function logMember(member) {
     
-        let channelID = bot.config.channels.log.channelID;
+        let channelID = global.bot.config.channels.log.channelID;
         let channel = member.guild.channels.find(channel => channel.id == channelID);
-        let emoji = bot.emojis.find(emoji => emoji.name == 'userJoined');
+        let emoji = global.bot.emojis.find(emoji => emoji.name == 'userJoined');
     
         let username = member.user.tag;
         let userID = member.user.id;
@@ -29,9 +25,9 @@ bot.on('guildMemberAdd', member => {
     
     function memberCount(member) {
     
-        let channelID = bot.config.channels.memberCount.channelID;
+        let channelID = global.bot.config.channels.memberCount.channelID;
         let channel = member.guild.channels.find(channel => channel.id == channelID);
-        let guild = bot.guilds.first();
+        let guild = global.bot.guilds.first();
     
         channel.setName("[afk] - " + guild.memberCount + " members");
     

@@ -1,11 +1,15 @@
 const { RichEmbed } = require("discord.js");
-const servers = require("../config/servers.json");
 const gamedig = require('gamedig');
 
 
-module.exports.run = function (bot, message, args, prefix) {
+module.exports.run = function (bot, message) {
 
-    gamedig.query(bot.config.servers["kz"],
+    message.channel.startTyping();
+
+    let serverDetails = bot.config.servers.kz;
+    delete serverDetails.rcon;
+
+    gamedig.query(serverDetails,
         function (e, state) {
 
             var embed;
@@ -38,6 +42,8 @@ module.exports.run = function (bot, message, args, prefix) {
                     .setThumbnail(bot.user.avatarURL)
                     .addField(`Server currently unavailable`, "check again soon", false);
             }
+
+            message.channel.stopTyping();
 
             return message.channel.send(embed);
 

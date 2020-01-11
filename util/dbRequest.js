@@ -1,11 +1,5 @@
-const SteamAPI = require('steamapi');
-const { RichEmbed } = require("discord.js");
-const config = require("../config/bot.json");
-const steamapi = new SteamAPI(config.steam["api-key"]);
-const steam = require('steamidconvert')();
+const steamapi = new global.bot.modules.core.steam.api(global.bot.config.main.steam["api-key"]);
 const fixTime = require("../util/fixTime.js");
-const toDuration = require('humanize-duration');
-const formatID = require('../util/formatID');
 var dbRequest = {};
 module.exports = dbRequest;
 /**
@@ -61,8 +55,8 @@ var getProfile = dbRequest.getProfile = async function getProfile(name, server, 
             for (var i = 0; i < get.length; i++) {
                 if (get[i].steamid == sid) var rank = i + 1;
             }
-            steamapi.getUserSummary(steam.convertTo64(String(sid))).then(summary => {
-                result.embed = new RichEmbed()
+            steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(sid))).then(summary => {
+                result.embed = new global.bot.modules.core.discordjs.RichEmbed()
                     .setAuthor(`${summary.nickname} on our${server} Surf Server`, '', summary.url)
                     .setThumbnail(summary.avatar.large)
                     .addField('Country ', country, true)
@@ -102,6 +96,7 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
 
     mysql.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} AND style = '0' ORDER BY runtimepro ASC`, async function (error, res) {
         if (error) {
+            result.error.error = error;
             result.error.id = 1;
             result.error.name = 'Error while database request!';
             return console.log(result.error);
@@ -112,6 +107,7 @@ var getMaptime = dbRequest.getMaptime = async function getMaptime(name, record, 
             if (String(res) == []) {
                 mysql.query(`SELECT * FROM ck_maptier WHERE mapname LIKE '%${map}%'`, function (error, get) {
                     if (error) {
+                        result.error.error = error;
                         result.error.id = 1;
                         result.error.name = 'Error while database request!';
                         return console.log(result.error);
@@ -225,15 +221,15 @@ var getPlaytime = dbRequest.getPlaytime = async function getPlaytime(name, mysql
                 result.error.print = true;
             }
             if (result.error.id == 0) {
-                _timealive = toDuration(timealive * 1000, {
+                _timealive = global.bot.modules.util.humanizeDuration(timealive * 1000, {
                     units: ['mo', 'w', 'd', 'h', 'm'],
                     round: true
                 });
-                _timespec = toDuration(timespec * 1000, {
+                _timespec = global.bot.modules.util.humanizeDuration(timespec * 1000, {
                     units: ['mo', 'w', 'd', 'h', 'm'],
                     round: true
                 });
-                _timeonline = toDuration(timeonline * 1000, {
+                _timeonline = global.bot.modules.util.humanizeDuration(timeonline * 1000, {
                     units: ['mo', 'w', 'd', 'h', 'm'],
                     round: true
                 });
@@ -244,7 +240,7 @@ var getPlaytime = dbRequest.getPlaytime = async function getPlaytime(name, mysql
             if (!beginnerTime[0]) id = String(proTime[0].steamid64);
             else id = String(beginnerTime[0].steamid64);
             var summary = await steamapi.getUserSummary(id);
-            result.embed = new RichEmbed()
+            result.embed = new global.bot.modules.core.discordjs.RichEmbed()
                 .setAuthor(summary.nickname + ' on Surf Servers', '', summary.url)
                 .setThumbnail(summary.avatar.large)
                 .addField('Total time on Surf Servers', _timeonline, false)
@@ -327,7 +323,7 @@ var getVipList = dbRequest.getVipList = async function getVipList(mysql) {
  * @param {object} steamid steam id of client
  */
 var getPlayerData = dbRequest.getPlayerData = async function getPlayerData(steamid) {
-    return await steamapi.getUserSummary(steam.convertTo64(String(steamid)));
+    return await steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(steamid)));
 }
 
 

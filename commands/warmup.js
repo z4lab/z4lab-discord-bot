@@ -2,11 +2,14 @@ const { RichEmbed } = require("discord.js");
 const gamedig = require('gamedig');
 
 
-module.exports.run = function (bot, message, args) {
+module.exports.run = function (bot, message) {
 
     message.channel.startTyping();
 
-    gamedig.query(bot.config.servers["warmup"],
+    let serverDetails = bot.config.servers.warmup;
+    delete serverDetails.rcon;
+
+    gamedig.query(serverDetails,
         function (e, state) {
 
             var embed;
@@ -41,6 +44,7 @@ module.exports.run = function (bot, message, args) {
             }
 
             message.channel.stopTyping();
+
             return message.channel.send(embed);
 
         });

@@ -1,8 +1,4 @@
-const steam = require('steamidconvert')();
-const SteamID = require('steamid');
-const config = require("../config/bot.json");
-const SteamAPI = require('steamapi');
-const steamapi = new SteamAPI(config.steam["api-key"]);
+const steamapi = new global.bot.modules.core.steam.api(global.bot.config.main.steam["api-key"]);
 
 module.exports = async function (input = false) {
 
@@ -15,11 +11,10 @@ module.exports = async function (input = false) {
         throw (e);
     }
 
-    input = steam.convertToText(input);
+    input = global.bot.modules.core.steam.idconvert.convertToText(input);
 
     input = input.replace('_0', '_1');
 
-    console.log(input);
 
     return input;
 
