@@ -8,11 +8,9 @@ module.exports.run = async (bot, message, args) => {
 
     let testArgs = args.join(" ");
 
-    cities.sort(function(a,b) {return b.population - a.population});
+    cities.sort(function(a,b) {return b.population - a.population;});
 
-    var citiesArray = [];
-
-    citiesArray = cities.filter(city => {
+    let citiesArray = cities.filter(city => {
         return city.name.toLowerCase() === testArgs.toLowerCase();
     }); 
 
@@ -23,17 +21,30 @@ module.exports.run = async (bot, message, args) => {
     if (citiesArray.length === 0) return message.channel.send("Can't find a city/village!");
 
     let city = citiesArray[0];
-
+    let coords = {lon: city.lon, lat: city.lat};
     let apiUrl = "https://fcc-weather-api.glitch.me/api/current?";
-
     let settings = `lon=${Number(city.lon)}&lat=${Number(city.lat)}`;
-
     let request = apiUrl+settings;
 
-    let res = await superagent.get(request);
+    await getWeatherData(request, coords, message);
 
-    res = res.body;
-    
+};
+
+async function getWeatherData(request, coords, message) {
+
+    let result = await superagent.get(request);
+    result = result.body;
+
+    if (Math.round(result.coord.lon * 10) === Math.round(coords.lon * 10) && Math.round(result.coord.lat * 10) === Math.round(coords.lat * 10)) {
+        sendWeatherData(message, result);
+    } else {
+        await getWeatherData(request, coords, message);
+    }
+
+}
+
+function sendWeatherData(message, res) {
+
     let embed = new RichEmbed()
         .setTitle(`Weather for ${res.name} / ${res.sys.country} @ ${new Date((Date.now()+((res.timezone-7200)*1000))).toLocaleString('en-US')}`)
         .setThumbnail(res.weather[0].icon)
@@ -51,8 +62,8 @@ module.exports.run = async (bot, message, args) => {
         .addField(":city_sunset: Sunset", `${new Date((res.sys.sunset+res.timezone)*1000).toLocaleString('en-US') || "N/A"}`, true);
 
     return message.channel.send(embed);
+}
 
-};
 
 module.exports.help = {
     name: "weather",
