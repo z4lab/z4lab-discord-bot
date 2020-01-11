@@ -1,6 +1,6 @@
 {
   "name": "z4lab-discord-bot",
-  "version": "1.32.0",
+  "version": "1.32.1",
   "description": "z4lab Bot for Discord",
   "main": "index.js",
   "dependencies": {
@@ -18,6 +18,7 @@
     "random-hex-color": "^1.0.1",
     "rebuild": "^0.1.2",
     "sqlite3": "^4.1.0",
+    "srcds-rcon": "^2.2.1",
     "steam-user": "^4.11.1",
     "steamapi": "^2.0.3",
     "steamid": "^1.1.0",
