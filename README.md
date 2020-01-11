@@ -1,5 +1,13 @@
-# z4lab-discord-bot
-discord bot for z4lab, main author @13ace37
+<p align="center">
+    <img src="https://z4lab.com/images/z4lab-logo.png" height="128" />
+    <h1 align="center">-# z4lab Discord Bot #-</h1>
+    <strong>
+         <p align="center">
+              A community discord bot for <a href="https://z4lab.com/">z4lab</a>.
+         </p>
+    </strong><br><br>
+<br>
+</p>
 
 ## features
 -   add new user to specific role
