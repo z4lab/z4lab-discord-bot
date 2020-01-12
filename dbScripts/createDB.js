@@ -1,5 +1,5 @@
 const sql = require("sqlite3");
-const db  = new sql.Database(path.resolve(__dirname, "config/main.db"));
+const path = require('path');
 const db  = new sql.Database(path.resolve(__dirname, "../config/main.db"));
 
 db.run(`CREATE TABLE IF NOT EXISTS \`config_bot\` (
