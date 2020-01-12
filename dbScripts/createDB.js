@@ -1,6 +1,6 @@
 const sql = require("sqlite3");
-const path = require('path')
 const db  = new sql.Database(path.resolve(__dirname, "config/main.db"));
+const db  = new sql.Database(path.resolve(__dirname, "../config/main.db"));
 
 db.run(`CREATE TABLE IF NOT EXISTS \`config_bot\` (
 	\`option\` CHAR NOT NULL DEFAULT "",
@@ -38,7 +38,13 @@ db.run(`CREATE TABLE IF NOT EXISTS \`database\` (
 	\`database\` CHAR NOT NULL DEFAULT ""
 );`);
 
-setTimeout(function(){insert(db)}, 1000);
+db.run(`CREATE TABLE IF NOT EXISTS \`whitelist\` (
+	\`userID\` CHAR NOT NULL DEFAULT "",
+	\`steamID64\` CHAR NOT NULL DEFAULT "",
+	\`dateAdded\` DATE NOT NULL DEFAULT ""
+)`);
+
+setTimeout(function(){insert(db);}, 1000);
 function insert(db) {
 	db.run(`INSERT INTO config_bot (option,value) VALUES ("botToken", ""),("botPrefix", ""),("steamApiKey", ""),("presencePrefix","z4lab.com |"),("versionInName","true");`);
 }

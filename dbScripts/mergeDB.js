@@ -1,13 +1,13 @@
 (async() => {
     const sql = require("sqlite3");
-    const path = require('path')
-    const db  = new sql.Database(path.resolve(__dirname, "config/main.db"));
-    const config = require(__dirname+"/config/bot.json");
-    const configChannles = require(__dirname+"/config/channels.json");
-    const configAlias = require(__dirname+"/config/alias.json");
-    const configServers = require(__dirname+"/config/servers.json");
-    const configWhitelist = require(__dirname+"/config/whitelist.json");
-    const configDatabase = require(__dirname+"/config/dbs.json");
+    const path = require('path');
+    const db  = new sql.Database(path.resolve(__dirname, "../config/main.db"));
+    const config = require(__dirname+"/../config/bot.json");
+    const configChannles = require(__dirname+"/../config/channels.json");
+    const configAlias = require(__dirname+"/../config/alias.json");
+    const configServers = require(__dirname+"/../config/servers.json");
+    const configWhitelist = require(__dirname+"/../config/whitelist.json");
+    const configDatabase = require(__dirname+"/../config/dbs.json");
     
     var sleep = function (ms) {
         return new Promise(resolve => {
@@ -19,7 +19,7 @@
     db.run(`DELETE FROM channels;`);
     db.run(`DELETE FROM database;`);
     db.run(`DELETE FROM servers;`);
-    db.run(`DELETE FROM whitelist_roles`)
+    db.run(`DELETE FROM whitelist_roles`);
     
     await sleep(4);
     
@@ -57,23 +57,23 @@
     //Merge servers.json
     
     Object.keys(configServers).forEach(server => {
-        db.run(`INSERT INTO \`servers\` (\`name\`, \`host\`, \`port\`, \`type\`, \`rcon\`) VALUES ("${server}","${configServers[server].host}","${configServers[server].port}","${configServers[server].type}","${configServers[server].rcon || "none"}");`)
+        db.run(`INSERT INTO \`servers\` (\`name\`, \`host\`, \`port\`, \`type\`, \`rcon\`) VALUES ("${server}","${configServers[server].host}","${configServers[server].port}","${configServers[server].type}","${configServers[server].rcon || "none"}");`);
     });
     
     //Merge whitelist.json
     
     configWhitelist.allowedIDs.add.forEach(roleid => {
-        db.run(`INSERT INTO whitelist_roles (type, roleid) VALUES ("1","${roleid}");`)
+        db.run(`INSERT INTO whitelist_roles (type, roleid) VALUES ("1","${roleid}");`);
     });
     
     configWhitelist.allowedIDs.remove.forEach(roleid => {
-        db.run(`INSERT INTO whitelist_roles (type, roleid) VALUES ("2","${roleid}");`)
+        db.run(`INSERT INTO whitelist_roles (type, roleid) VALUES ("2","${roleid}");`);
     });
     
     //Merge dbs.json
     
     Object.keys(configDatabase).forEach(server => {
         console.log(server);
-        db.run(`INSERT INTO \`database\` (\`name\`, \`host\`, \`user\`, \`password\`, \`database\`) VALUES ("${server}","${configDatabase[server].host}","${configDatabase[server].user}","${configDatabase[server].password || "none"}","${configDatabase[server].database}");`)
+        db.run(`INSERT INTO \`database\` (\`name\`, \`host\`, \`user\`, \`password\`, \`database\`) VALUES ("${server}","${configDatabase[server].host}","${configDatabase[server].user}","${configDatabase[server].password || "none"}","${configDatabase[server].database}");`);
     });
 })();

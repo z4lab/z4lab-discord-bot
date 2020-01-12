@@ -11,7 +11,7 @@ module.exports = dbPost;
  * @param {string} id player id -- user input -- indirectly
  * @param {object} mysql vsurf server mysql connection
  */
-var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) {
+var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
 
     var result = {};
     result.error = false;
@@ -57,6 +57,9 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) 
 
                 steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
+                    let { whitelist } = require("./db/sql");
+                    whitelist.add(author.id, summary.steamID); //add discord and steamID to local bot database
+
                     let embed = new global.bot.modules.core.discordjs.RichEmbed()
                         .setTitle('z4lab Whitelist')
                         .setDescription('Player successfully added to the whitelist!\nsteam://connect/94.130.8.161:27040')
@@ -76,7 +79,7 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id) 
 };
 
 /**
- * whitelistAdd Function
+ * whitelistRemove Function
  * @param {string} id player id -- user input -- indirectly
  * @param {object} mysql vsurf server mysql connection
  */
@@ -102,6 +105,9 @@ var whitelistRemove = dbPost.whitelistRemove = async function whitelistRemove(my
 
             if (!err) {
                 steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
+
+                    let { whitelist } = require("./db/sql");
+                    whitelist.remove(false, summary.steamID); //remove discord and steamID from local bot database
 
                     let embed = new global.bot.modules.core.discordjs.RichEmbed()
                         .setTitle('z4lab Whitelist')
