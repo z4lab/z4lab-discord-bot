@@ -8,7 +8,6 @@ global.bot.on('guildBanAdd', (guild, user) => {
         let emoji = global.bot.emojis.find(emoji => emoji.name == 'ban');
     
         let username = user.tag;
-        let userID = user.id;
     
         channel.send(emoji + ' Ban added\n' + username + ' ( ' + String(user) + ' ) banned from the sanctuary!');
     
