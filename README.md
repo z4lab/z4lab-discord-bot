@@ -27,13 +27,19 @@
 -   rename `example-alias.json`to `alias.json` and enter your details
 -   run `npm install`
 -   run `npm db`
-    - config files will no longer effect the bot
+    - config files will no longer effect the bot (check "database setup" for more informations)
 -   start bot with `pm2 start index.js`
 
 ## database setup
 
-The bot will load the config files first and then override them with the database.
-So don't remove the config files after merging the settings into the database.
+<strong>Do not remove any json config file! The bot is still reading from these files!</strong>
+
+Prioritization: 
+
+```php
+main.db 	// loaded after bot startup
+*.json		// loaded first but gets overwritten by data inside main.db
+```
 
 ### first use
 
