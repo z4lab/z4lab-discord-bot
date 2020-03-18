@@ -95,10 +95,7 @@ dbRequest.getMaptime = async function getMaptime(name, record, map, server, mysq
 
     server = server.charAt(0).toUpperCase() + server.slice(1);
 
-    var username = name;
-
-    if (name != null) name = "AND name LIKE '%" + String(username) + "%'";
-    else name = '';
+    if (name) name = "AND name LIKE '%" + String(name) + "%'";
 
     mysql.query(`SELECT * FROM ck_playertimes WHERE mapname LIKE'%${map}%' ${name} AND style = '0' ORDER BY runtimepro ASC`, async function (error, res) {
         if (error) {

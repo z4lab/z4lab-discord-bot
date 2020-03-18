@@ -14,19 +14,16 @@ module.exports.run = async function (bot, message, args) {
     }
     if (!args[0].toLowerCase().startsWith('surf_') || args[0].length < 6) return message.channel.send('```md\n[Error] Invalid map entered! ]:```');
     let map = args[0];
-    var record = false;
-    var username = null;
+    var record, name, username = false;
     
-    //todo: wtf is this?? you drunk or something XDD???
-    var name = 'AND 1=1';
     if (args[1] && args[1].toLowerCase() != 'pro' && args[1].toLowerCase() != 'beginner') {
-        name = "AND name LIKE '%" + String(args[1]) + "%'";
+        name = true;
         username = String(args[1]);
     }
     if (args[1] == 'pro') args[2] = 'pro';
     if (!args[2]) args[2] = 'beginner';
     if (args[2] != 'pro') args[2] = 'beginner';
-    if (name == 'AND 1=1') record = true;
+    if (!name) record = true;
     var mysql = global.bot.db.db_beginner;
     if (args[2] != 'beginner') mysql = global.bot.db.db_pro;
     var result = await dbRequest.getMaptime(username, record, map, args[2], mysql);
