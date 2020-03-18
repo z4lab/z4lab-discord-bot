@@ -67,3 +67,10 @@ main.db 	// loaded after bot startup
 -   run chmod +x `update-bot.sh`
 -   change the default variables in the file (Line 4, 5, 6 and 7)
 -   run the script with `./update-bot.sh`
+
+## branch definitions
+
+```php
+master 	// mostly working - used for our public discord server
+dev 	// mostly untested changes (maybe not working) - used for our private dev discord server
+```
