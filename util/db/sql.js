@@ -206,13 +206,16 @@ sql.whitelist.remove = function(userID, steamID) {
 
 };
 
-sql.whitelist.check = async function(userID) {
+sql.whitelist.check = async function(userID, self = true) {
 
 	let accounts = [], none = false;
 
 	db.all(`SELECT * FROM whitelist WHERE userID = "${userID}"`, [], (err, rows) => {
 		if (err) console.log(err);
-		if (rows.length === 0) none = "```md\n[Whitelist] You haven't whitelisted any accounts yet! ]:```";
+		if (rows.length === 0 ) {
+			if (self) none = "```md\n[Whitelist] You haven't whitelisted any accounts yet! ]:```";
+			else none = "```md\n[Whitelist] The given user hasn't whitelisted any accounts yet! ]:```";
+		}
 
 		rows.forEach(row => {
 			accounts.push({
@@ -225,6 +228,23 @@ sql.whitelist.check = async function(userID) {
 
 	await global.bot.sleep(1);
 	return none || accounts;
+
+};
+
+sql.whitelist.allowedAdd = async function(member) {
+
+	let { getUserLevel } = require("../permissionLvl");
+	let userLevel = getUserLevel(member), maxAccounts = 0, allowed = false;
+
+
+	db.all(`SELECT * FROM whitelist WHERE userID = "${member.id}"`, [], (err, rows) => {
+		if (err) console.log(err);
+		maxAccounts = userLevel > 2 ? Infinity : userLevel;
+		allowed = rows.length < maxAccounts;
+	});
+
+	await global.bot.sleep(1);
+	return allowed;
 
 };
 

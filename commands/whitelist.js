@@ -90,11 +90,11 @@ module.exports.run = async function (bot, message, args) {
 		if (message.mentions.members && message.mentions.members.array()[0]) id = message.mentions.members.array()[0].id;
 
 		let { whitelist } = require("../util/db/sql");
-		let result = await whitelist.check(id);
+		let result = await whitelist.check(id, message.mentions.members.array() && message.mentions.members.array().length > 0);
 
 		if (typeof result === "string") return message.channel.send(result);
 
-		let embed = new RichEmbed().setTitle("z4lab Whitelist - " + message.author.tag);
+		let embed = new RichEmbed().setTitle("z4lab Whitelist - " + message.mentions.members.array()[0].tag || message.author.tag);
 
 		result.forEach(account => {
 			embed
