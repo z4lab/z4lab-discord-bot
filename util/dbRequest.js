@@ -58,7 +58,7 @@ dbRequest.getProfile = async function getProfile(name, server, mysql) {
 		});
 	});
 
-	await global.bot.sleep(500);
+	await global.bot.sleep(5);
 	return result;
 
 };
@@ -154,7 +154,7 @@ dbRequest.getMaptime = async function getMaptime(name, record, map, server, mysq
 			}
 		}
 	});
-	await global.bot.sleep(200);
+	await global.bot.sleep(2);
 	return result;
 };
 /**
@@ -247,7 +247,7 @@ dbRequest.getPlaytime = async function getPlaytime(name, mysql0, mysql1) {
 				.setFooter(`Last seen`);
 		});
 	});
-	await global.bot.sleep(1000);
+	await global.bot.sleep(1);
 	return result;
 }
 
@@ -265,7 +265,7 @@ dbRequest.getVipList = async function getVipList(mysql) {
 		result.raw = res;
 	});
 
-	await global.bot.sleep(100);
+	await global.bot.sleep(1);
 
 	result.list = {};
 	result.list.string = "```md\n[Whitelist] contains < "+ result.raw.length +" > users: ]:\n\n";
@@ -279,7 +279,7 @@ dbRequest.getVipList = async function getVipList(mysql) {
 		result.list.buffer.push(data.nickname);
 	});
 
-	await global.bot.sleep(500);
+	await global.bot.sleep(5);
 
 	var longestName = 0;
 
@@ -349,6 +349,6 @@ dbRequest.checkVipList = async function checkVipList(mysql, id) {
 		else result.vip = false;
 	});
 
-	await global.bot.sleep(100);
+	await global.bot.sleep(1);
 	return result;
 }

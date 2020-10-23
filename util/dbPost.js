@@ -19,7 +19,7 @@ dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
 
 	id = await formatID(id);	
 
-	await global.bot.sleep(10);
+	await global.bot.sleep(1);
 
 	let idCheck = await dbRequest.checkVipList(mysql, id);
 
@@ -40,7 +40,7 @@ dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
 		});
 	}
 
-	await global.bot.sleep(100);
+	await global.bot.sleep(1);
 
 	if (!idCheck.vip) {
 
@@ -73,7 +73,7 @@ dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
 	}
 
 
-	await global.bot.sleep(500);
+	await global.bot.sleep(5);
 	return result;
 
 };
@@ -91,7 +91,7 @@ dbPost.whitelistRemove = async function whitelistRemove(mysql, id) {
 
 	id = await formatID(id);
 
-	await global.bot.sleep(10);
+	await global.bot.sleep(1);
 
 	let idCheck = await dbRequest.checkVipList(mysql, id);
 
@@ -142,7 +142,7 @@ dbPost.whitelistRemove = async function whitelistRemove(mysql, id) {
 
 	}
 
-	await global.bot.sleep(500);
+	await global.bot.sleep(5);
 	return result;
 
 };
