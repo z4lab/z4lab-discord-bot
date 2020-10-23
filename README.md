@@ -1,12 +1,11 @@
 <p align="center">
-    <img src="https://z4lab.com/images/z4lab-logo.png" height="128" />
+    <img src="https://z4lab.com/images/discord-bot-transparent.png" height="280" />
     <h1 align="center">-# z4lab Discord Bot #-</h1>
     <strong>
          <p align="center">
               A community discord bot for <a href="https://z4lab.com/">z4lab</a>.
          </p>
-    </strong><br><br>
-<br>
+    </strong>
 </p>
 
 ## features
@@ -28,8 +27,35 @@
 -   rename `example-alias.json`to `alias.json` and enter your details
 -   run `npm install`
 -   run `npm db`
-    - config files will no longer effect the bot
+    - config files will no longer effect the bot (check "database setup" for more informations)
 -   start bot with `pm2 start index.js`
+
+## database setup
+
+<strong>Do not remove any json config file! The bot is still reading from these files!</strong>
+
+Prioritization: 
+
+```php
+main.db 	// loaded after bot startup
+*.json		// loaded first but gets overwritten by data inside main.db
+```
+
+### first use
+
+-   run `npm db`
+-   run the bot normally
+
+### merging configs into database
+
+-   run `npm reload`
+-   reload or reboot the bot using the commands
+
+### updating database
+
+-   run `npm update`
+-   reboot the bot using the reboot command
+ 
 
 ## updating the bot's settings
 -   change settings in one of the `.json` files
@@ -41,3 +67,10 @@
 -   run chmod +x `update-bot.sh`
 -   change the default variables in the file (Line 4, 5, 6 and 7)
 -   run the script with `./update-bot.sh`
+
+## branch definitions
+
+```php
+master 	// mostly working - used for our public discord server
+dev 	// mostly untested changes (maybe not working) - used for our private dev discord server
+```
