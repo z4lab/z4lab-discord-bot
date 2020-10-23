@@ -4,55 +4,55 @@ const gamedig = require('gamedig');
 
 module.exports.run = async function (bot, message) {
 
-    message.channel.startTyping();
+	message.channel.startTyping();
 
-    let serverDetails = bot.config.servers.pro;
-    delete serverDetails.rcon;
+	let serverDetails = bot.config.servers.pro;
+	delete serverDetails.rcon;
 
-    let embed;
+	let embed;
 
-    await gamedig.query(serverDetails).then(state => {
+	await gamedig.query(serverDetails).then(state => {
 
-        // server hostname
-        let serverName = state.name;
+		// server hostname
+		let serverName = state.name;
 
-        // map
-        let mapArray = state.map.split('/');
-        let map = mapArray[2] || mapArray[0];
+		// map
+		let mapArray = state.map.split('/');
+		let map = mapArray[2] || mapArray[0];
 
-        // players
-        let playerCount = state.raw.numplayers;
-        let maxPlayers = state.maxplayers;
+		// players
+		let playerCount = state.raw.numplayers;
+		let maxPlayers = state.maxplayers;
 
-        //connection
-        let connectLink = `steam://connect/${state.connect}`;
+		//connection
+		let connectLink = `steam://connect/${state.connect}`;
 
-        embed = new RichEmbed()
-            .setTitle(serverName)
-            .setThumbnail(bot.user.avatarURL)
-            .addField(`Current Map`, map, true)
-            .addField(`Current Players`, playerCount + '/' + maxPlayers, true)
-            .addField(`Steam Connect Link`, connectLink, false);
+		embed = new RichEmbed()
+			.setTitle(serverName)
+			.setThumbnail(bot.user.avatarURL)
+			.addField(`Current Map`, map, true)
+			.addField(`Current Players`, playerCount + '/' + maxPlayers, true)
+			.addField(`Steam Connect Link`, connectLink, false);
 
-    }).catch(error => {
+	}).catch(error => {
 
-        embed = new RichEmbed()
-            .setTitle("[SURF] z4lab Pro Surf | HARD | 64 Tick // z4lab.com")
-            .setThumbnail(bot.user.avatarURL)
-            .addField(`Server currently unavailable`, "check again soon", false);
+		embed = new RichEmbed()
+			.setTitle("[SURF] z4lab Pro Surf | HARD | 64 Tick // z4lab.com")
+			.setThumbnail(bot.user.avatarURL)
+			.addField(`Server currently unavailable`, "check again soon", false);
 
-    });
+	});
 
-    message.channel.stopTyping();
+	message.channel.stopTyping();
 
-    return message.channel.send(embed);
+	return message.channel.send(embed);
 
 };
 
 module.exports.help = {
-    name: "pro",
-    category: "servers",
-    usage: false,
-    description: false,
-    permissionLvl: 0
+	name: "pro",
+	category: "servers",
+	usage: false,
+	description: false,
+	permissionLvl: 0
 };

@@ -12,16 +12,16 @@ const version = process.argv[2] || Infinity;
 
 if (version < 1330) {
 
-    db.run(`CREATE TABLE IF NOT EXISTS \`whitelist\` (
-    	\`userID\` CHAR NOT NULL DEFAULT "",
-    	\`steamID64\` CHAR NOT NULL DEFAULT "",
-    	\`dateAdded\` DATE NOT NULL DEFAULT ""
-    )`);
+	db.run(`CREATE TABLE IF NOT EXISTS \`whitelist\` (
+		\`userID\` CHAR NOT NULL DEFAULT "",
+		\`steamID64\` CHAR NOT NULL DEFAULT "",
+		\`dateAdded\` DATE NOT NULL DEFAULT ""
+	)`);
 
 } else {
 
-    if (version === Infinity) return console.log("No version provided!\nUsage: node dbScripts/updateDB.js <numeric version>\nExample: node dbScripts/updateDB.js 1323");
-    return console.log("The database is already on your requested version!");
+	if (version === Infinity) return console.log("No version provided!\nUsage: node dbScripts/updateDB.js <numeric version>\nExample: node dbScripts/updateDB.js 1323");
+	return console.log("The database is already on your requested version!");
 
 }
 

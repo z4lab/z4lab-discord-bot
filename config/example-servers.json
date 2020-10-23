@@ -1,62 +1,62 @@
 {
-    "1v1": {
-        "host": "94.130.8.161",
-        "port": "27015",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "warmup": {
-        "host": "94.130.8.161",
-        "port": "27020",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "beginner": {
-        "host": "94.130.8.161",
-        "port": "27025",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "kz": {
-        "host": "94.130.8.161",
-        "port": "27030",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "pro": {
-        "host": "94.130.8.161",
-        "port": "27035",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "vip-surf": {
-        "host": "94.130.8.161",
-        "port": "27040",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "dev": {
-        "host": "94.130.8.161",
-        "port": "27050",
-        "type": "csgo",
-        "rcon": ""
-    },
-    "ttt": {
-        "host": "94.130.8.161",
-        "port": "28045",
-        "type": "garrysmod",
-        "rcon": ""
-    },
-    "mcvanilla": {
-        "host": "94.130.8.161",
-        "port": "29015",
-        "type": "garrysmod",
-        "rcon": ""
-    },
-    "mcftb": {
-        "host": "94.130.8.161",
-        "port": "25565",
-        "type": "garrysmod",
-        "rcon": ""
-    }
+	"1v1": {
+		"host": "94.130.8.161",
+		"port": "27015",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"warmup": {
+		"host": "94.130.8.161",
+		"port": "27020",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"beginner": {
+		"host": "94.130.8.161",
+		"port": "27025",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"kz": {
+		"host": "94.130.8.161",
+		"port": "27030",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"pro": {
+		"host": "94.130.8.161",
+		"port": "27035",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"vip-surf": {
+		"host": "94.130.8.161",
+		"port": "27040",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"dev": {
+		"host": "94.130.8.161",
+		"port": "27050",
+		"type": "csgo",
+		"rcon": ""
+	},
+	"ttt": {
+		"host": "94.130.8.161",
+		"port": "28045",
+		"type": "garrysmod",
+		"rcon": ""
+	},
+	"mcvanilla": {
+		"host": "94.130.8.161",
+		"port": "29015",
+		"type": "garrysmod",
+		"rcon": ""
+	},
+	"mcftb": {
+		"host": "94.130.8.161",
+		"port": "25565",
+		"type": "garrysmod",
+		"rcon": ""
+	}
 }

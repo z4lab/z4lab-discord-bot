@@ -1,26 +1,26 @@
 {
-    "beginner": {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
-    },
-    "pro": {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
-    },
-    "arena": {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
-    },
-    "whitelist" : {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
-    }
+	"beginner": {
+		"host": "",
+		"user": "",
+		"password": "",
+		"database": ""
+	},
+	"pro": {
+		"host": "",
+		"user": "",
+		"password": "",
+		"database": ""
+	},
+	"arena": {
+		"host": "",
+		"user": "",
+		"password": "",
+		"database": ""
+	},
+	"whitelist" : {
+		"host": "",
+		"user": "",
+		"password": "",
+		"database": ""
+	}
 }
