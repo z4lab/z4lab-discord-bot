@@ -7,7 +7,8 @@ module.exports.run = async function (bot, message, args) {
 		.setTitle('z4lab Discord Bot whitelist usage')
 		.setThumbnail(bot.user.avatarURL)
 		.addField(`${bot.config.main.prefix}whitelist add [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Add a player to the whitelist', false)
-		.addField(`${bot.config.main.prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false);
+		.addField(`${bot.config.main.prefix}whitelist rm/remove [STEAMID/STEAMID64/CUSTOM-URL]`, '└ Remove a player to the whitelist', false)
+		.addField(`${bot.config.main.prefix}whitelist info [@user]`, '└ Get player\'s whitelist info', false);
 
 
 	if (!args[0]) return message.channel.send(usage);
@@ -75,7 +76,10 @@ module.exports.run = async function (bot, message, args) {
 
 		if (typeof result === "string") return message.channel.send(result);
 
-		let embed = new RichEmbed().setTitle("z4lab Whitelist - " + message.mentions.members.array()[0].tag || message.author.tag);
+		let tag = message.author.tag;
+		if (message.mentions.members.array() && message.mentions.members.array().length > 0) tag = message.mentions.members.array()[0].user.tag;
+
+		let embed = new RichEmbed().setTitle("z4lab Whitelist - " + tag);
 
 		result.forEach(account => {
 			embed
@@ -97,6 +101,9 @@ module.exports.help = {
 	}, {
 		command: "rm/remove [STEAMID/STEAMID64/CUSTOM-URL]",
 		description: "Remove a player to the whitelist"
+	}, {
+		command: "info [@user]",
+		description: "Get player\'s whitelist info"
 	}],
 	description: "add or remove a player on our VIP Surf Server's whitelist",
 	permissionLvl: 1

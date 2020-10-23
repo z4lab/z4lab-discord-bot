@@ -92,12 +92,12 @@ sql.loadSettings = function (bot, channel = false, answer = false) {
 
 	});
 
-	if (channel && answer) {
-		bot.loadCommands();
-		answer.edit(answer.content + "\n```md\n[Bot] - Commands reloaded! ]:```");
-		bot.loadEvents();
-		answer.edit(answer.content + "\n```md\n[Bot] - Events reloaded! ]:```");
-	}
+	// if (channel && answer) {
+	// 	bot.loadCommands();
+	// 	answer.edit(answer.content + "\n```md\n[Bot] - Commands reloaded! ]:```");
+	// 	bot.loadEvents();
+	// 	answer.edit(answer.content + "\n```md\n[Bot] - Events reloaded! ]:```");
+	// }
 
 };
 
