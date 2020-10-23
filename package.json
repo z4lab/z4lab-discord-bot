@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/totles/z4lab-discord-bot"
+    "url": "git+https://github.com/z4lab/z4lab-discord-bot"
   },
   "keywords": [
     "discordjs",
@@ -43,7 +43,7 @@
   "author": "Riccardo H.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/totles/z4lab-discord-bot/issues"
+    "url": "https://github.com/z4lab/z4lab-discord-bot/issues"
   },
   "homepage": "https://z4lab.com"
 }
