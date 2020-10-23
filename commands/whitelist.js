@@ -103,7 +103,7 @@ module.exports.help = {
 		description: "Remove a player to the whitelist"
 	}, {
 		command: "info [@user]",
-		description: "Get player\'s whitelist info"
+		description: "Get player's whitelist info"
 	}],
 	description: "add or remove a player on our VIP Surf Server's whitelist",
 	permissionLvl: 1
