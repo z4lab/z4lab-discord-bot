@@ -2,9 +2,18 @@ const sql = {};
 
 const timestamp = require("../timeStamp");
 const db = new global.bot.modules.core.sqlite3.Database(global.bot.modules.file.path.resolve(__dirname, "../../config/main.db"));
+sql.loadSettingsDone = false;
 
 sql.loadSettings = function (bot, channel = false, answer = false) {
-	let setPresence = require(bot.modules.file.path.resolve(__dirname, "../presence"));
+	let setPresence = require(bot.modules.file.path.resolve(__dirname, "../presence")); 
+	if (sql.loadSettingsDone) {
+		if (answer) answer.edit("```md\n[SQLite] - Reload canceled! Try again in a few minutes. ]:```");
+		return;
+	}
+	sql.loadSettingsDone = true;
+	setTimeout(() => {
+		sql.loadSettingsDone = false;
+	}, 2.5 * 60000);
 
 	db.all("SELECT * FROM config_bot", [], (err, rows) => {
 		if (err) return err;
