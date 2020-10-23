@@ -1,6 +1,6 @@
 const { RichEmbed, version } = require("discord.js");
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message) => {
 
 	let embed = new RichEmbed()
 		.setTitle('z4lab Discord Bot')

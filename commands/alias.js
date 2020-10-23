@@ -1,7 +1,6 @@
 module.exports.run = async (bot, message, args) => {
 
 	let sql = require("../util/db/sql");
-	let timestamp = require("../util/timeStamp");
 	let result;
 
 	if (!args || args.length === 0) return;

@@ -34,22 +34,22 @@ global.bot.rcon.groups = {};
 global.bot.rcon.groups.surf = [];
 
 Object.keys(global.bot.rcon.csgo.surf).forEach(server => {
-    global.bot.rcon.groups.surf.push(global.bot.rcon.csgo.surf[server]);
+	global.bot.rcon.groups.surf.push(global.bot.rcon.csgo.surf[server]);
 });
 
 global.bot.rcon.groups.aim = [];
 
 Object.keys(global.bot.rcon.csgo.aim).forEach(server => {
-    global.bot.rcon.groups.aim.push(global.bot.rcon.csgo.aim[server]);
+	global.bot.rcon.groups.aim.push(global.bot.rcon.csgo.aim[server]);
 });
 
 global.bot.rcon.groups.all = [];
 
 Object.keys(global.bot.rcon.csgo.surf).forEach(server => {
-    global.bot.rcon.groups.all.push(global.bot.rcon.csgo.surf[server]);
+	global.bot.rcon.groups.all.push(global.bot.rcon.csgo.surf[server]);
 });
 
 Object.keys(global.bot.rcon.csgo.aim).forEach(server => {
-    global.bot.rcon.groups.all.push(global.bot.rcon.csgo.aim[server]);
+	global.bot.rcon.groups.all.push(global.bot.rcon.csgo.aim[server]);
 });
 

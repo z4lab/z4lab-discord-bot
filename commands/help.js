@@ -1,7 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const getPermissionLvl = require("../util/permissionLvl");
 
-module.exports.run = function (bot, message, args) {
+module.exports.run = function (bot, message) {
 
 	let permissionLvl = getPermissionLvl.getUserLevel(message.member);
 

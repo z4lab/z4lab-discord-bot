@@ -10,7 +10,6 @@ global.bot.on('guildMemberRemove', member => {
 		let emoji = global.bot.emojis.find(emoji => emoji.name == 'userLeft');
 	
 		let username = member.user.tag;
-		let userID = member.user.id;
 	
 		channel.send(emoji + ' User Left\n' + username + ' ( ' + String(member) + ' ) left the sanctuary!');
 	

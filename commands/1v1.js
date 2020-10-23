@@ -34,7 +34,7 @@ module.exports.run = async function (bot, message) {
 			.addField(`Current Players`, playerCount + '/' + maxPlayers, true)
 			.addField(`Steam Connect Link`, connectLink, false);
 
-	}).catch(error => {
+	}).catch(() => {
 
 		embed = new RichEmbed()
 			.setTitle("[ARENA] z4lab Multi 1v1 | PRIME | 128 Tick // z4lab.com")

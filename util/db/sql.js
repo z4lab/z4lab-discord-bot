@@ -1,7 +1,7 @@
 const sql = {};
 
 const timestamp = require("../timeStamp");
-const db = new bot.modules.core.sqlite3.Database(bot.modules.file.path.resolve(__dirname, "../../config/main.db"));
+const db = new global.bot.modules.core.sqlite3.Database(global.bot.modules.file.path.resolve(__dirname, "../../config/main.db"));
 
 sql.loadSettings = function (bot, channel = false, answer = false) {
 	let setPresence = require(bot.modules.file.path.resolve(__dirname, "../presence"));
@@ -153,7 +153,6 @@ sql.alias.rename = async function(bot, oldAlias, newAlias) {
 
 	var oldCheck = await sql.alias.check(global.bot, oldAlias);
 	var newCheck = await sql.alias.check(global.bot, newAlias);
-	var error = false;
 
 	if (oldCheck === oldAlias) return ["```md\n[Error] This bind is non-existent! ]:```", true];
 	if (newCheck != newAlias || global.bot.commands.get(newAlias)) return ["```md\n[Error] New name is already in use! ]:```", true];
@@ -224,7 +223,7 @@ sql.whitelist.check = async function(userID) {
 
 	});
 
-	await bot.sleep(1);
+	await global.bot.sleep(1);
 	return none || accounts;
 
 };

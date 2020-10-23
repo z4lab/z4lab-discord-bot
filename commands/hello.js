@@ -1,4 +1,4 @@
-module.exports.run = function (bot, message, args) {
+module.exports.run = function (bot, message) {
 	return message.channel.send(`:hand_splayed: ${message.author}`);
 };
 

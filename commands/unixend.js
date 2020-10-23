@@ -1,11 +1,10 @@
 const { RichEmbed } = require("discord.js");
 const toDuration = require('humanize-duration');
 
-module.exports.run = function (bot, message, args){
+module.exports.run = function (bot, message){
 
 	let time = Math.floor(2147483647 - Math.floor((message.createdAt / 1000))) * 1000;
-
-	duration = toDuration(time);
+	let duration = toDuration(time);
 
 	let embed = new RichEmbed()
 		.setTitle('days until Unixtime overflow')

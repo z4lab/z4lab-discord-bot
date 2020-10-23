@@ -34,7 +34,7 @@ module.exports.run = async function (bot, message) {
 			.addField(`Current Players`, playerCount + '/' + maxPlayers, true)
 			.addField(`Steam Connect Link`, connectLink, false);
 
-	}).catch(error => {
+	}).catch(() => {
 
 		embed = new RichEmbed()
 			.setTitle("[KZ] z4lab Climbing/Kreedz | 128 Tick // z4lab.com", true)

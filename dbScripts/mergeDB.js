@@ -10,7 +10,7 @@
 	const configDatabase = require(__dirname+"/../config/dbs.json");
 	
 	var sleep = function (ms) {
-		return new Promise(resolve => {
+		return new Promise(resolve => { // eslint-disable-line
 			setTimeout(resolve, ms*1000);
 		});
 	};

@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 
-module.exports.run = function (bot, message, args) {
+module.exports.run = function (bot, message) {
 
 	let embed = new RichEmbed()
 		.setTitle('z4lab Random Commands Overview')

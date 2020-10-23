@@ -8,7 +8,6 @@ global.bot.on('guildBanRemove', (guild, user) => {
 		let emoji = global.bot.emojis.find(emoji => emoji.name == 'unban');
 	
 		let username = user.tag;
-		let userID = user.id;
 	
 		channel.send(emoji + ' Ban removed\n' + username + ' ( ' + String(user) + ' ) unbanned from the sanctuary!');
 	

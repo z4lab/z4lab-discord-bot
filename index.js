@@ -21,31 +21,31 @@ bot.config.servers = servers;
 bot.config.whitelist = whitelist;
 
 bot.sleep = function (ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms*1000);
-    });
+	return new Promise(resolve => { // eslint-disable-line
+		setTimeout(resolve, ms*1000);
+	});
 };
 
 bot.modifiedDate = function (file) {  
-    let { mtime } = bot.modules.file.fs.statSync(file);
-    return mtime;
+	let { mtime } = bot.modules.file.fs.statSync(file);
+	return mtime;
 };
 
 bot.modules.file.fs.readdir(__dirname+"/commands", (err, file) => { // gets content of /commands folder
-    if (err) console.log(err); // err handling
+	if (err) console.log(err); // err handling
 
-    let jsfile = file.filter(f => f.split(".").pop() === "js"); // checks for .js files
-    if (jsfile.length <= 0) { // checks if no file exist
-        console.log(bot.modules.util.colors.yellow("[WARNING] Couldn't find any commands!")); // no file err
-        return; // leave
-    }
-    jsfile.forEach((f, i) => { // gets all files
-        let props = require(__dirname+`/commands/${f}`); // from /commands folder
-        let date = bot.modifiedDate(__dirname+`/commands/${f}`);
-        console.log(bot.modules.util.colors.white(timestamp(date)) + bot.modules.util.colors.grey(`[Command] ${f} loaded!`)); // console log print form module
-        bot.commands.set(props.help.name, props); // set files as command
-    });
-    console.log("");
+	let jsfile = file.filter(f => f.split(".").pop() === "js"); // checks for .js files
+	if (jsfile.length <= 0) { // checks if no file exist
+		console.log(bot.modules.util.colors.yellow("[WARNING] Couldn't find any commands!")); // no file err
+		return; // leave
+	}
+	jsfile.forEach((f) => { // gets all files
+		let props = require(__dirname+`/commands/${f}`); // from /commands folder
+		let date = bot.modifiedDate(__dirname+`/commands/${f}`);
+		console.log(bot.modules.util.colors.white(timestamp(date)) + bot.modules.util.colors.grey(`[Command] ${f} loaded!`)); // console log print form module
+		bot.commands.set(props.help.name, props); // set files as command
+	});
+	console.log("");
 });
 
 global.bot = bot;

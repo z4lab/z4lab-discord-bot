@@ -17,8 +17,7 @@ global.bot.on('guildMemberAdd', member => {
 		let emoji = global.bot.emojis.find(emoji => emoji.name == 'userJoined');
 	
 		let username = member.user.tag;
-		let userID = member.user.id;
-	
+
 		channel.send(emoji + ' New User\n' + username + ' ( ' + String(member) + ' ) joined the sanctuary!');
 	
 	}

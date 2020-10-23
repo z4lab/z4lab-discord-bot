@@ -11,70 +11,70 @@ module.exports = dbPost;
  * @param {string} id player id -- user input -- indirectly
  * @param {object} mysql vsurf server mysql connection
  */
-var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
+dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
 
-    var result = {};
-    result.error = false;
-    result.embed = false;
+	var result = {};
+	result.error = false;
+	result.embed = false;
 
-    id = await formatID(id);    
+	id = await formatID(id);	
 
-    await sleep(10);
+	await global.bot.sleep(10);
 
-    let idCheck = await dbRequest.checkVipList(mysql, id);
+	let idCheck = await dbRequest.checkVipList(mysql, id);
 
-    result.idCheck = idCheck;
+	result.idCheck = idCheck;
 
-    if (idCheck.vip) {
+	if (idCheck.vip) {
 
-        steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
+		steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-            let embed = new global.bot.modules.core.discordjs.RichEmbed()
-                .setTitle('z4lab Whitelist')
-                .setDescription('Player is already on the whitelist!')
-                .setThumbnail(summary.avatar.large)
-                .addField(`[*] ${summary.nickname}`, summary.url);
+			let embed = new global.bot.modules.core.discordjs.RichEmbed()
+				.setTitle('z4lab Whitelist')
+				.setDescription('Player is already on the whitelist!')
+				.setThumbnail(summary.avatar.large)
+				.addField(`[*] ${summary.nickname}`, summary.url);
 
-            result.embed = embed;
+			result.embed = embed;
 
-        });
-    }
+		});
+	}
 
-    await sleep(100);
+	await global.bot.sleep(100);
 
-    if (!idCheck.vip) {
+	if (!idCheck.vip) {
 
-        mysql.query("INSERT INTO `" + global.bot.config.dbs.whitelist.database + "`.`mysql_whitelist` (`steamid`) VALUES ('" + id + "');", function (err) {
+		mysql.query("INSERT INTO `" + global.bot.config.dbs.whitelist.database + "`.`mysql_whitelist` (`steamid`) VALUES ('" + id + "');", function (err) {
 
-            if (err && err.code != 'ER_DUP_ENTRY') {
-                result.error.id = 1;
-                result.error.msg = '```md\n[Error] Failed to whitelist the ID! ]:```';
-                return;
-            }
-
-
-            if (id) {
-
-                steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
-
-                    let { whitelist } = require("./db/sql");
-                    whitelist.add(author.id, summary.steamID); //add discord and steamID to local bot database
-
-                    let embed = new global.bot.modules.core.discordjs.RichEmbed()
-                        .setTitle('z4lab Whitelist')
-                        .setDescription('Player successfully added to the whitelist!\nsteam://connect/94.130.8.161:27040')
-                        .setThumbnail(summary.avatar.large)
-                        .addField(`[+] ${summary.nickname}`, summary.url);
-
-                    result.embed = embed;
-                });
-            }
-        });
-    }
+			if (err && err.code != 'ER_DUP_ENTRY') {
+				result.error.id = 1;
+				result.error.msg = '```md\n[Error] Failed to whitelist the ID! ]:```';
+				return;
+			}
 
 
-    await sleep(500);
-    return result;
+			if (id) {
+
+				steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
+
+					let { whitelist } = require("./db/sql");
+					whitelist.add(author.id, summary.steamID); //add discord and steamID to local bot database
+
+					let embed = new global.bot.modules.core.discordjs.RichEmbed()
+						.setTitle('z4lab Whitelist')
+						.setDescription('Player successfully added to the whitelist!\nsteam://connect/94.130.8.161:27040')
+						.setThumbnail(summary.avatar.large)
+						.addField(`[+] ${summary.nickname}`, summary.url);
+
+					result.embed = embed;
+				});
+			}
+		});
+	}
+
+
+	await global.bot.sleep(500);
+	return result;
 
 };
 
@@ -83,72 +83,66 @@ var whitelistAdd = dbPost.whitelistAdd = async function whitelistAdd(mysql, id, 
  * @param {string} id player id -- user input -- indirectly
  * @param {object} mysql vsurf server mysql connection
  */
-var whitelistRemove = dbPost.whitelistRemove = async function whitelistRemove(mysql, id) {
+dbPost.whitelistRemove = async function whitelistRemove(mysql, id) {
 
-    var result = {};
-    result.error = false;
-    result.embed = false;
+	var result = {};
+	result.error = false;
+	result.embed = false;
 
-    id = await formatID(id);
+	id = await formatID(id);
 
-    await sleep(10);
+	await global.bot.sleep(10);
 
-    let idCheck = await dbRequest.checkVipList(mysql, id);
+	let idCheck = await dbRequest.checkVipList(mysql, id);
 
-    result.idCheck = idCheck;
+	result.idCheck = idCheck;
 
-    if (idCheck.vip) {
+	if (idCheck.vip) {
 
-        mysql.query("DELETE FROM `" + global.bot.config.dbs.whitelist.database + "`.`mysql_whitelist` WHERE (`steamid` = '" + id + "');", function (err) {
+		mysql.query("DELETE FROM `" + global.bot.config.dbs.whitelist.database + "`.`mysql_whitelist` WHERE (`steamid` = '" + id + "');", function (err) {
 
-            console.log(err);
+			console.log(err);
 
-            if (!err) {
-                steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
+			if (!err) {
+				steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-                    let { whitelist } = require("./db/sql");
-                    whitelist.remove(false, summary.steamID); //remove discord and steamID from local bot database
+					let { whitelist } = require("./db/sql");
+					whitelist.remove(false, summary.steamID); //remove discord and steamID from local bot database
 
-                    let embed = new global.bot.modules.core.discordjs.RichEmbed()
-                        .setTitle('z4lab Whitelist')
-                        .setDescription('Player removed from the whitelist!')
-                        .setThumbnail(summary.avatar.large)
-                        .addField(`[-] ${summary.nickname}`, summary.url);
+					let embed = new global.bot.modules.core.discordjs.RichEmbed()
+						.setTitle('z4lab Whitelist')
+						.setDescription('Player removed from the whitelist!')
+						.setThumbnail(summary.avatar.large)
+						.addField(`[-] ${summary.nickname}`, summary.url);
 
-                    result.embed = embed;
+					result.embed = embed;
 
-                });
-            } else {
-                result.error.id = 1;
-                return result.error.message("```md\n[Error] Failed to remove player from whitelist! ]:```");
-            }
+				});
+			} else {
+				result.error.id = 1;
+				return result.error.message("```md\n[Error] Failed to remove player from whitelist! ]:```");
+			}
 
-        });
-    } else {
+		});
+	} else {
 
-        if (id) {
-            steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
+		if (id) {
+			steamapi.getUserSummary(global.bot.modules.core.steam.idconvert.convertTo64(String(id))).then(summary => {
 
-                let embed = new global.bot.modules.core.discordjs.RichEmbed()
-                    .setTitle('z4lab Whitelist')
-                    .setDescription('Player is not on the whitelist!')
-                    .setThumbnail(summary.avatar.large)
-                    .addField(`[*] ${summary.nickname}`, summary.url);
+				let embed = new global.bot.modules.core.discordjs.RichEmbed()
+					.setTitle('z4lab Whitelist')
+					.setDescription('Player is not on the whitelist!')
+					.setThumbnail(summary.avatar.large)
+					.addField(`[*] ${summary.nickname}`, summary.url);
 
-                result.embed = embed;
+				result.embed = embed;
 
-            });
-        }
+			});
+		}
 
-    }
+	}
 
-    await sleep(500);
-    return result;
+	await global.bot.sleep(500);
+	return result;
 
 };
-
-function sleep(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-}

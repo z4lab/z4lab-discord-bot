@@ -6,12 +6,13 @@ module.exports.run = async function (bot, message, args) {
 	var name = args[0];
 	if (!args[1]) args[1] = 'beginner';
 	if (args[1] != 'pro') args[1] = 'beginner';
+	var result;
 	if (args[1] === 'beginner') {
-		var result = await dbRequest.getProfile(name, args[1], bot.db.db_beginner);
+		result = await dbRequest.getProfile(name, args[1], bot.db.db_beginner);
 		if (!result.error.print) return message.channel.send(result.embed);
 		return message.channel.send(result.error.name);
 	} else {
-		var result = await dbRequest.getProfile(name, args[1], bot.db.db_pro);
+		result = await dbRequest.getProfile(name, args[1], bot.db.db_pro);
 		if (!result.error.print) return message.channel.send(result.embed);
 		return message.channel.send(result.error.name);
 	}
