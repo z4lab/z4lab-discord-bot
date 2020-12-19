@@ -1,59 +1,58 @@
 #!/bin/bash
 
 ### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
-INSTALLDIR="/srv"
-TMPDIR="/tmp"
-CURRENTINSTALL="/srv/z4lab-discord-bot"
-PM2ID="0"
+CURRENTINSTALL="/srv/discord/z4lab-discord-bot-dev"
+PM2ID="1"
 ### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
 
 # color settings, no need to change!
 RST='\e[0m'       # reset everything
+RED='\e[0;31m'    # red color
 GRN='\e[0;32m'    # green color
 YLW='\e[0;33m'    # yellow color
 BLNK='\e[5m'      # blink, for the waiting indicator
 
-# check if tmp directory exists, if not create it
-echo -en "[1/8] ${YLW}check for tmp directory: ${BLNK}..."
-mkdir -p $TEMPDIR
-echo -e "${RST}[1/8] check for tmp directory: ${GRN}DONE!${RST}"
+changed=0
 
-# backup bot.json file
-echo -en "[2/8] ${YLW}backing up config files: ${BLNK}..."
-cp $INSTALLDIR/z4lab-discord-bot/config/*.json $TMPDIR/
-echo -e "${RST}[2/8] ${YLW}backing up config files: ${GRN}DONE!${RST}"
+# check for install dir
+echo -en "[1/5] ${YLW}check for install directory: ${BLNK}...\n"
+if [[ -d "${CURRENTINSTALL}" ]]
+then
+    echo -e "${RST}[1/5] ${YLW}check for install directory: ${GRN}DONE!${RST}\n"
+    cd $CURRENTINSTALL
+else
+	echo -e "${RST}[1/5] ${YLW}check for install directory: ${RED}FAILED!${RST}\n"
+	exit 2
+fi
 
-# stop the bot
-echo -en "[3/8] ${YLW}stopping the current bot: ${BLNK}..."
-# forever stopall
-pm2 stop $PM2ID
-echo -e "${RST}[3/8] ${YLW}stopping the current bot: ${GRN}DONE!${RST}"
+# git fetch
+echo -en "[2/5] ${YLW}running git fetch: ${BLNK}...${RST}\n"
+git fetch
+echo -e "${RST}[2/5] ${YLW}running git fetch: ${GRN}DONE!${RST}\n"
 
-# remove current version
-echo -en "[4/8] ${YLW}removing current version: ${BLNK}..."
-rm -rf $CURRENTINSTALL
-echo -e "${RST}[4/8] ${YLW}removing current version: ${GRN}DONE!${RST}"
+# git checkout -f
+echo -en "[3/5] ${YLW}removing added changes: ${BLNK}...${RST}\n"
+git checkout -f | grep -q -v 'Your branch is up to date with' && changed=1
+echo -e "${RST}[3/5] ${YLW}removing added changes: ${GRN}DONE!${RST}\n"
 
-# get new version
-echo -en "[5/8] ${YLW}installing latest version: ${BLNK}..."
-cd $INSTALLDIR && git clone https://github.com/totles/z4lab-discord-bot
-echo -e "${RST}[5/8] ${YLW}installing latest version: ${GRN}DONE!${RST}"
+# git fetch
+echo -en "[4/5] ${YLW}running git pull: ${BLNK}...${RST}\n"
+if [ "$changed" -eq "1" ]; then
+	git pull
+	echo -e "${RST}[4/5] ${YLW}running git pull: ${GRN}DONE!${RST}\n"
+else 
+	echo -e "${RST}[4/5] ${GRN}skipping git pull already up to date.${RST}\n"
+fi
 
-# move backup config
-echo -en "[6/8] ${YLW}restoring backuped config files: ${BLNK}..."
-mv $TMPDIR/bot.json $INSTALLDIR/z4lab-discord-bot/config/bot.json
-mv $TMPDIR/dbs.json $INSTALLDIR/z4lab-discord-bot/config/dbs.json
-mv $TMPDIR/servers.json $INSTALLDIR/z4lab-discord-bot/config/servers.json
-mv $TMPDIR/channels.json $INSTALLDIR/z4lab-discord-bot/config/channels.json
-mv $TMPDIR/whitelist.json $INSTALLDIR/z4lab-discord-bot/config/whitelist.json
-echo -e "${RST}[6/8] ${YLW}restoring backuped config files: ${GRN}DONE!${RST}"
+# restart bot
+if [ "$changed" -eq "1" ]; then
+	echo -en "[5/5] ${YLW}restarting bot due to changes: ${BLNK}...${RST}\n"
+	pm2 restart $PM2ID
+	echo -e "${RST}[5/5] ${YLW}restarting bot due to changes: ${GRN}DONE!${RST}\n"
+else
+	echo -en "[5/5] ${GRN}skipping restart no changes found.${RST}\n"
+fi
 
-# move directory do npm install and start the bot
-echo -en "[7/8] ${YLW}npm install and starting the bot: ${BLNK}..."
-# cd $INSTALLDIR/z4lab-discord-bot && npm install && forever start index.js
-cd $INSTALLDIR/z4lab-discord-bot && npm install && pm2 start $PM2ID
-echo -e "${RST}[7/8] ${YLW}npm install and starting the bot: ${GRN}DONE!${RST}"
-
-# clear console and print done
-clear
-echo -en "[8/8] ${GRN}update is complete${RST}"
+# end
+echo -en "[-/-] ${GRN}update is complete${RST}\n"
+exit 0
