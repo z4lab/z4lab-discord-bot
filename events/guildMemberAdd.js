@@ -5,7 +5,7 @@ global.bot.on('guildMemberAdd', member => {
 	memberCount(member);
 
 	function addMember(member) {
-		let role = member.guild.roles.find(role => role.name == 'Member'); //looks for the Member role
+		let role = member.guild.roles.find(role => role.name == 'Members'); //looks for the Member role
 		member.addRole(role); //add the Member role to the user
 	}
 	
