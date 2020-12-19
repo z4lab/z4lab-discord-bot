@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
-CURRENTINSTALL="/srv/discord/z4lab-discord-bot-dev"
-PM2ID="1"
+CURRENTINSTALL="/srv/discord/z4lab-discord-bot"
+PM2ID="0"
 ### CHANGE THESE SETTINGS FOR YOU INSTANCE ###
 
 # color settings, no need to change!
