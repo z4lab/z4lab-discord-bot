@@ -225,6 +225,7 @@ dbRequest.getPlaytime = async function getPlaytime(name, mysql0, mysql1) {
 					units: ['mo', 'w', 'd', 'h', 'm'],
 					round: true
 				});
+				_firstseen = new Date(firstseen* 1000).toDateString();
 				console.log(typeof firstseen)
 				let id = "";
 				if (!beginnerTime[0]) id = String(proTime[0].steamid64);
@@ -236,7 +237,7 @@ dbRequest.getPlaytime = async function getPlaytime(name, mysql0, mysql1) {
 					.addField('Total time on Surf Servers', _timeonline, false)
 					.addField('Time playing', _timealive, true)
 					.addField('Time specating', _timespec, true)
-					.addField('First seen', new Date(firstseen* 1000).toDateString(), true)
+					.addField('First seen', _firstseen, true)
 					.setTimestamp(new Date(lastseen * 1000))
 					.setFooter(`Last seen`);
 			}
