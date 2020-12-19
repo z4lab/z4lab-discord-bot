@@ -9,7 +9,7 @@ module.exports.run = async function (bot, message, args) {
 
 	if (result.error.print) return message.channel.send(result.error.name);
 	if (result.embed) return message.channel.send(result.embed);
-	return;
+	return message.channel.send('```md\n[Error] An unknown error occurred, try again later! ]:```');
 
 };
 

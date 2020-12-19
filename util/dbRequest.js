@@ -58,7 +58,7 @@ dbRequest.getProfile = async function getProfile(name, server, mysql) {
 		});
 	});
 
-	await global.bot.sleep(5);
+	await global.bot.sleep(1);
 	return result;
 
 };
@@ -124,7 +124,7 @@ dbRequest.getMaptime = async function getMaptime(name, record, map, server, mysq
 
 					return;
 				});
-				await global.bot.sleep(100);
+				await global.bot.sleep(1);
 			}
 			if (result.error.id == 0) {
 				let ms = res[0].runtimepro * 1000;
@@ -154,7 +154,7 @@ dbRequest.getMaptime = async function getMaptime(name, record, map, server, mysq
 			}
 		}
 	});
-	await global.bot.sleep(2);
+	await global.bot.sleep(1);
 	return result;
 };
 /**
@@ -202,8 +202,8 @@ dbRequest.getPlaytime = async function getPlaytime(name, mysql0, mysql1) {
 			} else if (beginnerTime[0] && proTime[0] && beginnerTime[0].steamid64 == proTime[0].steamid64) {
 				if (beginnerTime[0].lastseen > proTime[0].lastseen) lastseen = beginnerTime[0].lastseen;
 				else lastseen = proTime[0].lastseen;
-				if (beginnerTime[0].firstseen < proTime[0].firstseen) firstseen = beginnerTime[0].firstseen;
-				else firstseen = proTime[0].firstseen;
+				if (beginnerTime[0].joined < proTime[0].joined) firstseen = beginnerTime[0].joined;
+				else firstseen = proTime[0].joined;
 				timealive = beginnerTime[0].timealive + proTime[0].timealive;
 				timespec = beginnerTime[0].timespec + proTime[0].timespec;
 				timeonline = timealive + timespec;
@@ -225,26 +225,21 @@ dbRequest.getPlaytime = async function getPlaytime(name, mysql0, mysql1) {
 					units: ['mo', 'w', 'd', 'h', 'm'],
 					round: true
 				});
-				_firstseen = global.bot.modules.util.humanizeDuration(firstseen * 1000, {
-					units: ['mo', 'w', 'd', 'h', 'm'],
-					round: true
-				});
-
-
+				console.log(typeof firstseen)
+				let id = "";
+				if (!beginnerTime[0]) id = String(proTime[0].steamid64);
+				else id = String(beginnerTime[0].steamid64);
+				var summary = await steamapi.getUserSummary(id);
+				result.embed = new global.bot.modules.core.discordjs.RichEmbed()
+					.setAuthor(summary.nickname + ' on Surf Servers', '', summary.url)
+					.setThumbnail(summary.avatar.large)
+					.addField('Total time on Surf Servers', _timeonline, false)
+					.addField('Time playing', _timealive, true)
+					.addField('Time specating', _timespec, true)
+					.addField('First seen', new Date(firstseen* 1000).toDateString(), true)
+					.setTimestamp(new Date(lastseen * 1000))
+					.setFooter(`Last seen`);
 			}
-			let id = "";
-			if (!beginnerTime[0]) id = String(proTime[0].steamid64);
-			else id = String(beginnerTime[0].steamid64);
-			var summary = await steamapi.getUserSummary(id);
-			result.embed = new global.bot.modules.core.discordjs.RichEmbed()
-				.setAuthor(summary.nickname + ' on Surf Servers', '', summary.url)
-				.setThumbnail(summary.avatar.large)
-				.addField('Total time on Surf Servers', _timeonline, false)
-				.addField('Time playing', _timealive, true)
-				.addField('Time specating', _timespec, true)
-				.addField('First seen', _firstseen, true)
-				.setTimestamp(new Date(lastseen * 1000))
-				.setFooter(`Last seen`);
 		});
 	});
 	await global.bot.sleep(1);
@@ -279,7 +274,7 @@ dbRequest.getVipList = async function getVipList(mysql) {
 		result.list.buffer.push(data.nickname);
 	});
 
-	await global.bot.sleep(5);
+	await global.bot.sleep(1);
 
 	var longestName = 0;
 

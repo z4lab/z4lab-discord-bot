@@ -73,7 +73,7 @@ dbPost.whitelistAdd = async function whitelistAdd(mysql, id, author) {
 	}
 
 
-	await global.bot.sleep(5);
+	await global.bot.sleep(1);
 	return result;
 
 };
@@ -142,7 +142,7 @@ dbPost.whitelistRemove = async function whitelistRemove(mysql, id) {
 
 	}
 
-	await global.bot.sleep(5);
+	await global.bot.sleep(1);
 	return result;
 
 };
