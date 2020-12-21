@@ -53,6 +53,6 @@ module.exports.help = {
 	name: "vipsurf",
 	category: "servers",
 	usage: false,
-	description: false,
+	description: "show server/player stats on our vip surf server",
 	permissionLvl: 0
 };

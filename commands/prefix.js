@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
 	name: "prefix",
 	category: "main",
-	usage: false,
+	usage: "[prefix]",
 	description: "change prefix of bot",
 	permissionLvl: 3
 };

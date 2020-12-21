@@ -53,6 +53,6 @@ module.exports.help = {
 	name: "1v1",
 	category: "servers",
 	usage: false,
-	description: false,
+	description: "show server/player stats on our 1v1 server",
 	permissionLvl: 0
 };

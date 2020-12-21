@@ -19,7 +19,16 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
 	name: "alias",
 	category: "main",
-	usage: false,
+	usage: [{
+		command: "add/create [command] [alias]",
+		description: "create an alias for a given command"
+	},{
+		command: "rm/remove [alias]",
+		description: "remove an existing alias"
+	},{
+		command: "rn/rename [old name] [new name]"
+		description: "rename an existing alias"
+	}],
 	description: "add/rename/delete alias",
 	permissionLvl: 3
 };
