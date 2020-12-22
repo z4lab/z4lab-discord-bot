@@ -26,7 +26,7 @@ module.exports.help = {
 		command: "rm/remove [alias]",
 		description: "remove an existing alias"
 	},{
-		command: "rn/rename [old name] [new name]"
+		command: "rn/rename [old name] [new name]",
 		description: "rename an existing alias"
 	}],
 	description: "add/rename/delete alias",

@@ -2,11 +2,12 @@
 
 (async() => {
 	const sql = require("sqlite3");
-	const path = require('path');
+	const path = require("path");
+	const fs = require("fs")
 	const db = new sql.Database(path.resolve(__dirname, "../config/main.db"));
 	const configs = {alias: [], bot: {channels: [], adminChannels: []}, channels: {}, dbs: {}, servers: {}, whitelist: {add: [], remove: []}};
 
-	var copy = function(src, dest) {
+	var copy = function(src, dest) { // eslint-disable-line
 		var oldFile = fs.createReadStream(src);
 		var newFile = fs.createWriteStream(dest);
 		oldFile.pipe(newFile);
@@ -42,7 +43,6 @@
 		if (err) {
 			throw err;
 		}
-		let channels = {};
 		rows.forEach(row => {
 			if (row.channeltype == 1) configs.bot.channels.push(row.channelid);
 			if (row.channeltype == 2) configs.bot.adminChannels.push(row.channelid);
@@ -57,7 +57,6 @@
 		if (err) {
 			throw err;
 		}
-		let channels = {};
 		rows.forEach(row => {
 			configs.bot[row.option] = row.value;
 		});
@@ -69,7 +68,7 @@
 		};
 		configs.bot.version = {
 			inName: configs.bot.versionInName,
-			version: require("../package.json")?.version || "1.34.3",
+			version: require("../package.json").version || "1.34.3",
 			build: "stable"
 		}
 		configs.bot.prefix = configs.bot.botPrefix;
@@ -86,7 +85,6 @@
 		if (err) {
 			throw err;
 		}
-		let channels = {};
 		rows.forEach(row => {
 			let name = row.name;
 			delete row.name;
@@ -100,7 +98,6 @@
 		if (err) {
 			throw err;
 		}
-		let channels = {};
 		rows.forEach(row => {
 			let name = row.name;
 			delete row.name;
@@ -114,7 +111,6 @@
 		if (err) {
 			throw err;
 		}
-		let channels = {};
 		rows.forEach(row => {
 			if (row.type == 1) configs.whitelist.add.push(row.roleid);
 			if (row.type == 2) configs.whitelist.remove.push(row.roleid);
