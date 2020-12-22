@@ -53,6 +53,6 @@ module.exports.help = {
 	name: "pro",
 	category: "servers",
 	usage: false,
-	description: false,
+	description: "show server/player stats on our pro surf server",
 	permissionLvl: 0
 };

@@ -53,6 +53,6 @@ module.exports.help = {
 	name: "kz",
 	category: "servers",
 	usage: false,
-	description: false,
+	description: "show server/player stats on our kz server",
 	permissionLvl: 0
 };

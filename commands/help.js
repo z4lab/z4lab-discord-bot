@@ -61,7 +61,13 @@ module.exports.run = async function (bot, message, args) {
 module.exports.help = {
 	name: "help",
 	category: false,
-	usage: false,
+	usage: [{
+		command: false,
+		description: "list of all commands you can use"
+	},{
+		command: "[command]",
+		description: "print usage for the give command"
+	}],
 	description: false,
 	permissionLvl: 0
 };

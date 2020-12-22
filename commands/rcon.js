@@ -118,7 +118,7 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
 	name: "rcon",
 	category: "main",
-	usage: false,
+	usage: "[group/srv] [command]",
 	description: "rcon for all servers",
 	permissionLvl: 3
 };

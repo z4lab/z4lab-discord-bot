@@ -53,6 +53,6 @@ module.exports.help = {
 	name: "warmup",
 	category: "servers",
 	usage: false,
-	description: false,
+	description: "show server/player stats on our ffa server",
 	permissionLvl: 0
 };
