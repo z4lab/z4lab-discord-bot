@@ -19,6 +19,8 @@
 		});
 	};
 
+	console.log("\x1b[2m[LOG]\x1b[0m \x1b[33mFetching data \x1b[0m[\x1b[5m...\x1b[0m]");
+
 	// alias db -> config
 	db.all("SELECT * FROM alias", [], (err, rows) => {
 		if (err) {
@@ -118,7 +120,18 @@
 	});
 	// whitelist_roles db -> config
 	await sleep(1);
-
-	console.log(configs);
-
+	let date = new Date().toISOString().slice(0,10);
+	console.log("\x1b[2m[LOG]\x1b[0m \x1b[33mFetching data \x1b[0m[\x1b[32mDONE\x1b[0m]");
+	if (!fs.existsSync(`${__dirname}/../config/backup`)) fs.mkdirSync(`${__dirname}/../config/backup`);
+	if (!fs.existsSync(`${__dirname}/../config/backup/${date}`)) fs.mkdirSync(`${__dirname}/../config/backup/${date}`);
+	Object.keys(configs).forEach(async config => {
+		console.log(`\x1b[2m[LOG]\x1b[0m \x1b[33mBacking up ${config}.json \x1b[0m[\x1b[5m...\x1b[0m]`);
+		copy(`${__dirname}/../config/${config}.json`,`${__dirname}/../config/backup/${date}/${config}.json`);
+		await sleep(2);
+		console.log(`\x1b[2m[LOG]\x1b[0m \x1b[33mBacking up ${config}.json \x1b[0m[\x1b[32mDONE\x1b[0m]`);
+		console.log(`\x1b[2m[LOG]\x1b[0m \x1b[33mWriting data to ${config}.json \x1b[0m[\x1b[5m...\x1b[0m]`);
+		fs.writeFile(`${__dirname}/../config/${config}.json`, JSON.stringify(configs[config]," ", 4),(err)=>{if (err) console.log(err)});
+		console.log(`\x1b[2m[LOG]\x1b[0m \x1b[33mWriting data to ${config}.json \x1b[0m[\x1b[32mDONE\x1b[0m]`);
+	});
+	console.log(`\x1b[2m[LOG]\x1b[0m \x1b[33mSaving old files in \x1b[0m\x1b[4m${String(path.join(__dirname,"/../config/backup/", date))}\x1b[0m`);
 })();
