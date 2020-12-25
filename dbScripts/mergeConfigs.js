@@ -5,7 +5,7 @@
 	const path = require("path");
 	const fs = require("fs")
 	const db = new sql.Database(path.resolve(__dirname, "../config/main.db"));
-	const configs = {alias: [], bot: {channels: [], adminChannels: []}, channels: {}, dbs: {}, servers: {}, whitelist: {add: [], remove: []}};
+	const configs = {alias: {alias:[]}, bot: {channels: [], adminChannels: [], steam: {}}, channels: {log: {}, memberCount: {}}, dbs: {}, servers: {}, whitelist: {allowedIDs: {add: [], remove: []}}};
 
 	var copy = function(src, dest) { // eslint-disable-line
 		var oldFile = fs.createReadStream(src);
@@ -36,7 +36,7 @@
 		Object.keys(alias).forEach(command => {
 			array.push({name: command, alias: alias[command]});
 		});
-		configs.alias = array;
+		configs.alias.alias = array;
 	});
 	// alias db -> config
 
@@ -48,8 +48,8 @@
 		rows.forEach(row => {
 			if (row.channeltype == 1) configs.bot.channels.push(row.channelid);
 			if (row.channeltype == 2) configs.bot.adminChannels.push(row.channelid);
-			if (row.channeltype == 3) configs.channels.log = row.channelid;
-			if (row.channeltype == 4) configs.channels.memberCount = row.channelid;
+			if (row.channeltype == 3) configs.channels.log.channelID = row.channelid;
+			if (row.channeltype == 4) configs.channels.memberCount.channelID = row.channelid;
 		});
 	});
 	// channels db -> config
@@ -69,12 +69,14 @@
 			status: "online"
 		};
 		configs.bot.version = {
-			inName: configs.bot.versionInName,
+			inName: Boolean(configs.bot.versionInName),
 			version: require("../package.json").version || "1.34.3",
 			build: "stable"
 		}
+		configs.bot.steam["api-key"] = configs.bot.steamApiKey;
 		configs.bot.prefix = configs.bot.botPrefix;
 		configs.bot.token = configs.bot.botToken;
+		delete configs.bot.steamApiKey;
 		delete configs.bot.botPrefix;
 		delete configs.bot.botToken;
 		delete configs.bot.versionInName;
@@ -114,8 +116,8 @@
 			throw err;
 		}
 		rows.forEach(row => {
-			if (row.type == 1) configs.whitelist.add.push(row.roleid);
-			if (row.type == 2) configs.whitelist.remove.push(row.roleid);
+			if (row.type == 1) configs.whitelist.allowedIDs.add.push(row.roleid);
+			if (row.type == 2) configs.whitelist.allowedIDs.remove.push(row.roleid);
 		});
 	});
 	// whitelist_roles db -> config
