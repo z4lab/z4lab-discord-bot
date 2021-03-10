@@ -20,7 +20,7 @@ global.bot.on('message', async message => {
 	var cmd = messageArray[0].toLowerCase();
 	var args = messageArray.slice(1);
 
-	if (!message.content.startsWith(prefix)) return;
+	if (!message.content.startsWith(prefix)) return message.delete();
 
 	if (!global.bot.commands.get(cmd)) cmd = await sql.alias.check(global.bot, cmd.slice(prefix.length));
 	
@@ -29,6 +29,6 @@ global.bot.on('message', async message => {
 	if (commandFile && commandFile.help.permissionLvl > 2 && !global.bot.config.main.adminChannels.includes(message.channel.id)) return message.reply("you may not use this command in this channel!");
 	else if (commandFile && message.author.permissionLvl >= commandFile.help.permissionLvl) commandFile.run(global.bot, message, args);	
 	else if (commandFile && message.author.permissionLvl < commandFile.help.permissionLvl) return message.reply("you don't have enough permission to use this command!");
-	else return;
+	else return message.delete();
 
 });
