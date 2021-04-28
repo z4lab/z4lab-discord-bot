@@ -1,13 +1,18 @@
 <p align="center">
-    <img src="https://z4lab.com/images/discord-bot-transparent.png" height="280" />
     <h1 align="center">-# z4lab Discord Bot #-</h1>
     <strong>
          <p align="center">
-              A community discord bot for <a href="https://z4lab.com/">z4lab</a>.
+              A former community discord bot for z4lab.
          </p>
     </strong>
 </p>
 
+The z4lab community, as of April 25, 2021, no longer provides public game servers. This includes support for all software and services created or maintained by our team members. Under some exceptions, support may still be provided, but this is not expected in any view. It should also be noted that all software and services provided by us may no longer be functional. All provided softwares or services were created for and in the sense exactly for our community and fulfilled our purpose. 
+Thank you for your understanding ~ ace 
+
+<details>
+    <summary><b>Information</b></summary>
+    
 ## features
 -   add new user to specific role
 -   provide surf timer information (player ranks, map times and much more)
@@ -74,3 +79,5 @@ main.db 	// loaded after bot startup
 master 	// mostly working - used for our public discord server
 dev 	// mostly untested changes (maybe not working) - used for our private dev discord server
 ```
+
+</details>
