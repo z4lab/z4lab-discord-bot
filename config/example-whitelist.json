@@ -1,6 +1,0 @@
-{
-	"allowedIDs" : {
-		"add" : ["Array of ID's"],
-		"remove" : ["Array of ID's"]
-	}
-}

@@ -1,5 +1,3 @@
-commands/disable/*
-todolist.txt
 
 # Logs
 logs
@@ -107,7 +105,6 @@ jspm_packages/
 
 # Local IDE Files
 .idea/
-.vscode
-config/*.db
-commands/*/
-package-lock.json
+.vs/
+*.db
+*~

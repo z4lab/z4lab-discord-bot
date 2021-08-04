@@ -1,82 +1,88 @@
-const Discord = require("discord.js");
+const { Client } = require("discord.js-commando");
+const Bot = new Client({ owner: "235809101051985920", commandPrefix: "." }); //config
 
-// Bot Init Code
+/**
+ * Bot command registry
+ * */
+Bot.registry
+	.registerDefaults()
+	.registerGroups([
+		['admin', 'Admin'],
+		['surftimer', 'SurfTimer'],
+		['fun', 'Fun'],
+	])
+	.registerCommandsIn(require("path").join(process.cwd(), 'commands'));
 
-const bot = new Discord.Client();
-bot.commands = new Discord.Collection();
-
-require(__dirname+"/util/modules")(bot);
-
-bot.config = {
-	main: require(__dirname+"/config/bot.json"),
-	dbs: require(__dirname+"/config/dbs.json"),
-	channels: require(__dirname+"/config/channels.json"),
-	servers: require(__dirname+"/config/servers.json"),
-	whitelist: require(__dirname+"/config/whitelist.json")
+/**
+ * SQLite3 Databases
+ * */
+Bot.DB = {
+	Main: require("better-sqlite3")(require("path").join(process.cwd(), 'Main.db')),
+	Cache: require("better-sqlite3")(":memory:")
 };
 
-// Bot Functions
 
-bot.timestamp = require(__dirname+"/util/timeStamp");
-bot.sleep = function (ms) {
-	return new Promise(resolve => {
-		setTimeout(resolve, ms*1000);
+/**
+ * Logger
+ * */
+Bot.Logger = require("npmlog");
+Bot.Logger.headingStyle = { bg: '', fg: 'yellow' };
+Object.defineProperty(Bot.Logger, 'heading', { get: () => { return "[" + Math.floor(new Date().getTime() / 1000) + "]" } });
+
+/**
+ * Util Functions
+ * */
+Bot.Utils = {};
+
+require("fs").readdir(require("path").join(process.cwd(), "utils"), (e, f) => {
+	f.filter(i => i.split(".").pop() === "js").forEach(u => {
+		Bot.Utils[u.split(".")[0]] = require(require("path").join(process.cwd(), "utils", u.split(".")[0]));
+		Bot.Logger.info("Discord Util", "Initially loaded util function. [%s]", u.split(".")[0]);
 	});
-};
+	Bot.emit("utilsLoaded", null);
+});
 
-bot.modifiedDate = function (file) {  
-	let { mtime } = bot.modules.file.fs.statSync(file);
-	return mtime;
-};
-bot.loadCommands = function() {
-	bot.modules.file.fs.readdir(__dirname+"/commands", (err, file) => { // gets content of /commands folder
-		if (err) console.log(err); // err handling
+/**
+ * Event Handler
+ * */
+Bot.on("ready", () => {
+	Bot.Logger.info("Discord Main", "Logged into %s [%s]", Bot.user.tag, Bot.user.id);
+	Bot.Utils.loadPresence({ activity: Bot.Settings.activity });
+});
 
-		let jsfile = file.filter(f => f.split(".").pop() === "js"); // checks for .js files
-		if (jsfile.length <= 0) { // checks if no file exist
-			console.log(bot.modules.util.colors.yellow("[WARNING] Couldn't find any commands!")); // no file err
-			return; // leave
-		}
-		jsfile.forEach(f => { // gets all files
-			delete require.cache[require.resolve(__dirname+`/commands/${f}`)];
-			let props = require(__dirname+`/commands/${f}`); // from /commands folder
-			//let date = bot.modifiedDate(__dirname+`/commands/${f}`);
-			//console.log(bot.modules.util.colors.white(bot.timestamp(date)) + bot.modules.util.colors.grey(`[Command] ${f} loaded!`)); // console log print form module
-			bot.commands.set(props.help.name, props); // set files as command
-		});
-		console.log(bot.modules.util.colors.grey(`[Events] ${jsfile.length} commands loaded!`));
+Bot.once("utilsLoaded", () => {
+	Bot.Utils.initSettings();
+});
+
+Bot.on("settingsFetched", settings => {
+	Bot.Settings = settings.public;
+	Bot.login(settings.private.discord.token);
+});
+
+Bot.on("shardDisconnect", e => {
+	Bot.Utils.loadUtils(null, true, true);
+	Bot.Utils.initSettings();
+	Bot.Logger.info("Discord Main", "Force reconnected to %s [%s]", Bot.user.tag, Bot.user.id);
+	if (!e.wasClean) Bot.Logger.error("Discord Main", "No clean shard disconnected occured! Check your connection.");
+	setTimeout(() => Bot.Utils.loadPresence({ activity: Bot.Settings.activity }), 5000);
+});
+
+/**
+ * Export Bot Class for other files
+ * */
+module.exports = Bot;
+
+/**
+ * Handle Process exit
+ * */
+process.on('exit', () => {
+	Bot.Logger.warn("Process", "Closing process...");
+	Bot.Logger.info("SQLite3", "Closing DB connections...");
+	Object.keys(Bot.DB).forEach(db => {
+		Bot.DB[db].close();
+		Bot.Logger.info("SQLite3", "Closed connection for [%s]", db);
 	});
-};
-
-bot.loadEvents = function() {
-
-	bot.modules.file.fs.readdir(__dirname+"/events", (err, file) => { // gets content of /events folder
-		if (err) console.log(err); // err handling
-
-		let jsfile = file.filter(f => f.split(".").pop() === "js"); // checks for .js files
-		if (jsfile.length <= 0) { // checks if no file exist
-			console.log(bot.modules.util.colors.yellow("[WARNING] Couldn't find any events!")); // no file err
-			return; // leave
-		}
-		jsfile.forEach(f => { // gets all files
-			delete require.cache[require.resolve(__dirname+`/events/${f}`)];
-			require(__dirname+`/events/${f}`); // from /events folder
-			//let date = bot.modifiedDate(__dirname+`/events/${f}`);
-			//console.log(bot.modules.util.colors.white(bot.timestamp(date)) + bot.modules.util.colors.grey(`[Event] ${f} loaded!`)); // console log print form module
-		});
-		console.log(bot.modules.util.colors.grey(`[Events] ${jsfile.length} events loaded!`));
-	});
-
-};
-
-bot.loadCommands();
-bot.loadEvents();
-
-// Bot Util Requires
-
-global.bot = bot;
-
-require(__dirname+"/util/console");
-require(__dirname+"/util/rconHandler");
-
-bot.login(bot.config.main.token);
+});
+process.on('SIGHUP', () => process.exit(128 + 1));
+process.on('SIGINT', () => process.exit(128 + 2));
+process.on('SIGTERM', () => process.exit(128 + 15));
