@@ -10,13 +10,15 @@ module.exports = class extends require('discord.js-commando').Command {
 			args: [{
 				key: "force",
 				prompt: "force",
-				type: "boolean",
-				default: false
+				type: "string",
+				default: "-"
 			}]
 		});
 	}
 
 	run(message, args) {
-		message.say("Reloading Utils...").then(m => require(process.cwd()).Utils.loadUtils(m, args.force, true));
+		const Bot = require(process.cwd());
+		Bot.Logger.warn("Discord Util", "Reload - requested from %s [%s]", message.author.tag, message.author.id);
+		message.say("Reloading utils shall be your command :)").then(m => require(process.cwd()).Utils.loadUtils(m, (args.force == "force"), true));
 	}
 };

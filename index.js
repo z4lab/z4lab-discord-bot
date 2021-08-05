@@ -51,7 +51,7 @@ Bot.on("ready", () => {
 });
 
 Bot.once("utilsLoaded", () => {
-	Bot.Utils.initSettings();
+	Bot.Utils.loadSettings();
 });
 
 Bot.on("settingsFetched", settings => {
