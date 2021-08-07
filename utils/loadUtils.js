@@ -19,7 +19,7 @@ module.exports = (message = null, forceOverwrite = false, removeOld = false) => 
 					Bot.Utils[u.split(".")[0]] = require(require("path").join(process.cwd(), "utils", u.split(".")[0]));
 					if (typeof Bot.Utils[u.split(".")[0]] != "function") {
 						Bot.Utils[u.split(".")[0]] = () => { };
-						Bot.Logger.warn("Discord Util", "Replaced invalid util function with empty function! [%s]\nMake sure to use 'module.exports'!", u.split(".")[0]);
+						Bot.Logger.warn("Discord Util", "Replaced invalid util function with empty function! [%s]!", u.split(".")[0]);
 					} else Bot.Logger.info("Discord Util", "Loaded util function. [%s]", u.split(".")[0]);
 				} catch (e) {
 					Bot.Logger.error("Discord Util", "Failed to load util function. [%s]", u.split(".")[0]);
@@ -31,7 +31,7 @@ module.exports = (message = null, forceOverwrite = false, removeOld = false) => 
 					Bot.Utils[u.split(".")[0]] = require(require("path").join(process.cwd(), "utils", u.split(".")[0]));
 					if (typeof Bot.Utils[u.split(".")[0]] != "function") {
 						Bot.Utils[u.split(".")[0]] = () => { };
-						Bot.Logger.warn("Discord Util", "Replaced invalid util function with empty function! [%s]\nMake sure to use 'module.exports'!", u.split(".")[0]);
+						Bot.Logger.warn("Discord Util", "Replaced invalid util function with empty function! [%s]!", u.split(".")[0]);
 					} else Bot.Logger.info("Discord Util", "Force reloaded util function. [%s]", u.split(".")[0]);
 				} catch (e) {
 					Bot.Logger.error("Discord Util", "Failed to force load util function. [%s]", u.split(".")[0]);
