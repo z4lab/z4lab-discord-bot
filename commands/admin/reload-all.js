@@ -7,15 +7,20 @@ module.exports = class extends require('discord.js-commando').Command {
 			memberName: 'reload-all',
 			description: 'Reload the whole bot',
 			ownerOnly: true,
-			args: []
+			args: [],
+			throttling: {
+				usages: 1,
+				duration: 60
+            }
 		});
 	}
 
 	run(message) {
-		message.say("Rebooting shall be your command :)").then(() => {
+		message.say("Reloading everything shall be your command :)").then(() => {
 			const Bot = require(process.cwd());
-			Bot.destroy();
-			Bot.Logger.warn("Discord Main", "Rebooting - requested from %s [%s]", message.author.tag, message.author.id);
+			Object.keys(Bot.Intervals).map(Interval => clearInterval(Interval));
+			Bot.Logger.warn("Discord Main", "Reloading * - requested from %s [%s]", message.author.tag, message.author.id);
+			Bot.emit("realoadAll");
 		});
 	}
 };

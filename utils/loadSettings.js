@@ -32,4 +32,5 @@ module.exports = () => {
 		console.error(e);
 		process.exit();
 	}
+
 }
