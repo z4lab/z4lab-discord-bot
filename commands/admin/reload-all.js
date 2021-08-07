@@ -11,7 +11,7 @@ module.exports = class extends require('discord.js-commando').Command {
 			throttling: {
 				usages: 1,
 				duration: 60
-            }
+			}
 		});
 	}
 
