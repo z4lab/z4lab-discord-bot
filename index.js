@@ -58,6 +58,7 @@ Bot.on("ready", () => {
 	Bot.Logger.info("Discord Main", "Logged into %s [%s]", Bot.user.tag, Bot.user.id);
 	Bot.Utils.loadPresence({ activity: Bot.Settings.activity });
 	Bot.Utils.createIntervals();
+	Bot.Utils.createInhibitors();
 });
 
 Bot.once("utilsLoaded", () => {
@@ -74,6 +75,7 @@ Bot.on("realoadAll", () => {
 	Bot.Utils.loadSettings();
 	Bot.Timeouts.loadPresenceAfterReload = setTimeout(() => Bot.Utils.loadPresence({ activity: Bot.Settings.activity }), 5000);
 	Bot.Utils.createIntervals();
+	Bot.Utils.createInhibitors();
 });
 
 /**

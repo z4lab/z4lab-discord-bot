@@ -7,8 +7,8 @@ module.exports = () => {
 		let settings = { private: {}, public: {} }, fetchedSettings = { private: {}, public: {} };
 		let fetchSettings = Bot.DB.Main.prepare("SELECT setting, value FROM settings WHERE private = ?");
 
-		fetchSettings.all("0").forEach(s => settings.public[s.setting] = s.value);
-		fetchSettings.all("1").forEach(s => settings.private[s.setting] = s.value);
+		fetchSettings.all("0").forEach(t => { settings.public[t.setting] ? (Array.isArray(settings.public[t.setting]) || (settings.public[t.setting] = [settings.public[t.setting]]), settings.public[t.setting].push(t.value)) : settings.public[t.setting] = t.value });
+		fetchSettings.all("1").forEach(t => { settings.private[t.setting] ? (Array.isArray(settings.private[t.setting]) || (settings.private[t.setting] = [settings.private[t.setting]]), settings.private[t.setting].push(t.value)) : settings.private[t.setting] = t.value });
 
 		/**
 		 * one layer ":" objects stored in sqlite discord:token >> discord: {token: value}} in js form :)
@@ -24,7 +24,7 @@ module.exports = () => {
 
 
 	try {
-		Bot.DB.Main.exec("CREATE TABLE IF NOT EXISTS settings ( setting VARCHAR(255) NOT NULL PRIMARY KEY UNIQUE, value VARCHAR(255) NOT NULL, private INTEGER NOT NULL DEFAULT 0 )");
+		Bot.DB.Main.exec("CREATE TABLE IF NOT EXISTS settings ( setting VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, private INTEGER NOT NULL DEFAULT 0 )");
 		Bot.Logger.info("SQLite3 Main", "Initialized database settings!");
 		_continue();
 	} catch (e) {
