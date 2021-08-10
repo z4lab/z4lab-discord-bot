@@ -1,5 +1,5 @@
 const { Client } = require("discord.js-commando");
-const Bot = new Client({ owner: "235809101051985920", commandPrefix: "." }); //config
+const Bot = new Client({ owner: "235809101051985920", commandPrefix: "." });
 
 /**
  * Bot command registry
@@ -68,6 +68,7 @@ Bot.once("utilsLoaded", () => {
 Bot.on("settingsFetched", settings => {
 	Bot.Settings = settings.public;
 	Bot.login(settings.private.discord.token);
+	Bot.commandPrefix = Bot.Settings.discord?.prefix || null; // Setting to null means that the default prefix from "options" will be used instead.
 });
 
 Bot.on("realoadAll", () => {
