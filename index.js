@@ -19,8 +19,11 @@ Bot.registry
  * SQLite3 Databases
  * */
 Bot.DB = {
-	Main: require("better-sqlite3")(require("path").join(process.cwd(), 'Main.db')),
-	Cache: require("better-sqlite3")(":memory:")
+	SQLite: {
+		Main: require("better-sqlite3")(require("path").join(process.cwd(), 'Main.db')),
+		Cache: require("better-sqlite3")(":memory:")
+	},
+	MariaDB: { }
 };
 
 
@@ -90,8 +93,8 @@ module.exports = Bot;
 process.on('exit', () => {
 	Bot.Logger.warn("Process", "Closing process...");
 	Bot.Logger.info("SQLite3", "Closing DB connections...");
-	Object.keys(Bot.DB).forEach(db => {
-		Bot.DB[db].close();
+	Object.keys(Bot.DB.SQLite).forEach(db => {
+		Bot.DB.SQLite[db].close();
 		Bot.Logger.info("SQLite3", "Closed connection for [%s]", db);
 	});
 });
