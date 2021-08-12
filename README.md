@@ -8,6 +8,7 @@
 </p>
 
 This branch is the only active one atm. I'm recoding the whole bot with a live reload system and the Commando framework by discord.js.
+So this might be the main branch BUT this branch won't work correctly.
 
 The z4lab community, as of April 25, 2021, no longer provides public game servers. This includes support for all software and services created or maintained by our team members. Under some exceptions, support may still be provided, but this is not expected in any view. It should also be noted that all software and services provided by us may no longer be functional. All provided softwares or services were created for and in the sense exactly for our community and fulfilled our purpose. 
 Thank you for your understanding ~ ace 
