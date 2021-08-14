@@ -70,8 +70,13 @@ Bot.once("utilsLoaded", () => {
 
 Bot.on("settingsFetched", settings => {
 	Bot.Settings = settings.public;
-	Bot.login(settings.private.discord.token);
+	if (settings.private.discord?.token) Bot.login(settings.private.discord.token);
+	else {
+		Bot.Logger.error("Discord Main", "No discord token provied. Exiting...");
+		process.exit();
+	}
 	Bot.commandPrefix = Bot.Settings.discord?.prefix || null; // Setting to null means that the default prefix from "options" will be used instead.
+	if (typeof settings.private.mariadb == "object") Object.keys(settings.private.mariadb).forEach(db => Bot.utils.createMariaDBConnection(db, settings.private.mariadb[db]));
 });
 
 Bot.on("realoadAll", () => {
